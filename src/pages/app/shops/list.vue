@@ -4,16 +4,16 @@
       <b-col>
         <b-row>
           <b-colxx xxs="12">
-            <h1>{{ $t('menu.branches') }}</h1>
+            <h1>{{ $t('menu.shops') }}</h1>
             <piaf-breadcrumb />
             <div class="float-sm-right">
               <b-button
                 style="width: 100%;"
-                @click="showAddBranch"
+                @click="showAddShop"
                 variant="primary"
                 size="lg"
                 class="top-right-button"
-              >Add Branch</b-button>
+              >Add Shop</b-button>
             </div>
             <div class="mb-2 mt-2">
               <b-button
@@ -72,7 +72,7 @@
               </b-collapse>
             </div>
             <div class="separator mb-5" />
-            <b-modal id="modalright" ref="modalright" :title="'Branch Details'" class="modal-right">
+            <b-modal id="modalright" ref="modalright" :title="'Shop Details'" class="modal-right">
               <div v-if="selectedItem">
                 <div class="mb-4 d-flex flex-row" no-body>
                   <div v-if="selectedItem.id" class="d-flex flex-grow-1 min-width-zero mt-3 mb-3">
@@ -80,7 +80,7 @@
                       class="pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                     >
                       <div class="min-width-zero">
-                        <p class="mb-1 text-muted text-small">Branch ID</p>
+                        <p class="mb-1 text-muted text-small">Shop ID</p>
                         <p class="list-item-heading mb-1">{{selectedItem.id}}</p>
                       </div>
                     </div>
@@ -92,7 +92,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Branch Name</p>
+                        <p class="mb-1 text-muted text-small">Shop Name</p>
                         <p class="list-item-heading mb-1">{{selectedItem.name}}</p>
                       </div>
                     </div>
@@ -122,7 +122,10 @@
                     </div>
                   </div>
                 </div>
-                <div v-if="selectedItem.businessLicense" class="mb-3 pb-3 border-bottom border-bottom">
+                <div
+                  v-if="selectedItem.businessLicense"
+                  class="mb-3 pb-3 border-bottom border-bottom"
+                >
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                     <div
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
@@ -269,7 +272,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Branch Created</p>
+                        <p class="mb-1 text-muted text-small">Shop Created</p>
                         <p class="list-item-heading mb-1">{{selectedItem.createdAt | humanDate}}</p>
                       </div>
                     </div>
@@ -282,20 +285,20 @@
                   variant="outline-secondary"
                   @click="hideModal('modalright')"
                 >{{ $t('layouts.cancel') }}</b-button>
-                <b-button variant="primary" class="mr-1" @click="showEditBranch()">Edit Branch</b-button>
+                <b-button variant="primary" class="mr-1" @click="showEditShop()">Edit Shop</b-button>
               </template>
             </b-modal>
 
-            <!-- Add Branch Modal -->
-            <modal height="auto" :scrollable="true" :adaptive="true" name="addBranchModal">
+            <!-- Add Shop Modal -->
+            <modal height="auto" :scrollable="true" :adaptive="true" name="addShopModal">
               <div style="padding:30px">
                 <div>
                   <b-row>
                     <b-colxx cols="8">
-                      <h1>{{newItem.hasOwnProperty("id")? 'Edit Branch' : 'Add Branch'}}</h1>
+                      <h1>{{newItem.hasOwnProperty("id")? 'Edit Shop' : 'Add Shop'}}</h1>
                     </b-colxx>
                     <b-colxx cols="4" class="text-right">
-                      <a href="#" @click="$modal.hide('addBranchModal')">
+                      <a href="#" @click="$modal.hide('addShopModal')">
                         <h1>
                           <i class="simple-icon-close"></i>
                         </h1>
@@ -306,7 +309,7 @@
 
                 <b-row>
                   <b-col>
-                    <b-form-group label="Branch Name">
+                    <b-form-group label="Shop Name">
                       <b-form-input v-model="newItem.name" />
                     </b-form-group>
                   </b-col>
@@ -454,19 +457,19 @@
                   <div class="float-sm-right">
                     <b-button
                       v-if="newItem.id"
-                      @click="deleteBranch"
+                      @click="deleteShop"
                       variant="danger"
                       size="lg"
                       style="margin:5px"
-                    >Delete Branch</b-button>
+                    >Delete Shop</b-button>
                     <b-button
-                      @click="$modal.hide('addBranchModal')"
+                      @click="$modal.hide('addShopModal')"
                       variant="light"
                       size="lg"
                       style="margin:5px"
                     >Cancel</b-button>
                     <b-button
-                      @click="addBranch"
+                      @click="addShop"
                       variant="primary"
                       :disabled="processing"
                       size="lg"
@@ -479,7 +482,7 @@
                 </b-form-group>
               </div>
             </modal>
-            <!-- End of Add Branch Modal -->
+            <!-- End of Add Shop Modal -->
 
             <!-- Start of  add Supplier SubModal -->
             <modal :scrollable="true" height="auto" :adaptive="true" name="addSupplierModal">
@@ -608,8 +611,8 @@
 import { DataListIcon, ThumbListIcon, ImageListIcon } from "components/Svg";
 import vSelect from "vue-select";
 import Switches from "vue-switches";
-import DataListItem from "components/Listing/Branch/DataListItem";
-import branchApi from "../../../api/branch";
+import DataListItem from "components/Listing/Shop/DataListItem";
+import shopApi from "../../../api/shop";
 import supplierApi from "../../../api/supplier";
 import userApi from "../../../api/user";
 
@@ -630,7 +633,7 @@ export default {
       displayMode: "list",
       sort: { column: "createdAt", label: "Date Added" },
       sortOptions: [{ column: "createdAt", label: "Date Added" }],
-      sortBranch: { column: "createdAt", label: "Branch Added" },
+      sortShop: { column: "createdAt", label: "Shop Added" },
       page: 1,
       perPage: 4,
       search: "",
@@ -645,7 +648,7 @@ export default {
       selectedItem: null,
 
       newItem: {},
-      branches: [],
+      shops: [],
       selectedSupplier: null,
       suppliers: [],
       selectedUser: null,
@@ -656,12 +659,12 @@ export default {
     loadItems() {
       this.isLoad = false;
       if (this.apiUrl !== undefined)
-        branchApi.list(this.apiUrl).then(res => {
+        shopApi.list(this.apiUrl).then(res => {
           this.total = res.data.total;
           this.lastPage = Math.ceil(
             this.total / this.perPage < 1 ? 1 : this.total / this.perPage
           );
-          this.items = res.data.branches;
+          this.items = res.data.shops;
           this.selectedItems = [];
           supplierApi
             .list(`?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100`)
@@ -676,13 +679,13 @@ export default {
           this.isLoad = true;
         });
     },
-    showAddBranch() {
+    showAddShop() {
       this.newItem = {};
-      this.$modal.show("addBranchModal");
+      this.$modal.show("addShopModal");
     },
-    showEditBranch() {
+    showEditShop() {
       this.newItem = this.selectedItem;
-      this.$modal.show("addBranchModal");
+      this.$modal.show("addShopModal");
       this.$refs.modalright.hide();
     },
     // Supplier Methods
@@ -696,10 +699,10 @@ export default {
       this.processing = true;
       let suppliers = [];
       suppliers.push(this.selectedSupplier.id);
-      branchApi
+      shopApi
         .addSupplier({
           suppliers: suppliers,
-          branchId: this.selectedItem.id
+          shopId: this.selectedItem.id
         })
         .then(res => {
           this.processing = false;
@@ -724,10 +727,10 @@ export default {
     removeSupplier(index) {
       this.processing = true;
       this.$forceUpdate();
-      branchApi
+      shopApi
         .deleteSupplier({
           suppliers: this.newItem.suppliers[index].id,
-          branchId: this.selectedItem.id
+          shopId: this.selectedItem.id
         })
         .then(res => {
           this.processing = false;
@@ -762,10 +765,10 @@ export default {
       let users = [];
       users.push(this.selectedUser.id);
 
-      branchApi
+      shopApi
         .addUser({
           users: users,
-          branchId: this.selectedItem.id
+          shopId: this.selectedItem.id
         })
         .then(res => {
           this.processing = false;
@@ -789,10 +792,10 @@ export default {
     },
     removeUser(i) {
       this.processing = true;
-      branchApi
+      shopApi
         .deleteUser({
           users: this.newItem.users[i].id,
-          branchId: this.selectedItem.id
+          shopId: this.selectedItem.id
         })
         .then(res => {
           this.processing = false;
@@ -815,20 +818,20 @@ export default {
     },
     // End of User Methods
 
-    deleteBranch() {
+    deleteShop() {
       this.processing = true;
       let items = [];
       items.push(this.newItem.id);
-      branchApi
+      shopApi
         .delete({ items: items })
         .then(res => {
           this.processing = false;
           this.loadItems();
-          this.$modal.hide("addBranchModal");
+          this.$modal.hide("addShopModal");
           this.$notify(
             "success",
             "Deleted Successfully",
-            `Branch deleted successfully`,
+            `Shop deleted successfully`,
             { duration: 3000, permanent: false }
           );
         })
@@ -841,7 +844,7 @@ export default {
           });
         });
     },
-    addBranch() {
+    addShop() {
       this.processing = true;
       let data = Object.assign({}, this.newItem);
       if (data.hasOwnProperty("id")) {
@@ -850,45 +853,45 @@ export default {
         delete data.suppliers;
         delete data.users;
 
-        branchApi
+        shopApi
           .update(data)
           .then(res => {
             console;
             this.processing = false;
-            this.$modal.hide("addBranchModal");
+            this.$modal.hide("addShopModal");
             this.loadItems();
             this.$notify(
               "success",
               "Updated Successfully",
-              `Branch updated successfully`,
+              `Shop updated successfully`,
               { duration: 3000, permanent: false }
             );
           })
           .catch(error => {
             this.processing = false;
-            this.$modal.hide("addBranchModal");
+            this.$modal.hide("addShopModal");
             this.$notify("error", "Error!", `Error occurred`, {
               duration: 3000,
               permanent: false
             });
           });
       } else {
-        branchApi
+        shopApi
           .create(data)
           .then(res => {
             this.processing = false;
-            this.$modal.hide("addBranchModal");
+            this.$modal.hide("addShopModal");
             this.loadItems();
             this.$notify(
               "success",
               "Added Successfully",
-              `Branch added successfully`,
+              `Shop added successfully`,
               { duration: 3000, permanent: false }
             );
           })
           .catch(error => {
             this.processing = false;
-            this.$modal.hide("addBranchModal");
+            this.$modal.hide("addShopModal");
             this.$notify("error", "Error!", `Error occurred`, {
               duration: 3000,
               permanent: false
@@ -909,7 +912,7 @@ export default {
     changeOrderBy(sort) {
       this.sort = sort;
     },
-    filterBranch(branch) {},
+    filterShop(shop) {},
 
     selectAll(isToggle) {
       if (this.selectedItems.length >= this.items.length) {
