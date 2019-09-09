@@ -110,14 +110,14 @@
                     </div>
                   </div>
                 </div>
-                <div v-if="selectedItem.branch" class="mb-3 pb-3 border-bottom border-bottom">
+                <div v-if="selectedItem.shop" class="mb-3 pb-3 border-bottom border-bottom">
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                     <div
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Branch Name</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.branch.name}}</p>
+                        <p class="mb-1 text-muted text-small">Shop Name</p>
+                        <p class="list-item-heading mb-1">{{selectedItem.shop.name}}</p>
                       </div>
                     </div>
                   </div>
@@ -224,12 +224,12 @@
                     </b-form-group>
                   </b-col>
                   <b-col>
-                    <b-form-group label="Branch">
+                    <b-form-group label="Shop">
                       <v-select
                         :scrollable="true"
                         label="name"
-                        v-model="selectedBranch"
-                        :options="branches"
+                        v-model="selectedShop"
+                        :options="shops"
                       >
                         <template slot="option" slot-scope="option">{{ option.name }}</template>
                       </v-select>
@@ -341,7 +341,7 @@ import vSelect from "vue-select";
 import Switches from "vue-switches";
 import DataListItem from "components/Listing/User/DataListItem";
 import userApi from "../../../api/user";
-import branchApi from "../../../api/branch";
+import shopApi from "../../../api/shop";
 
 let moment = require("moment");
 export default {
@@ -378,8 +378,8 @@ export default {
       selectedItem: null,
       selectedItemKYCImages: [],
       newItem: {},
-      branches: [],
-      selectedBranch: null,
+      shops: [],
+      selectedShop: null,
       inputPassword: {},
       inputPassword2: null,
       type: "password",
@@ -401,10 +401,10 @@ export default {
           );
           this.items = res.data.users;
           this.selectedItems = [];
-          branchApi
+          shopApi
             .list(`?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100`)
             .then(results => {
-              this.branches = results.data.branches;
+              this.shops = results.data.shops;
             });
           this.isLoad = true;
         });
@@ -435,7 +435,7 @@ export default {
 
     addItem() {
       this.processing = true;
-      this.newItem.branch = this.selectedBranch.id;
+      this.newItem.shop = this.selectedShop.id;
       if (this.newItem.id) {
         userApi
           .update(this.newItem)
@@ -530,14 +530,14 @@ export default {
     },
     showAddUser() {
       this.newItem = {};
-      this.selectedBranch = null;
+      this.selectedShop = null;
       this.$modal.show("modalAddUser");
     },
     editUser() {
       this.newItem = this.selectedItem;
       this.hideModal("modalright");
       this.$modal.show("modalAddUser");
-      this.selectedBranch = this.selectedItem.branch;
+      this.selectedShop = this.selectedItem.shop;
     },
 
     selectAll(isToggle) {

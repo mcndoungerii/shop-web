@@ -134,14 +134,14 @@
                     </div>
                   </div>
                 </div>
-                <div v-if="selectedItem.branch" class="mb-3 pb-3 border-bottom border-bottom">
+                <div v-if="selectedItem.shop" class="mb-3 pb-3 border-bottom border-bottom">
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                     <div
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Branch</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.branch.name}}</p>
+                        <p class="mb-1 text-muted text-small">Shop</p>
+                        <p class="list-item-heading mb-1">{{selectedItem.shop.name}}</p>
                       </div>
                     </div>
                   </div>
@@ -233,12 +233,12 @@
                 </b-row>
                 <b-row>
                   <b-col>
-                    <b-form-group label="Branch">
+                    <b-form-group label="Shop">
                       <v-select
                         :scrollable="true"
                         label="name"
-                        v-model="selectedBranch"
-                        :options="branches"
+                        v-model="selectedShop"
+                        :options="shops"
                       >
                         <template slot="option" slot-scope="option">{{ option.name }}</template>
                       </v-select>
@@ -346,7 +346,7 @@ import vSelect from "vue-select";
 import Switches from "vue-switches";
 import DataListItem from "components/Listing/Stock/DataListItem";
 import stockApi from "../../../api/stock";
-import branchApi from "../../../api/branch";
+import shopApi from "../../../api/shop";
 import productApi from "../../../api/product";
 import supplierApi from "../../../api/supplier";
 
@@ -382,9 +382,9 @@ export default {
 
       newItem: {},
       stocks: [],
-      selectedBranch: null,
+      selectedShop: null,
       selectedProduct: null,
-      branches: [],
+      shops: [],
       products: [],
       suppliers: [],
       selectedSupplier: null
@@ -406,10 +406,10 @@ export default {
             .then(results => {
               this.products = results.data.products;
             });
-          branchApi
+          shopApi
             .list(`?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100`)
             .then(results => {
-              this.branches = results.data.branches;
+              this.shops = results.data.shops;
             });
           supplierApi
             .list(`?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100`)
@@ -426,7 +426,7 @@ export default {
     showEditStock() {
       this.newItem = this.selectedItem;
       this.selectedProduct = this.selectedItem.product;
-      this.selectedBranch = this.selectedItem.branch;
+      this.selectedShop = this.selectedItem.shop;
       this.selectedSupplier = this.selectedItem.supplier;
       this.$modal.show("addStockModal");
       this.$refs.modalright.hide();
@@ -436,7 +436,7 @@ export default {
       this.processing = true;
       let data = Object.assign({}, this.newItem);
       data.product = this.selectedProduct.id;
-      data.branch = this.selectedBranch.id;
+      data.shop = this.selectedShop.id;
       data.supplier = this.selectedSupplier.id;
 
       if (data.hasOwnProperty("id")) {

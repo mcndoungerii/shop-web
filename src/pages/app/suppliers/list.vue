@@ -128,9 +128,9 @@
                   </div>
                 </div>
                 <div class="mb-3 pb-3 border-bottom border-bottom">
-                  <p class="mb-1 text-muted text-small">Branches</p>
+                  <p class="mb-1 text-muted text-small">Shops</p>
                   <b-card
-                    v-for="(branch,index) in selectedItem.branches"
+                    v-for="(shop,index) in selectedItem.shops"
                     :key="index.id"
                     class="mb-4 d-flex flex-row"
                     no-body
@@ -141,8 +141,8 @@
                           class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                         >
                           <div class="min-width-zero">
-                            <p class="text-muted text-small mb-2">Branch</p>
-                            <h6 class="mb-1 card-subtitle truncate">{{branch.name}}</h6>
+                            <p class="text-muted text-small mb-2">shop</p>
+                            <h6 class="mb-1 card-subtitle truncate">{{shop.name}}</h6>
                           </div>
                         </div>
                       </div>
@@ -154,7 +154,7 @@
                         >
                           <div class="min-width-zero">
                             <p class="text-muted text-small mb-2">Address</p>
-                            <h6 class="mb-1 card-subtitle truncate">{{branch.address}}</h6>
+                            <h6 class="mb-1 card-subtitle truncate">{{shop.address}}</h6>
                           </div>
                         </div>
                       </div>
@@ -311,7 +311,7 @@ import vSelect from "vue-select";
 import Switches from "vue-switches";
 import DataListItem from "components/Listing/Supplier/DataListItem";
 import supplierApi from "../../../api/supplier";
-import branchApi from "../../../api/branch";
+import shopApi from "../../../api/shop";
 
 let moment = require("moment");
 export default {
@@ -344,8 +344,8 @@ export default {
       selectedItem: null,
 
       newItem: {},
-      selectedBranch: null,
-      branches: []
+      selectedShop: null,
+      shops: []
     };
   },
   methods: {
@@ -359,10 +359,10 @@ export default {
           );
           this.items = res.data.suppliers;
           this.selectedItems = [];
-          branchApi
+          shopApi
             .list(`?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100`)
             .then(results => {
-              this.branches = results.data.branches;
+              this.shops = results.data.shops;
             });
           this.isLoad = true;
         });
@@ -373,7 +373,7 @@ export default {
     },
     showEditSupplier() {
       this.newItem = this.selectedItem;
-      this.selectedBranch = this.selectedItem.branch;
+      this.selectedShop = this.selectedItem.shop;
       this.$modal.show("addSupplierModal");
       this.$refs.modalright.hide();
     },
@@ -384,7 +384,7 @@ export default {
       if (data.hasOwnProperty("id")) {
         data.user = data.user.id;
 
-        delete data.branches;
+        delete data.shops;
         supplierApi
           .update(data)
           .then(res => {

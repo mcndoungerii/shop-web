@@ -72,7 +72,7 @@
                     </b-form-group>
                     <!-- <b-form-group label="Quantity (eg. 50)">
                       <b-form-input v-model="newItem.quantity" />
-                    </b-form-group> --> 
+                    </b-form-group>-->
                     <b-form-group label="Sell Price">
                       <b-form-input v-model="newItem.sellPrice" />
                     </b-form-group>
@@ -99,7 +99,7 @@
                           </div>
                         </div>
                       </div>
-                    </b-card> -->
+                    </b-card>-->
                     <b-form-group>
                       <b-form-checkbox
                         v-model="newItem.isTax"
@@ -120,12 +120,12 @@
                         <template slot="option" slot-scope="option">{{ option.name }}</template>
                       </v-select>
                     </b-form-group>
-                    <b-form-group label="Branches">
+                    <b-form-group label="Shops">
                       <v-select
                         :scrollable="true"
                         label="name"
-                        v-model="selectedBranch"
-                        :options="branches"
+                        v-model="selectedShop"
+                        :options="shops"
                       >
                         <template slot="option" slot-scope="option">{{ option.name }}</template>
                       </v-select>
@@ -418,8 +418,8 @@
                       </div>
                     </div>
                   </b-card>
-                </div> -->
-                
+                </div>-->
+
                 <div v-if="selectedItem.serial" class="mb-3 pb-3 border-bottom border-bottom">
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                     <div
@@ -444,14 +444,14 @@
                     </div>
                   </div>
                 </div>
-                <div v-if="selectedItem.branch" class="mb-3 pb-3 border-bottom border-bottom">
+                <div v-if="selectedItem.shop" class="mb-3 pb-3 border-bottom border-bottom">
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                     <div
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Branch Name</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.branch.name}}</p>
+                        <p class="mb-1 text-muted text-small">Shop Name</p>
+                        <p class="list-item-heading mb-1">{{selectedItem.shop.name}}</p>
                       </div>
                     </div>
                   </div>
@@ -565,7 +565,7 @@ import { DataListIcon, ThumbListIcon, ImageListIcon } from "components/Svg";
 import vSelect from "vue-select";
 import DataListItem from "components/Listing/Product/DataListItem";
 import productApi from "../../../api/product";
-import branchApi from "../../../api/branch";
+import shopApi from "../../../api/shop";
 import supplierApi from "../../../api/supplier";
 import preproductApi from "../../../api/predefinedProduct";
 
@@ -595,8 +595,8 @@ export default {
       items: [],
       pageSizes: [4, 8, 12],
       selectedItems: [],
-      branches: [],
-      selectedBranch: null,
+      shops: [],
+      selectedShop: null,
       categories: [],
       selectedCategory: null,
       newCategory: {},
@@ -629,10 +629,10 @@ export default {
           );
           this.items = res.data.products;
           this.selectedItems = [];
-          branchApi
+          shopApi
             .list(`?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100`)
             .then(results => {
-              this.branches = results.data.branches;
+              this.shops = results.data.shops;
             });
           productApi
             .listCategories(`?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100`)
@@ -699,7 +699,7 @@ export default {
     showEditProductModal() {
       this.newItem = this.selectedItem;
       this.selectedCategory = this.selectedItem.category;
-      this.selectedBranch = this.selectedItem.branch;
+      this.selectedShop = this.selectedItem.shop;
       this.selectedSupplier = this.selectedItem.supplier;
       this.selectedPredefinedProduct = this.selectedItem.predefinedProduct;
 
@@ -784,11 +784,11 @@ export default {
       let data = Object.assign({}, this.newItem);
       data.name = this.selectedPredefinedProduct.name;
       data.description = this.selectedPredefinedProduct.description;
-      data.branch = this.selectedBranch.id;
+      data.shop = this.selectedShop.id;
       data.supplier = this.selectedSupplier.id;
       data.category = this.selectedCategory.id;
       data.predefinedProduct = this.selectedPredefinedProduct.id;
-      
+
       this.processing = true;
       if (data.hasOwnProperty("id")) {
         data.user = data.user.id;

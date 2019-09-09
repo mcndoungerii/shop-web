@@ -14,7 +14,7 @@
                 size="lg"
                 class="top-right-button"
               >Create an Order</b-button>
-            </div> -->
+            </div>-->
             <div class="mb-2 mt-2">
               <b-button
                 variant="empty"
@@ -72,7 +72,7 @@
               </b-collapse>
             </div>
             <div class="separator mb-5" />
-            <b-modal id="modalright" ref="modalright" :title="'Order Details'" class="modal-right" >
+            <b-modal id="modalright" ref="modalright" :title="'Order Details'" class="modal-right">
               <div v-if="selectedItem">
                 <div class="mb-4 d-flex flex-row" no-body>
                   <div v-if="selectedItem.id" class="d-flex flex-grow-1 min-width-zero mt-3 mb-3">
@@ -97,7 +97,7 @@
                       </div>
                     </div>
                   </div>
-                </div> -->
+                </div>-->
                 <div v-if="selectedItem.user" class="mb-3 pb-3 border-bottom border-bottom">
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                     <div
@@ -122,7 +122,7 @@
                     </div>
                   </div>
                 </div>
-             
+
                 <div v-if="selectedItem.isLoan" class="mb-3 pb-3 border-bottom border-bottom">
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                     <div
@@ -180,7 +180,7 @@
                     </div>
                   </div>
                 </div>
-                
+
                 <div class="mb-3 pb-3 border-bottom border-bottom" style="width: 100%;">
                   <p class="mb-1 text-muted text-small">Order Details</p>
                   <b-card
@@ -188,9 +188,8 @@
                     :key="index"
                     class="mb-4 d-flex flex-row"
                     no-body
-                    
                   >
-                    <div class="d-flex flex-grow-1 max-width-zero" >
+                    <div class="d-flex flex-grow-1 max-width-zero">
                       <div
                         class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                       >
@@ -282,7 +281,7 @@
                     </div>
                   </div>
                 </div>
-                
+
                 <div v-if="selectedItem.createdAt" class="mb-3 pb-3 border-bottom border-bottom">
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                     <div
@@ -357,14 +356,14 @@
 
                 <b-row>
                   <b-col>
-                    <div v-if="viewItem.branch" class="mb-3 pb-3 border-bottom border-bottom">
+                    <div v-if="viewItem.shop" class="mb-3 pb-3 border-bottom border-bottom">
                       <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                         <div
                           class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                         >
                           <div class="w-40 w-sm-100">
-                            <p class="mb-1 text-muted text-small">Branch</p>
-                            <p class="list-item-heading mb-1">{{viewItem.branch.name}}</p>
+                            <p class="mb-1 text-muted text-small">Shop</p>
+                            <p class="list-item-heading mb-1">{{viewItem.shop.name}}</p>
                           </div>
                         </div>
                       </div>
@@ -563,13 +562,15 @@
                     v-model="viewItem.status"
                     :options="options"
                     name="radio-options-slots"
-                  >
-                  
-                  </b-form-radio-group>
+                  ></b-form-radio-group>
                 </b-form-group>
                 <b-form-group>
                   <div class="float-sm-right">
-                    <b-button @click="$modal.hide('viewOrderModal')" variant="light" size="lg">Cancel</b-button>
+                    <b-button
+                      @click="$modal.hide('viewOrderModal')"
+                      variant="light"
+                      size="lg"
+                    >Cancel</b-button>
                     <b-button
                       @click="processOrder"
                       variant="primary"
@@ -678,11 +679,11 @@ export default {
       selectedItems: [],
       selectedItem: null,
 
-      viewItem: null, 
+      viewItem: null,
       options: [
         { text: "Accept Order", value: "ACCEPTED" },
         { text: "Reject Order", value: "REJECTED" },
-        { text: "Process Order", value: "PROCESSED" },
+        { text: "Process Order", value: "PROCESSED" }
       ]
     };
   },
@@ -697,7 +698,7 @@ export default {
           );
           this.items = res.data.orders;
           this.selectedItems = [];
-          
+
           this.isLoad = true;
         });
     },
@@ -708,14 +709,14 @@ export default {
     },
     processOrder() {
       this.processing = true;
-      
+
       orderApi
-        .update({id:this.viewItem.id, status:this.viewItem.status})
+        .update({ id: this.viewItem.id, status: this.viewItem.status })
         .then(res => {
           console.log(res);
           this.processing = false;
           this.loadItems();
-          
+
           this.$modal.hide("viewOrderModal");
           this.$notify(
             "success",
@@ -733,10 +734,8 @@ export default {
             permanent: false
           });
         });
-         
     },
-    
-    
+
     hideModal(refname) {
       this.$refs[refname].hide();
     },
@@ -750,7 +749,8 @@ export default {
       this.sort = sort;
     },
 
-    selectAll(isToggle) {sale
+    selectAll(isToggle) {
+      sale;
       if (this.selectedItems.length >= this.items.length) {
         if (isToggle) this.selectedItems = [];
       } else {

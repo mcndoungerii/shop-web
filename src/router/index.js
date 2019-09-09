@@ -6,7 +6,7 @@ Vue.use(Router);
 import Error from "pages/Error";
 import User from "pages/user";
 import UserLogin from "pages/user/Login";
-import BranchLogin from "pages/user/branchLogin";
+import ShopLogin from "pages/user/shopLogin";
 import UserRegister from "pages/user/Register";
 import UserForgotPassword from "pages/user/ForgotPassword";
 
@@ -26,7 +26,7 @@ import DashboardsDefault from "pages/app/dashboards/Default";
 import Users from "pages/app/users/list"
 import Products from "pages/app/products/list"
 import Payments from "pages/app/Payments/list"
-import Branches from "pages/app/branches/list"
+import Shops from "pages/app/shops/list"
 import Customers from "pages/app/customers/list"
 import Sales from "pages/app/sales/list"
 import Stocks from "pages/app/stocks/list"
@@ -70,8 +70,8 @@ const routes = [{
         component: UserRegister
       },
       {
-        path: "branch/login",
-        component: BranchLogin
+        path: "shop/login",
+        component: ShopLogin
       },
       {
         path: "forgot-password",
@@ -112,8 +112,8 @@ const routes = [{
         component: Payments,
       },
       {
-        path: "branches",
-        component: Branches,
+        path: "shops",
+        component: Shops,
       },
       {
         path: "customers",
