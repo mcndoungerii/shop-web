@@ -12,10 +12,10 @@ export default {
     currentUser: localStorage.getItem("user")!=null ?JSON.parse(localStorage.getItem("user")):null,
     loginError: null,
     processing: false,
-    currentBranch: localStorage.getItem("branch")!=null ?JSON.parse(localStorage.getItem("branch")):null,
+    currentShop: localStorage.getItem("shop")!=null ?JSON.parse(localStorage.getItem("shop")):null,
   },
   getters: {
-    currentBranch: state => state.currentBranch,
+    currentShop: state => state.currentShop,
     currentUser: state => state.currentUser,
     processing: state => state.processing,
     loginError: state => state.loginError,
@@ -26,8 +26,8 @@ export default {
       state.processing = false;
       state.loginError = null;
     },
-    setBranch(state, payload) {
-      state.currentBranch = payload;
+    setShop(state, payload) {
+      state.currentShop = payload;
       state.processing = false;
       state.loginError = null;
     },
@@ -51,7 +51,7 @@ export default {
     }
   },
   actions: {
-        login({ commit }, payload) {
+      login({ commit }, payload) {
       commit("clearError");
       commit("setProcessing", true);
             instance.post('/login', payload)
@@ -65,11 +65,11 @@ export default {
                 commit("setError", error.response.data.message);
             })
     },
-    branchLogin({ commit }, payload) {
+    shopLogin({ commit }, payload) {
       commit("clearError");
       commit("setProcessing", true);
-      localStorage.setItem('branch', JSON.stringify(payload))
-      commit("setBranch", { company: payload });
+      localStorage.setItem('shop', JSON.stringify(payload))
+      commit("setShop", { shop: payload });
             
     },
       checkToken({ commit }){
@@ -79,12 +79,29 @@ export default {
           Object.assign(instance.defaults, {headers: {Authorization: token}})
           instance.get('/user/me')
               .then((response) => {
+                  console.log(response)
                   commit("setProcessing", false);
               }).catch((error) => {
               localStorage.removeItem("user")
               commit("setError", error.response.data.message);
           })
       },
+      getCurrentUser({ commit }){
+        commit("clearError");
+        commit("setProcessing", true);
+        const token = localStorage.getItem('token')
+        Object.assign(instance.defaults, {headers: {Authorization: token}})
+        instance.get('/user/me')
+            .then((response) => {
+                console.log(response)
+                localStorage.setItem("user", JSON.stringify(response.data));
+                commit("setUser", { user: response.data });
+                commit("setProcessing", false);
+            }).catch((error) => {
+            localStorage.removeItem("user")
+            commit("setError", error.response.data.message);
+        })
+    },
       register ({ commit }, payload) {
           commit("clearError");
           commit("setProcessing", true);

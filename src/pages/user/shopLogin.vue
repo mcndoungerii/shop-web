@@ -28,81 +28,66 @@
                 class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
               >
                 <div class="min-width-zero">
-                  <b-button
-                    size="xs"
-                    @click="selectShop(shop)"
-                    variant="outline-success"
-                  >LOGIN</b-button>
+                  <b-button size="xs" @click="selectShop(shop)" variant="outline-success">LOGIN</b-button>
                 </div>
               </div>
             </div>
           </b-card>
-            <b-button
-                
-                style="width: 100%;"
-                @click="$modal.show('addShopModal')"
-                variant="primary"
-                size="lg"
-                class="top-right-button"
-              >Add a Shop</b-button>
+          <b-button
+            style="width: 100%;"
+            @click="$modal.show('addShopModal')"
+            variant="primary"
+            size="lg"
+            class="top-right-button"
+          >Add a Shop</b-button>
         </div>
       </b-card>
     </b-colxx>
-       <!-- Add Shop Modal -->
-            <modal height="auto" :scrollable="true" :adaptive="true" name="addShopModal">
-              <div style="padding:30px">
-                <div>
-                  <b-row>
-                    <b-colxx cols="8">
-                      <h1>{{newItem.hasOwnProperty("id")? 'Edit Shop' : 'Add Shop'}}</h1>
-                    </b-colxx>
-                    <b-colxx cols="4" class="text-right">
-                      <a href="#" @click="$modal.hide('addShopModal')">
-                        <h1>
-                          <i class="simple-icon-close"></i>
-                        </h1>
-                      </a>
-                    </b-colxx>
-                  </b-row>
-                </div>
+    <!-- Add Shop Modal -->
+    <modal height="auto" :scrollable="true" :adaptive="true" name="addShopModal">
+      <div style="padding:30px">
+        <div>
+          <b-row>
+            <b-colxx cols="8">
+              <h1>{{newItem.hasOwnProperty("id")? 'Edit Shop' : 'Add Shop'}}</h1>
+            </b-colxx>
+            <b-colxx cols="4" class="text-right">
+              <a href="#" @click="$modal.hide('addShopModal')">
+                <h1>
+                  <i class="simple-icon-close"></i>
+                </h1>
+              </a>
+            </b-colxx>
+          </b-row>
+        </div>
 
-                <b-row>
-                  <b-col>
-                    <b-form-group label="Shop Name">
-                      <b-form-input v-model="newItem.name"/>
-                    </b-form-group>
-                  </b-col>
-                </b-row>
-                <b-row>
-                  <b-col>
-                    <b-form-group label="Shop Address">
-                      <b-form-input v-model="newItem.address"/>
-                    </b-form-group>
-                  </b-col>
-                </b-row>
-              
+        <b-row>
+          <b-col>
+            <b-form-group label="Shop Name">
+              <b-form-input v-model="newItem.name" />
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <b-form-group label="Shop Address">
+              <b-form-input v-model="newItem.address" />
+            </b-form-group>
+          </b-col>
+        </b-row>
 
-                <b-form-group>
-                  <div class="float-sm-right">
-                    <b-button
-                      @click="$modal.hide('addShopModal')"
-                      variant="light"
-                      size="lg"
-                    >Cancel</b-button>
-                    <b-button
-                      @click="addShop"
-                      variant="primary"
-                      :disabled="processing"
-                      size="lg"
-                    >
-                      <i v-if="processing" class="loader"></i>
-                      <span v-if="!processing">{{newItem.hasOwnProperty("id")? 'Update':'Add'}}</span>
-                    </b-button>
-                  </div>
-                </b-form-group>
-              </div>
-            </modal>
-            <!-- End of Add Shop Modal -->
+        <b-form-group>
+          <div class="float-sm-right">
+            <b-button @click="$modal.hide('addShopModal')" variant="light" size="lg">Cancel</b-button>
+            <b-button @click="addShop" variant="primary" :disabled="processing" size="lg">
+              <i v-if="processing" class="loader"></i>
+              <span v-if="!processing">{{newItem.hasOwnProperty("id")? 'Update':'Add'}}</span>
+            </b-button>
+          </div>
+        </b-form-group>
+      </div>
+    </modal>
+    <!-- End of Add Shop Modal -->
   </b-row>
 </template>
 <script>
@@ -115,13 +100,13 @@ export default {
     return {
       phone: "",
       password: "",
-       newItem: {},
-       user:{
-         shops:[]
-       },
+      newItem: {},
+      user: {
+        shops: []
+      }
     };
   },
-  mounted(){
+  mounted() {
     this.loadData();
   },
   computed: {
@@ -129,47 +114,48 @@ export default {
   },
 
   methods: {
-    ...mapActions(["shopLogin","getCurrentUser"]),
-    loadData(){
-      userApi.getCurrentUser().then(res => {
-         console.log(res)
-         this.user = res.data;
-          })
-          .catch(error => {
-            this.$notify("error", "Error!", `Error occurred`, {
-              duration: 3000,
-              permanent: false
-            });
+    ...mapActions(["shopLogin", "getCurrentUser"]),
+    loadData() {
+      userApi
+        .getCurrentUser()
+        .then(res => {
+          console.log(res);
+          this.user = res.data;
+        })
+        .catch(error => {
+          this.$notify("error", "Error!", `Error occurred`, {
+            duration: 3000,
+            permanent: false
           });
+        });
     },
     selectShop(shop) {
-     
       this.shopLogin(shop);
     },
-     addShop() {
+    addShop() {
       this.processing = true;
       this.newItem.user = this.currentUser.user.id;
-     shopApi
-          .create(this.newItem)
-          .then(res => {
-            this.$modal.hide("addShopModal");
-            this.$notify(
-              "success",
-              "Added Successfully",
-              `Shop added successfully`,
-              { duration: 3000, permanent: false }
-            );
-             this.$router.push("/");
-          })
-          .catch(error => {
-            this.processing = false;
-            this.$modal.hide("addShopModal");
-            this.$notify("error", "Error!", `Error occurred`, {
-              duration: 3000,
-              permanent: false
-            });
+      shopApi
+        .create(this.newItem)
+        .then(res => {
+          this.$modal.hide("addShopModal");
+          this.$notify(
+            "success",
+            "Added Successfully",
+            `Shop added successfully`,
+            { duration: 3000, permanent: false }
+          );
+          this.$router.push("/");
+        })
+        .catch(error => {
+          this.processing = false;
+          this.$modal.hide("addShopModal");
+          this.$notify("error", "Error!", `Error occurred`, {
+            duration: 3000,
+            permanent: false
           });
-    },
+        });
+    }
   },
   watch: {
     currentShop(val) {

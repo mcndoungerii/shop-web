@@ -2,17 +2,17 @@ import {store} from '../store'
 
 
 export default (to, from, next) => {
-    console.log(localStorage.getItem("branch"));
-  if (localStorage.getItem("branch")!=null) {
+    console.log(localStorage.getItem("shop"));
+  if (localStorage.getItem("shop")!=null) {
     //verify with firebase or jwt
       store.commit("clearError");
       store.commit("setProcessing", true);
-      const branch = localStorage.getItem('branch')
-      store.commit("setBranch", branch);
+      const shop = localStorage.getItem('shop')
+      store.commit("setShop", shop);
       store.commit("setProcessing", false);
     next()
     }else{
-        localStorage.removeItem("branch")
-        next('/user/branch/login')
+        localStorage.removeItem("shop")
+        next('/user/shop/login')
     }
 }
