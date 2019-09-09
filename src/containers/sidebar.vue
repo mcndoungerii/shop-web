@@ -17,60 +17,99 @@
               {{ $t("menu.app") }}
             </a>
           </router-link>
-          <li v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'" :class="{ active : selectedParentMenu==='user'}">
+          <li
+            v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'"
+            :class="{ active : selectedParentMenu==='user'}"
+          >
             <a @click.prevent="openSubMenu($event,'user')" href="#user">
               <i class="simple-icon-people"></i>Users
             </a>
           </li>
-          <router-link v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'" tag="li" to="/app/branches">
+          <router-link
+            v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'"
+            tag="li"
+            to="/app/shops"
+          >
             <a>
               <i class="simple-icon-organization"></i>
-              Branches
+              Shops
             </a>
           </router-link>
-          <router-link v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'" tag="li" to="/app/customers">
+          <router-link
+            v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'"
+            tag="li"
+            to="/app/customers"
+          >
             <a>
               <i class="simple-icon-user"></i>
               Customers
             </a>
           </router-link>
-          <router-link v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'" tag="li" to="/app/payments">
+          <router-link
+            v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'"
+            tag="li"
+            to="/app/payments"
+          >
             <a>
               <i class="simple-icon-wallet"></i>
               Payments
             </a>
           </router-link>
-          <router-link v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'" tag="li" to="/app/products">
+          <router-link
+            v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'"
+            tag="li"
+            to="/app/products"
+          >
             <a>
               <i class="simple-icon-basket-loaded"></i>
               Products
             </a>
           </router-link>
-          <router-link v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'" tag="li" to="/app/orders">
+          <router-link
+            v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'"
+            tag="li"
+            to="/app/orders"
+          >
             <a>
               <i class="simple-icon-basket-loaded"></i>
               Orders
             </a>
           </router-link>
-          <router-link v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'" tag="li" to="/app/sales">
+          <router-link
+            v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'"
+            tag="li"
+            to="/app/sales"
+          >
             <a>
               <i class="simple-icon-docs"></i>
               Sales
             </a>
           </router-link>
-          <router-link v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'" tag="li" to="/app/stocks">
+          <router-link
+            v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'"
+            tag="li"
+            to="/app/stocks"
+          >
             <a>
               <i class="simple-icon-present"></i>
               Stocks
             </a>
           </router-link>
-          <router-link v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'" tag="li" to="/app/suppliers">
+          <router-link
+            v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'"
+            tag="li"
+            to="/app/suppliers"
+          >
             <a>
               <i class="simple-icon-globe"></i>
               Suppliers
             </a>
           </router-link>
-          <router-link v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'" tag="li" to="/app/reports">
+          <router-link
+            v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'"
+            tag="li"
+            to="/app/reports"
+          >
             <a>
               <i class="simple-icon-note"></i>
               Reports
@@ -174,7 +213,11 @@
           data-link="applications"
           :class="{'d-block':selectedParentMenu==='user' }"
         >
-          <router-link v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'" tag="li" to="/app/users" >
+          <router-link
+            v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'"
+            tag="li"
+            to="/app/users"
+          >
             <a>
               <i class="simple-icon-user-following"></i> All Users
             </a>
@@ -184,7 +227,11 @@
               <i class="simple-icon-user-following"></i> Administrators
             </a>
           </router-link>
-          <router-link v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'" tag="li" to="/app/users/seller">
+          <router-link
+            v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'"
+            tag="li"
+            to="/app/users/seller"
+          >
             <a>
               <i class="simple-icon-user-following"></i> Sellers
             </a>

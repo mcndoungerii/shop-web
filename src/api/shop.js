@@ -12,7 +12,7 @@ export default {
         const token = localStorage.getItem('token')
         Object.assign(instance.defaults, {headers: {Authorization: token}})
         return new Promise(function (resolve, reject) {
-            return instance.get('/branches/'+url)
+            return instance.get('/shops/'+url)
                 .then((response) => {
                     resolve(response)
                 }).catch((error) => {
@@ -25,7 +25,7 @@ export default {
         const token = localStorage.getItem('token')
         Object.assign(instance.defaults, {headers: {Authorization: token}})
         return new Promise(function (resolve, reject) {
-            return instance.get('/branch/'+id)
+            return instance.get('/shop/'+id)
                 .then((response) => {
                     resolve(response)
                 }).catch((error) => {
@@ -38,7 +38,7 @@ export default {
         const token = localStorage.getItem('token')
         Object.assign(instance.defaults, {headers: {Authorization: token}})
         return new Promise(function (resolve, reject) {
-            return instance.post('/branch', data)
+            return instance.post('/shop', data)
                 .then((response) => {
                     resolve(response)
                 }).catch((error) => {
@@ -50,7 +50,7 @@ export default {
         const token = localStorage.getItem('token')
         Object.assign(instance.defaults, {headers: {Authorization: token}})
         return new Promise(function (resolve, reject) {
-            return instance.patch(`/branch/${data.id}`, data)
+            return instance.patch(`/shop/${data.id}`, data)
                 .then((response) => {
                     resolve(response)
                 }).catch((error) => {
@@ -62,7 +62,7 @@ export default {
         const token = localStorage.getItem('token')
         Object.assign(instance.defaults, {headers: {Authorization: token}})
         return new Promise(function (resolve, reject) {
-            return instance.post('/branch/addSupplier', data)
+            return instance.post('/shop/addSupplier', data)
                 .then((response) => {
                     resolve(response)
                 }).catch((error) => {
@@ -74,7 +74,7 @@ export default {
         const token = localStorage.getItem('token')
         Object.assign(instance.defaults, {headers: {Authorization: token}})
         return new Promise(function (resolve, reject) {
-            return instance.post('/branch/removeSupplier', data)
+            return instance.post('/shop/removeSupplier', data)
                 .then((response) => {
                     resolve(response)
                 }).catch((error) => {
@@ -86,7 +86,7 @@ export default {
         const token = localStorage.getItem('token')
         Object.assign(instance.defaults, {headers: {Authorization: token}})
         return new Promise(function (resolve, reject) {
-            return instance.post('/branch/addUser', data)
+            return instance.post('/shop/addUser', data)
                 .then((response) => {
                     resolve(response)
                 }).catch((error) => {
@@ -98,7 +98,7 @@ export default {
         const token = localStorage.getItem('token')
         Object.assign(instance.defaults, {headers: {Authorization: token}})
         return new Promise(function (resolve, reject) {
-            return instance.post('/branch/removeUser', data)
+            return instance.post('/shop/removeUser', data)
                 .then((response) => {
                     resolve(response)
                 }).catch((error) => {
@@ -110,7 +110,7 @@ export default {
         const token = localStorage.getItem('token')
         Object.assign(instance.defaults, {headers: {Authorization: token}})
         return new Promise(function (resolve, reject) {
-            return instance.post('/branch/delete', data)
+            return instance.post('/shop/delete', data)
                 .then((response) => {
                     resolve(response)
                 }).catch((error) => {

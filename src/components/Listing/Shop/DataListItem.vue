@@ -3,11 +3,11 @@
     <div>
       <b-row align-v="center">
         <b-col>
-          <p class="mb-1 text-muted text-small">Branch ID</p>
+          <p class="mb-1 text-muted text-small">Shop ID</p>
           <p class="mb-1">{{data.id }}</p>
         </b-col>
         <b-col>
-          <p class="mb-1 text-muted text-small">Branch Name</p>
+          <p class="mb-1 text-muted text-small">Shop Name</p>
           <p class="mb-1">{{data.name }}</p>
         </b-col>
         <b-col>
