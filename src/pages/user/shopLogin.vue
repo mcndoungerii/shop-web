@@ -6,7 +6,7 @@
           <router-link tag="a" to="/">
             <span class="logo-single" />
           </router-link>
-          <h6 class="mb-4">Shop Login</h6>
+          <h6 class="mb-4">{{$t('shops.shop-login')}}</h6>
           <b-card
             v-for="(shop,index) in user.shops"
             :key="index"
@@ -28,7 +28,11 @@
                 class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
               >
                 <div class="min-width-zero">
-                  <b-button size="xs" @click="selectShop(shop)" variant="outline-success">LOGIN</b-button>
+                  <b-button
+                    size="xs"
+                    @click="selectShop(shop)"
+                    variant="outline-success"
+                  >{{$t('user.login-button')}}</b-button>
                 </div>
               </div>
             </div>
@@ -39,7 +43,7 @@
             variant="primary"
             size="lg"
             class="top-right-button"
-          >Add a Shop</b-button>
+          >{{$t('shops.add-shop')}}</b-button>
         </div>
       </b-card>
     </b-colxx>
@@ -49,7 +53,7 @@
         <div>
           <b-row>
             <b-colxx cols="8">
-              <h1>{{newItem.hasOwnProperty("id")? 'Edit Shop' : 'Add Shop'}}</h1>
+              <h1>{{$t('shops.add-shop')}}</h1>
             </b-colxx>
             <b-colxx cols="4" class="text-right">
               <a href="#" @click="$modal.hide('addShopModal')">
@@ -63,14 +67,14 @@
 
         <b-row>
           <b-col>
-            <b-form-group label="Shop Name">
+            <b-form-group :label="$t('shops.name')">
               <b-form-input v-model="newItem.name" />
             </b-form-group>
           </b-col>
         </b-row>
         <b-row>
           <b-col>
-            <b-form-group label="Shop Address">
+            <b-form-group :label="$t('shops.address')">
               <b-form-input v-model="newItem.address" />
             </b-form-group>
           </b-col>
@@ -78,10 +82,14 @@
 
         <b-form-group>
           <div class="float-sm-right">
-            <b-button @click="$modal.hide('addShopModal')" variant="light" size="lg">Cancel</b-button>
+            <b-button
+              @click="$modal.hide('addShopModal')"
+              variant="light"
+              size="lg"
+            >{{$t('layouts.cancel')}}</b-button>
             <b-button @click="addShop" variant="primary" :disabled="processing" size="lg">
               <i v-if="processing" class="loader"></i>
-              <span v-if="!processing">{{newItem.hasOwnProperty("id")? 'Update':'Add'}}</span>
+              <span v-if="!processing">{{$t('shops.add')}}</span>
             </b-button>
           </div>
         </b-form-group>
@@ -98,6 +106,7 @@ import userApi from "../../api/user";
 export default {
   data() {
     return {
+      processing: false,
       phone: "",
       password: "",
       newItem: {},
@@ -114,7 +123,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["shopLogin", "getCurrentUser"]),
+    ...mapActions(["shopLogin", "getCurrentUser", "register"]),
     loadData() {
       userApi
         .getCurrentUser()
@@ -139,6 +148,8 @@ export default {
         .create(this.newItem)
         .then(res => {
           this.$modal.hide("addShopModal");
+          this.processing = false;
+
           this.$notify(
             "success",
             "Added Successfully",

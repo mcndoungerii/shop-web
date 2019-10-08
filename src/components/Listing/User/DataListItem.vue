@@ -11,14 +11,14 @@
                 :src="data.image"
                 alt="Card image cap"
                 class="img-thumbnail list-thumbnail-letters small rounded-circle align-self-center mr-4 small"
-              >
+              />
             </router-link>
             <div class="d-flex flex-grow-1 min-width-zero">
               <div
                 class="pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
               >
                 <div class="min-width-zero">
-                  <p class="mb-1 text-muted text-small">Full Name</p>
+                  <p class="mb-1 text-muted text-small">{{ $t("users.fullName") }}</p>
                   <p class="list-item-heading mb-1 truncate">{{data.fullName}}</p>
                 </div>
               </div>
@@ -26,15 +26,15 @@
           </div>
         </b-col>
         <b-col>
-          <p class="mb-1 text-muted text-small">Phone</p>
+          <p class="mb-1 text-muted text-small">{{ $t("users.phone") }}</p>
           <p class="mb-1">{{data.phone }}</p>
         </b-col>
         <b-col>
-          <p class="mb-1 text-muted text-small">Role</p>
+          <p class="mb-1 text-muted text-small">{{ $t("users.role") }}</p>
           <p class="mb-1">{{data.role }}</p>
         </b-col>
         <b-col col lg="2">
-          <p class="mb-1 text-muted text-small">Registration date</p>
+          <p class="mb-1 text-muted text-small">{{ $t("users.registration-date") }}</p>
           <p class="mb-1">{{data.createdAt | humanDate}}</p>
         </b-col>
       </b-row>

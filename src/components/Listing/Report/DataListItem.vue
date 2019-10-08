@@ -1,33 +1,49 @@
 <template>
-  <b-card :class="{'d-flex flex-row':true,'active' : selectedItems.includes(data.id)}" no-body>
-    <div class="pl-2 d-flex flex-grow-1 min-width-zero">
-      <div
-        @click.prevent="clickItem($event,data)"
-        class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
-      >
-        <div>
-          <p class="mb-1 text-muted text-small">Product Name</p>
-          <p class="list-item-heading mb-1 truncate">{{data.name}}</p>
-        </div>
-        
-        <div class="w-200">
-          <p class="mb-1 text-muted text-small">Total</p>
-          <p class="mb-1">{{data.totalSales }}</p>
-        </div>
-        <div class="w-200">
-          <p class="mb-1 text-muted text-small">Branch</p>
-          <p class="mb-1">{{data.branch.name }}</p>
-        </div>
-        <div class="w-200">
-          <p class="mb-1 text-muted text-small">Supplier</p>
-          <p class="mb-1">{{data.supplier.name }}</p>
-        </div>
-        
-        <div class="w-200">
-          <p class="mb-1 text-muted text-small">Created at</p>
-          <p class="mb-1">{{data.createdAt | humanDate}}</p>
-        </div>
-      </div>
+  <b-card @click.prevent="clickItem($event,data)">
+    <div>
+      <b-row align-v="center">
+        <b-col v-if="data.receiptnumber">
+          <div class="d-flex flex-row" no-body>
+            <div class="d-flex flex-grow-1 min-width-zero">
+              <div
+                class="pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
+              >
+                <div class="min-width-zero">
+                  <p class="mb-1 text-muted text-small">{{$t("report.receipt-number")}}</p>
+                  <p class="list-item-heading mb-1 truncate">{{data.receiptnumber}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </b-col>
+        <b-col v-if="data.productname">
+          <p class="mb-1 text-muted text-small">{{$t("report.product-name")}}</p>
+          <p class="mb-1">{{data.productname }}</p>
+        </b-col>
+        <b-col v-if="data.shopname">
+          <p class="mb-1 text-muted text-small">{{$t("report.shop-name")}}</p>
+          <p class="mb-1">{{data.shopname }}</p>
+        </b-col>
+        <b-col v-if="data.seller">
+          <p class="mb-1 text-muted text-small">{{$t("report.seller")}}</p>
+          <p class="mb-1">{{data.seller}}</p>
+        </b-col>
+
+        <!-- <b-col>
+          <p class="mb-1 text-muted text-small">Mode of Payment</p>
+          <p class="mb-1">{{data.sale.modeOfPayment }}</p>
+        </b-col>-->
+
+        <b-col v-if="data.total">
+          <p class="mb-1 text-muted text-small">{{$t("report.total")}}</p>
+          <p class="mb-1">Tsh {{data.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }} /=</p>
+        </b-col>
+
+        <b-col v-if="data.date" col lg="2">
+          <p class="mb-1 text-muted text-small">{{$t("report.sale-date")}}</p>
+          <p class="mb-1">{{data.date}}</p>
+        </b-col>
+      </b-row>
     </div>
   </b-card>
 </template>

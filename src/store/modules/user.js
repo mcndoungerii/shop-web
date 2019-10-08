@@ -111,6 +111,7 @@ export default {
                   localStorage.setItem('token', response.data.token)
                   localStorage.setItem("user", JSON.stringify(item));
                   commit("setUser", { user: response.data.user });
+                  
               }).catch((error) => {
               localStorage.removeItem("user")
               commit("setError", error.response.data.message);
@@ -119,6 +120,7 @@ export default {
     signOut({ commit }) {
         localStorage.removeItem("user")
         localStorage.removeItem("token")
+        localStorage.removeItem("shop")
         commit("setLogout")
     }
   }

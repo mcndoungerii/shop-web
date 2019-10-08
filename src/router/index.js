@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import AuthRequired from './authRequired'
+import ShopRequired from './shopRequired'
 Vue.use(Router);
 
 import Error from "pages/Error";
@@ -83,7 +84,7 @@ const routes = [{
     path: "/app",
     component: App,
     redirect: "/app/dashboards",
-    beforeEnter: AuthRequired,
+    beforeEnter: AuthRequired, ShopRequired,
     children: [{
         path: "dashboards",
         component: Dashboards,

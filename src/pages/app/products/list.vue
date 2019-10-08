@@ -13,7 +13,7 @@
                 variant="primary"
                 size="lg"
                 class="top-right-button"
-              >Create a Product</b-button>
+              >{{ $t('product.add-product') }}</b-button>
 
               <!-- Add Product Modal -->
               <modal
@@ -27,7 +27,7 @@
                   <div>
                     <b-row>
                       <b-colxx cols="8">
-                        <h1>{{newItem.id !== undefined?'Edit Product':'Add Product'}}</h1>
+                        <h1>{{newItem.id !== undefined?$t('product.edit-product'):$t('product.add-product')}}</h1>
                       </b-colxx>
                       <b-colxx cols="4" class="text-right">
                         <a href="#" @click="$modal.hide('modalAddProduct')">
@@ -39,43 +39,25 @@
                     </b-row>
                   </div>
                   <b-form>
-                    <b-form-group label="Product Name">
-                      <v-select
-                        :scrollable="true"
-                        label="name"
-                        v-model="selectedPredefinedProduct"
-                        :options="preproducts"
-                        @select="onSelectedProduct(selectedPredefinedProduct)"
-                      >
-                        <span slot="no-options" class="text-right w-100">
-                          Add New Predefined Product
-                          <b-button
-                            size="xs"
-                            @click="showPredefinedProductModal"
-                            variant="outline-primary"
-                          >Create Predefined Product</b-button>
-                        </span>
-                        <template slot="option" slot-scope="option">{{ option.name }}</template>
-                      </v-select>
+                    <b-form-group :label="$t('product.name')">
+                      <b-form-input v-model="newItem.name" />
                     </b-form-group>
-                    <b-form-group label="Product Description">
+
+                    <b-form-group :label="$t('product.description')">
                       <b-form-input v-model="newItem.description" />
                     </b-form-group>
-                    <b-form-group label="Serial ">
+
+                    <b-form-group :label="$t('product.serial')">
                       <b-form-input v-model="newItem.serial" />
                     </b-form-group>
-                    <b-form-group label="Price">
-                      <b-form-input v-model="newItem.price" />
-                    </b-form-group>
-                    <b-form-group label="Unit Of Measure (eg. Kg)">
+
+                    <b-form-group :label="$t('product.unit')">
                       <b-form-input v-model="newItem.unit" />
                     </b-form-group>
                     <!-- <b-form-group label="Quantity (eg. 50)">
                       <b-form-input v-model="newItem.quantity" />
                     </b-form-group>-->
-                    <b-form-group label="Sell Price">
-                      <b-form-input v-model="newItem.sellPrice" />
-                    </b-form-group>
+
                     <!-- <b-card class="mb-4 d-flex flex-row" no-body>
                       <div class="d-flex flex-grow-1 min-width-zero">
                         <div
@@ -104,43 +86,42 @@
                       <b-form-checkbox
                         v-model="newItem.isTax"
                         class="mb-2 mr-sm-2 mb-sm-0"
-                      >{{ newItem.isTax?'This product will be offered on Tax':'This product will not be offered on Tax' }}</b-form-checkbox>
+                      >{{ newItem.isTax?$t('product.isTax'):$t('product.isNotTax')}}</b-form-checkbox>
                     </b-form-group>
-                    <b-form-group v-if="newItem.isTax" label="Credit Percentage">
+                    <b-form-group v-if="newItem.isTax" :label="$t('product.taxPercentage')">
                       <b-form-input v-model="newItem.taxPercentage" />
                     </b-form-group>
 
-                    <b-form-group label="Product Category">
+                    <b-form-group :label="$t('product.category')">
                       <v-select
                         :scrollable="true"
                         label="name"
-                        v-model="selectedCategory"
+                        v-model="newItem.category"
                         :options="categories"
                       >
-                        <template slot="option" slot-scope="option">{{ option.name }}</template>
-                      </v-select>
-                    </b-form-group>
-                    <b-form-group label="Shops">
-                      <v-select
-                        :scrollable="true"
-                        label="name"
-                        v-model="selectedShop"
-                        :options="shops"
-                      >
-                        <template slot="option" slot-scope="option">{{ option.name }}</template>
-                      </v-select>
-                    </b-form-group>
-                    <b-form-group label="Suppliers">
-                      <v-select
-                        :scrollable="true"
-                        label="name"
-                        v-model="selectedSupplier"
-                        :options="suppliers"
-                      >
+                        <span slot="no-options" class="text-right w-100">
+                          Add new Category
+                          <b-button
+                            size="xs"
+                            @click="$modal.show('modalAddCategory')"
+                            variant="outline-primary"
+                          >Create category</b-button>
+                        </span>
                         <template slot="option" slot-scope="option">{{ option.name }}</template>
                       </v-select>
                     </b-form-group>
                   </b-form>
+
+                  <b-row v-if="newItem.id">
+                    <b-col>
+                      <b-button
+                        @click="$modal.show('modalAddToShop')"
+                        class="mb-5"
+                        block
+                        variant="primary"
+                      >Add To Shop</b-button>
+                    </b-col>
+                  </b-row>
                   <b-form-group>
                     <div class="float-sm-right">
                       <b-button
@@ -149,13 +130,13 @@
                         variant="danger"
                         size="lg"
                         style="margin:5px"
-                      >Delete Product</b-button>
+                      >{{$t('button.delete')}}</b-button>
                       <b-button
                         @click="$modal.hide('modalAddProduct')"
                         variant="outline-secondary"
                         size="lg"
                         style="margin:5px"
-                      >Cancel</b-button>
+                      >{{$t('layouts.cancel')}}</b-button>
                       <b-button
                         @click="addNewItem"
                         variant="primary"
@@ -164,7 +145,9 @@
                         style="margin:5px"
                       >
                         <i v-if="processing" class="loader"></i>
-                        <span v-if="!processing">Save</span>
+                        <span
+                          v-if="!processing"
+                        >{{newItem.id? $t('button.edit') : $t('button.add')}}</span>
                       </b-button>
                     </div>
                   </b-form-group>
@@ -177,7 +160,7 @@
                   <div>
                     <b-row>
                       <b-colxx cols="8">
-                        <h1>New Category</h1>
+                        <h1>{{$t('category.title')}}</h1>
                       </b-colxx>
                       <b-colxx cols="4" class="text-right">
                         <a href="#" @click="$modal.hide('modalAddCategory')">
@@ -188,12 +171,16 @@
                       </b-colxx>
                     </b-row>
                   </div>
-                  <b-form-group label="Name">
+                  <b-form-group :label="$t('category.name')">
                     <b-form-input v-model="newCategory.name" />
                   </b-form-group>
                   <b-form-group>
                     <div class="float-sm-right">
-                      <b-button @click="closeModalCategory" variant="light" size="lg">Cancel</b-button>
+                      <b-button
+                        @click="closeModalCategory"
+                        variant="light"
+                        size="lg"
+                      >{{$t('layouts.cancel')}}</b-button>
                       <b-button
                         @click="addNewCategory"
                         variant="primary"
@@ -201,7 +188,7 @@
                         size="lg"
                       >
                         <i v-if="processing" class="loader"></i>
-                        <span v-if="!processing">Save</span>
+                        <span v-if="!processing">{{$t('button.add')}}</span>
                       </b-button>
                     </div>
                   </b-form-group>
@@ -210,15 +197,15 @@
               <!-- End of Add Category Modal -->
 
               <!-- Add Predefined Product Modal -->
-              <modal height="auto" :adaptive="true" name="modalAddPredefinedProduct">
+              <modal height="auto" :adaptive="true" name="modalAddToShop">
                 <div style="padding:30px; margin-bottom: 15px; z-index:9999">
                   <div>
                     <b-row>
                       <b-colxx cols="8">
-                        <h1>New Predefined Product</h1>
+                        <h1>{{$t('product.add-to-shop')}}</h1>
                       </b-colxx>
                       <b-colxx cols="4" class="text-right">
-                        <a href="#" @click="$modal.hide('modalAddPredefinedProduct')">
+                        <a href="#" @click="$modal.hide('modalAddToShop')">
                           <h1>
                             <i class="simple-icon-close"></i>
                           </h1>
@@ -226,22 +213,9 @@
                       </b-colxx>
                     </b-row>
                   </div>
-                  <b-form-group label="Name">
-                    <b-form-input v-model="newPreProduct.name" />
-                  </b-form-group>
-                  <b-form-group label="Description">
-                    <b-form-input v-model="newPreProduct.description" />
-                  </b-form-group>
-                  <b-form-group label="Category">
-                    <v-select label="name" v-model="selectedPreCategory" :options="categories">
-                      <span slot="no-options" class="text-right w-100">
-                        Add New Category
-                        <b-button
-                          size="xs"
-                          @click="showCategoryModal"
-                          variant="outline-primary"
-                        >Create Category</b-button>
-                      </span>
+
+                  <b-form-group :label="$t('product.shop-name')">
+                    <v-select label="name" v-model="selectedShop" :options="shops">
                       <template slot="option" slot-scope="option">{{ option.name }}</template>
                     </v-select>
                   </b-form-group>
@@ -249,18 +223,18 @@
                   <b-form-group>
                     <div class="float-sm-right" style="margin-bottom: 15px;">
                       <b-button
-                        @click="$modal.hide('modalAddPredefinedProduct')"
+                        @click="$modal.hide('modalAddToShop')"
                         variant="light"
                         size="lg"
-                      >Cancel</b-button>
+                      >{{$t('layouts.cancel')}}</b-button>
                       <b-button
-                        @click="addNewPreProduct"
+                        @click="addToShopMethod"
                         variant="primary"
                         :disabled="processing"
                         size="lg"
                       >
                         <i v-if="processing" class="loader"></i>
-                        <span v-if="!processing">Save</span>
+                        <span v-if="!processing">{{$t('button.add')}}</span>
                       </b-button>
                     </div>
                   </b-form-group>
@@ -328,7 +302,7 @@
             <b-modal
               id="modalright"
               ref="modalright"
-              :title="'Product Details'"
+              :title="$t('product.product-details')"
               class="modal-right"
             >
               <div v-if="selectedItem">
@@ -338,7 +312,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Name</p>
+                        <p class="mb-1 text-muted text-small">{{$t('product.name')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.name}}</p>
                       </div>
                     </div>
@@ -350,7 +324,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Description</p>
+                        <p class="mb-1 text-muted text-small">{{$t('product.description')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.description}}</p>
                       </div>
                     </div>
@@ -362,8 +336,22 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Quantity</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.quantity}}</p>
+                        <p class="mb-1 text-muted text-small">{{$t('product.quantity')}}</p>
+                        <p class="list-item-heading mb-1">{{selectedItem.unit}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="mb-3 pb-3 border-bottom border-bottom">
+                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
+                    <div
+                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
+                    >
+                      <div class="w-40 w-sm-100">
+                        <p class="mb-1 text-muted text-small">{{$t('product.price')}}</p>
+                        <p
+                          class="list-item-heading mb-1"
+                        >Tsh {{selectedItem.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}} /=</p>
                       </div>
                     </div>
                   </div>
@@ -374,24 +362,14 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Product Price</p>
-                        <p class="list-item-heading mb-1">Tsh {{selectedItem.price}}</p>
+                        <p class="mb-1 text-muted text-small">{{$t('product.sellPrice')}}</p>
+                        <p
+                          class="list-item-heading mb-1"
+                        >Tsh {{selectedItem.sellPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}} /=</p>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="mb-3 pb-3 border-bottom border-bottom">
-                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
-                    <div
-                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
-                    >
-                      <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Sell Price</p>
-                        <p class="list-item-heading mb-1">Tsh {{selectedItem.sellPrice}}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                </div>-->
                 <!-- <div class="mb-3 pb-3 border-bottom border-bottom">
                   <p class="mb-1 text-muted text-small">Packages</p>
                   <b-card class="mb-4 d-flex flex-row" no-body>
@@ -426,7 +404,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Serial</p>
+                        <p class="mb-1 text-muted text-small">{{$t('product.serial')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.serial}}</p>
                       </div>
                     </div>
@@ -438,36 +416,36 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Category Name</p>
+                        <p class="mb-1 text-muted text-small">{{$t('product.category')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.category.name}}</p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div v-if="selectedItem.shop" class="mb-3 pb-3 border-bottom border-bottom">
+                <!-- <div v-if="selectedItem.shop" class="mb-3 pb-3 border-bottom border-bottom">
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                     <div
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Shop Name</p>
+                        <p class="mb-1 text-muted text-small">{{$t('product.shop-name')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.shop.name}}</p>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div v-if="selectedItem.supplier" class="mb-3 pb-3 border-bottom border-bottom">
+                </div>-->
+                <!-- <div v-if="selectedItem.supplier" class="mb-3 pb-3 border-bottom border-bottom">
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                     <div
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Supplier Name</p>
+                        <p class="mb-1 text-muted text-small">{{$t('product.supplier')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.supplier.name}}</p>
                       </div>
                     </div>
                   </div>
-                </div>
+                </div>-->
                 <div
                   v-if="selectedItem.taxPercentage"
                   class="mb-3 pb-3 border-bottom border-bottom"
@@ -477,7 +455,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Tax Percentage</p>
+                        <p class="mb-1 text-muted text-small">{{$t('product.taxPercentage')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.taxPercentage}} %</p>
                       </div>
                     </div>
@@ -489,7 +467,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Date Created</p>
+                        <p class="mb-1 text-muted text-small">{{$t('product.createdAt')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.createdAt | humanDate}}</p>
                       </div>
                     </div>
@@ -505,7 +483,7 @@
                   variant="primary"
                   class="mr-1"
                   @click="showEditProductModal()"
-                >Edit Product</b-button>
+                >{{$t('button.edit')}}</b-button>
               </template>
             </b-modal>
           </b-colxx>
@@ -567,7 +545,6 @@ import DataListItem from "components/Listing/Product/DataListItem";
 import productApi from "../../../api/product";
 import shopApi from "../../../api/shop";
 import supplierApi from "../../../api/supplier";
-import preproductApi from "../../../api/predefinedProduct";
 
 let moment = require("moment");
 export default {
@@ -612,8 +589,8 @@ export default {
       },
       selectedSupplier: null,
       suppliers: [],
-      selectedPredefinedProduct: {},
-      preproducts: [],
+      selectedPredefinedProduct: null,
+
       newPreProduct: {},
       selectedPreCategory: null
     };
@@ -644,11 +621,7 @@ export default {
             .then(results => {
               this.suppliers = results.data.suppliers;
             });
-          preproductApi
-            .list(`?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100`)
-            .then(results => {
-              this.preproducts = results.data.predefinedProducts;
-            });
+
           this.isLoad = true;
         });
     },
@@ -659,15 +632,15 @@ export default {
       this.$modal.show("modalAddProduct");
     },
     showPredefinedProductModal() {
-      this.$modal.show("modalAddPredefinedProduct");
+      this.$modal.show("modalAddToShop");
     },
     showCategoryModal() {
-      this.$modal.hide("modalAddPredefinedProduct");
+      this.$modal.hide("modalAddToShop");
       this.$modal.show("modalAddCategory");
     },
     closeModalCategory() {
       this.$modal.hide("modalAddCategory");
-      this.$modal.show("modalAddPredefinedProduct");
+      this.$modal.show("modalAddToShop");
     },
 
     deleteProduct() {
@@ -699,9 +672,6 @@ export default {
     showEditProductModal() {
       this.newItem = this.selectedItem;
       this.selectedCategory = this.selectedItem.category;
-      this.selectedShop = this.selectedItem.shop;
-      this.selectedSupplier = this.selectedItem.supplier;
-      this.selectedPredefinedProduct = this.selectedItem.predefinedProduct;
 
       this.$modal.show("modalAddProduct");
       this.$refs.modalright.hide();
@@ -733,7 +703,7 @@ export default {
             `${res.data.name} created successfully`,
             { duration: 3000, permanent: false }
           );
-          this.$modal.show("modalAddPredefinedProduct");
+          this.$modal.show("modalAddToShop");
         })
         .catch(error => {
           console.log(error);
@@ -743,7 +713,7 @@ export default {
             duration: 3000,
             permanent: false
           });
-          this.$modal.show("modalAddPredefinedProduct");
+          this.$modal.show("modalAddToShop");
         });
     },
     onSelectedProduct(selectedPredefinedProduct) {
@@ -753,15 +723,19 @@ export default {
         this.selectedPredefinedProduct.description
       );
     },
-    addNewPreProduct() {
+    addToShopMethod() {
       this.processing = true;
-      this.newPreProduct.category = this.selectedPreCategory.id;
-      preproductApi
-        .create(this.newPreProduct)
+
+      productApi
+        .addToShop({
+          productId: this.selectedItem.id,
+          shopId: this.selectedShop.id
+        })
         .then(res => {
+          console.log(res.data);
           this.processing = false;
           this.loadItems();
-          this.$modal.hide("modalAddPredefinedProduct");
+          this.$modal.hide("modalAddToShop");
           // this.preproducts.push(res.data);
           this.$notify(
             "success",
@@ -773,7 +747,7 @@ export default {
         .catch(error => {
           console.log(error);
           this.processing = false;
-          this.$modal.hide("modalAddPredefinedProduct");
+          this.$modal.hide("modalAddToShop");
           this.$notify("error", "Error!", `Error occurred`, {
             duration: 3000,
             permanent: false
@@ -782,15 +756,13 @@ export default {
     },
     addNewItem() {
       let data = Object.assign({}, this.newItem);
-      data.name = this.selectedPredefinedProduct.name;
-      data.description = this.selectedPredefinedProduct.description;
-      data.shop = this.selectedShop.id;
-      data.supplier = this.selectedSupplier.id;
-      data.category = this.selectedCategory.id;
-      data.predefinedProduct = this.selectedPredefinedProduct.id;
+      data.shop = this.newItem.shop.id;
+      data.supplier = this.newItem.supplier.id;
 
       this.processing = true;
       if (data.hasOwnProperty("id")) {
+        data.predefinedProduct = data.predefinedProduct.id;
+        data.category = data.category.id;
         data.user = data.user.id;
         productApi
           .update(data)
@@ -819,6 +791,12 @@ export default {
             });
           });
       } else {
+        data.name = this.newItem.name.name;
+        data.description = this.newItem.name.description;
+
+        data.category = this.newItem.name.category.id;
+        data.predefinedProduct = this.newItem.name.id;
+
         productApi
           .create(data)
           .then(res => {

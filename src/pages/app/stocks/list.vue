@@ -13,7 +13,7 @@
                 variant="primary"
                 size="lg"
                 class="top-right-button"
-              >Add Stock</b-button>
+              >{{ $t('stock.add-stock') }}</b-button>
             </div>
             <div class="mb-2 mt-2">
               <b-button
@@ -72,7 +72,12 @@
               </b-collapse>
             </div>
             <div class="separator mb-5" />
-            <b-modal id="modalright" ref="modalright" :title="'Stock Details'" class="modal-right">
+            <b-modal
+              id="modalright"
+              ref="modalright"
+              :title="$t('stock.stock-details')"
+              class="modal-right"
+            >
               <div v-if="selectedItem">
                 <div class="mb-4 d-flex flex-row" no-body>
                   <div v-if="selectedItem.id" class="d-flex flex-grow-1 min-width-zero mt-3 mb-3">
@@ -80,7 +85,7 @@
                       class="pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                     >
                       <div class="min-width-zero">
-                        <p class="mb-1 text-muted text-small">Stock ID</p>
+                        <p class="mb-1 text-muted text-small">{{$t('stock.id')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.id}}</p>
                       </div>
                     </div>
@@ -92,7 +97,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Quantity</p>
+                        <p class="mb-1 text-muted text-small">{{$t('stock.quantity')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.quantity}}</p>
                       </div>
                     </div>
@@ -104,7 +109,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Buy Price</p>
+                        <p class="mb-1 text-muted text-small">{{$t('stock.buyPrice')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.buyPrice}}</p>
                       </div>
                     </div>
@@ -116,7 +121,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Sell Price</p>
+                        <p class="mb-1 text-muted text-small">{{$t('stock.sellPrice')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.sellPrice}}</p>
                       </div>
                     </div>
@@ -128,7 +133,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Product</p>
+                        <p class="mb-1 text-muted text-small">{{$t('stock.product')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.product.name}}</p>
                       </div>
                     </div>
@@ -140,7 +145,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Shop</p>
+                        <p class="mb-1 text-muted text-small">{{$t('stock.shop')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.shop.name}}</p>
                       </div>
                     </div>
@@ -152,7 +157,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Supplier</p>
+                        <p class="mb-1 text-muted text-small">{{$t('stock.supplier')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.supplier.name}}</p>
                       </div>
                     </div>
@@ -165,7 +170,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Stock Created</p>
+                        <p class="mb-1 text-muted text-small">{{$t('stock.createdAt')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.createdAt | humanDate}}</p>
                       </div>
                     </div>
@@ -178,7 +183,11 @@
                   variant="outline-secondary"
                   @click="hideModal('modalright')"
                 >{{ $t('layouts.cancel') }}</b-button>
-                <b-button variant="primary" class="mr-1" @click="showEditStock()">Edit Stock</b-button>
+                <b-button
+                  variant="primary"
+                  class="mr-1"
+                  @click="showEditStock()"
+                >{{$t("button.edit")}}</b-button>
               </template>
             </b-modal>
 
@@ -188,7 +197,7 @@
                 <div>
                   <b-row>
                     <b-colxx cols="8">
-                      <h1>{{newItem.hasOwnProperty("id")? 'Edit Stock' : 'Add Stock'}}</h1>
+                      <h1>{{newItem.hasOwnProperty("id")? $t("stock.edit-stock") : $t("stock.add-stock")}}</h1>
                     </b-colxx>
                     <b-colxx cols="4" class="text-right">
                       <a href="#" @click="$modal.hide('addStockModal')">
@@ -202,24 +211,24 @@
 
                 <b-row>
                   <b-col>
-                    <b-form-group label="Quantity">
+                    <b-form-group :label="$t('stock.quantity')">
                       <b-form-input v-model="newItem.quantity" />
                     </b-form-group>
                   </b-col>
                   <b-col>
-                    <b-form-group label="Buy Price">
+                    <b-form-group :label="$t('stock.buyPrice')">
                       <b-form-input v-model="newItem.buyPrice" />
                     </b-form-group>
                   </b-col>
                 </b-row>
                 <b-row>
                   <b-col>
-                    <b-form-group label="Sell Price">
+                    <b-form-group :label="$t('stock.sellPrice')">
                       <b-form-input v-model="newItem.sellPrice" />
                     </b-form-group>
                   </b-col>
                   <b-col>
-                    <b-form-group label="Product">
+                    <b-form-group :label="$t('stock.product')">
                       <v-select
                         :scrollable="true"
                         label="name"
@@ -233,7 +242,7 @@
                 </b-row>
                 <b-row>
                   <b-col>
-                    <b-form-group label="Shop">
+                    <b-form-group :label="$t('stock.shop')">
                       <v-select
                         :scrollable="true"
                         label="name"
@@ -245,7 +254,7 @@
                     </b-form-group>
                   </b-col>
                   <b-col>
-                    <b-form-group label="Supplier">
+                    <b-form-group :label="$t('stock.supplier')">
                       <v-select
                         :scrollable="true"
                         label="name"
@@ -266,13 +275,13 @@
                       variant="danger"
                       size="lg"
                       style="margin:5px"
-                    >Delete Stock</b-button>
+                    >{{$t("button.delete")}}</b-button>
                     <b-button
                       @click="$modal.hide('addStockModal')"
                       variant="light"
                       size="lg"
                       style="margin:5px"
-                    >Cancel</b-button>
+                    >{{$t("layouts.cancel")}}</b-button>
                     <b-button
                       @click="addStock"
                       variant="primary"
@@ -281,7 +290,9 @@
                       style="margin:5px"
                     >
                       <i v-if="processing" class="loader"></i>
-                      <span v-if="!processing">{{newItem.hasOwnProperty("id")? 'Update':'Add'}}</span>
+                      <span
+                        v-if="!processing"
+                      >{{newItem.hasOwnProperty("id")?$t("stock.edit"):$t("stock.add")}}</span>
                     </b-button>
                   </div>
                 </b-form-group>

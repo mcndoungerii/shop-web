@@ -12,7 +12,7 @@ export default {
         const token = localStorage.getItem('token')
         Object.assign(instance.defaults, {headers: {Authorization: token}})
         return new Promise(function (resolve, reject) {
-            return instance.get('/products/'+url)
+            return instance.get('/globalproducts/'+url)
                 .then((response) => {
                     resolve(response)
                 }).catch((error) => {
@@ -107,5 +107,42 @@ export default {
                 })
         })
     },
+    addToShop (data) {
+        const token = localStorage.getItem('token')
+        Object.assign(instance.defaults, {headers: {Authorization: token}})
+        return new Promise(function (resolve, reject) {
+            return instance.post('/shopProduct', data)
+                .then((response) => {
+                    resolve(response)
+                }).catch((error) => {
+                    reject(error.response.data)
+                })
+        })
+    },
+    deleteFromShop (data) {
+        const token = localStorage.getItem('token')
+        Object.assign(instance.defaults, {headers: {Authorization: token}})
+        return new Promise(function (resolve, reject) {
+            return instance.post('/shopProduct/delete', data)
+                .then((response) => {
+                    resolve(response)
+                }).catch((error) => {
+                    reject(error.response.data)
+                })
+        })
+    },
+    listShopProducts (url) {
+        const token = localStorage.getItem('token')
+        Object.assign(instance.defaults, {headers: {Authorization: token}})
+        return new Promise(function (resolve, reject) {
+            return instance.get('/products/:shop'+url)
+                .then((response) => {
+                    resolve(response)
+                }).catch((error) => {
+                    if (error.response && error.response.data) reject(error.response.data)
+                    reject(error)
+                })
+        })
+    }
 
 }

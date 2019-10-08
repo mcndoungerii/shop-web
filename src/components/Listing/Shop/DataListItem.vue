@@ -3,19 +3,19 @@
     <div>
       <b-row align-v="center">
         <b-col>
-          <p class="mb-1 text-muted text-small">Shop ID</p>
+          <p class="mb-1 text-muted text-small">{{ $t("shops.id") }}</p>
           <p class="mb-1">{{data.id }}</p>
         </b-col>
         <b-col>
-          <p class="mb-1 text-muted text-small">Shop Name</p>
+          <p class="mb-1 text-muted text-small">{{ $t("shops.name") }}</p>
           <p class="mb-1">{{data.name }}</p>
         </b-col>
         <b-col>
-          <p class="mb-1 text-muted text-small">Address</p>
+          <p class="mb-1 text-muted text-small">{{ $t("shops.address") }}</p>
           <p class="mb-1">{{data.address }}</p>
         </b-col>
         <b-col col lg="2">
-          <p class="mb-1 text-muted text-small">Registration Date</p>
+          <p class="mb-1 text-muted text-small">{{ $t("shops.registration-date") }}</p>
           <p class="mb-1">{{data.createdAt | humanDate}}</p>
         </b-col>
       </b-row>

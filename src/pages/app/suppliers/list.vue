@@ -13,7 +13,7 @@
                 variant="primary"
                 size="lg"
                 class="top-right-button"
-              >Add Supplier</b-button>
+              >{{$t('supplier.add-supplier')}}</b-button>
             </div>
             <div class="mb-2 mt-2">
               <b-button
@@ -75,7 +75,7 @@
             <b-modal
               id="modalright"
               ref="modalright"
-              :title="'Supplier Details'"
+              :title="$t('supplier.supplier-details')"
               class="modal-right"
             >
               <div v-if="selectedItem">
@@ -85,7 +85,7 @@
                       class="pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                     >
                       <div class="min-width-zero">
-                        <p class="mb-1 text-muted text-small">Supplier ID</p>
+                        <p class="mb-1 text-muted text-small">{{$t('supplier.id')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.id}}</p>
                       </div>
                     </div>
@@ -97,7 +97,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Supplier Name</p>
+                        <p class="mb-1 text-muted text-small">{{$t('supplier.name')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.name}}</p>
                       </div>
                     </div>
@@ -109,7 +109,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Address</p>
+                        <p class="mb-1 text-muted text-small">{{$t('supplier.address')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.address}}</p>
                       </div>
                     </div>
@@ -121,14 +121,14 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Contact</p>
+                        <p class="mb-1 text-muted text-small">{{$t('supplier.contact')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.contact}}</p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="mb-3 pb-3 border-bottom border-bottom">
-                  <p class="mb-1 text-muted text-small">Shops</p>
+                <div v-if="selectedItem.shops < 0" class="mb-3 pb-3 border-bottom border-bottom">
+                  <p class="mb-1 text-muted text-small">{{$t('supplier.shops')}}</p>
                   <b-card
                     v-for="(shop,index) in selectedItem.shops"
                     :key="index.id"
@@ -141,7 +141,7 @@
                           class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                         >
                           <div class="min-width-zero">
-                            <p class="text-muted text-small mb-2">shop</p>
+                            <p class="text-muted text-small mb-2">{{$t('supplier.shop')}}</p>
                             <h6 class="mb-1 card-subtitle truncate">{{shop.name}}</h6>
                           </div>
                         </div>
@@ -153,7 +153,7 @@
                           class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                         >
                           <div class="min-width-zero">
-                            <p class="text-muted text-small mb-2">Address</p>
+                            <p class="text-muted text-small mb-2">{{$t('supplier.address')}}</p>
                             <h6 class="mb-1 card-subtitle truncate">{{shop.address}}</h6>
                           </div>
                         </div>
@@ -168,7 +168,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Supplier Created</p>
+                        <p class="mb-1 text-muted text-small">{{$t('supplier.createdAt')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.createdAt | humanDate}}</p>
                       </div>
                     </div>
@@ -181,7 +181,11 @@
                   variant="outline-secondary"
                   @click="hideModal('modalright')"
                 >{{ $t('layouts.cancel') }}</b-button>
-                <b-button variant="primary" class="mr-1" @click="showEditSupplier()">Edit Supplier</b-button>
+                <b-button
+                  variant="primary"
+                  class="mr-1"
+                  @click="showEditSupplier()"
+                >{{$t('button.edit')}}</b-button>
               </template>
             </b-modal>
 
@@ -191,7 +195,7 @@
                 <div>
                   <b-row>
                     <b-colxx cols="8">
-                      <h1>{{newItem.hasOwnProperty("id")? 'Edit Supplier' : 'Add Supplier'}}</h1>
+                      <h1>{{newItem.hasOwnProperty("id")?$t('supplier.edit-supplier') : $t('supplier.add-supplier') }}</h1>
                     </b-colxx>
                     <b-colxx cols="4" class="text-right">
                       <a href="#" @click="$modal.hide('addSupplierModal')">
@@ -205,19 +209,19 @@
 
                 <b-row>
                   <b-col>
-                    <b-form-group label="Supplier Name">
+                    <b-form-group :label="$t('supplier.name')">
                       <b-form-input v-model="newItem.name" />
                     </b-form-group>
                   </b-col>
                   <b-col>
-                    <b-form-group label="Address">
+                    <b-form-group :label="$t('supplier.address')">
                       <b-form-input v-model="newItem.address" />
                     </b-form-group>
                   </b-col>
                 </b-row>
                 <b-row>
                   <b-col>
-                    <b-form-group label="Contact">
+                    <b-form-group :label="$t('supplier.contact')">
                       <b-form-input v-model="newItem.contact" />
                     </b-form-group>
                   </b-col>
@@ -231,13 +235,13 @@
                       variant="danger"
                       size="lg"
                       style="margin:5px"
-                    >Delete Supplier</b-button>
+                    >{{$t('button.delete')}}</b-button>
                     <b-button
                       @click="$modal.hide('addSupplierModal')"
                       variant="light"
                       size="lg"
                       style="margin:5px"
-                    >Cancel</b-button>
+                    >{{$t('layouts.cancel')}}</b-button>
                     <b-button
                       @click="addSupplier"
                       variant="primary"
@@ -246,7 +250,9 @@
                       style="margin:5px"
                     >
                       <i v-if="processing" class="loader"></i>
-                      <span v-if="!processing">{{newItem.hasOwnProperty("id")? 'Update':'Add'}}</span>
+                      <span
+                        v-if="!processing"
+                      >{{newItem.hasOwnProperty("id")? $t('supplier.edit'):$t('supplier.add')}}</span>
                     </b-button>
                   </div>
                 </b-form-group>
@@ -381,6 +387,8 @@ export default {
     addSupplier() {
       this.processing = true;
       let data = Object.assign({}, this.newItem);
+      data.contact =
+        255 + this.newItem.contact.substr(this.newItem.contact.length - 9);
       if (data.hasOwnProperty("id")) {
         data.user = data.user.id;
 

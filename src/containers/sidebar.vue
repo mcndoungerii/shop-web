@@ -22,7 +22,8 @@
             :class="{ active : selectedParentMenu==='user'}"
           >
             <a @click.prevent="openSubMenu($event,'user')" href="#user">
-              <i class="simple-icon-people"></i>Users
+              <i class="simple-icon-people"></i>
+              {{ $t("menu.users") }}
             </a>
           </li>
           <router-link
@@ -31,30 +32,22 @@
             to="/app/shops"
           >
             <a>
-              <i class="simple-icon-organization"></i>
-              Shops
+              <i class="simple-icon-grid"></i>
+              {{ $t("menu.shops") }}
             </a>
           </router-link>
-          <router-link
-            v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'"
-            tag="li"
-            to="/app/customers"
-          >
+          <!-- <router-link v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'" tag="li" to="/app/customers">
             <a>
               <i class="simple-icon-user"></i>
-              Customers
+              {{ $t("menu.customers") }}
             </a>
           </router-link>
-          <router-link
-            v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'"
-            tag="li"
-            to="/app/payments"
-          >
+          <router-link v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'" tag="li" to="/app/payments">
             <a>
               <i class="simple-icon-wallet"></i>
-              Payments
+              {{ $t("menu.payments") }}
             </a>
-          </router-link>
+          </router-link>-->
           <router-link
             v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'"
             tag="li"
@@ -62,19 +55,15 @@
           >
             <a>
               <i class="simple-icon-basket-loaded"></i>
-              Products
+              {{ $t("menu.products") }}
             </a>
           </router-link>
-          <router-link
-            v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'"
-            tag="li"
-            to="/app/orders"
-          >
+          <!-- <router-link v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'" tag="li" to="/app/orders">
             <a>
               <i class="simple-icon-basket-loaded"></i>
               Orders
             </a>
-          </router-link>
+          </router-link>-->
           <router-link
             v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'"
             tag="li"
@@ -82,7 +71,7 @@
           >
             <a>
               <i class="simple-icon-docs"></i>
-              Sales
+              {{ $t("menu.sales") }}
             </a>
           </router-link>
           <router-link
@@ -91,8 +80,8 @@
             to="/app/stocks"
           >
             <a>
-              <i class="simple-icon-present"></i>
-              Stocks
+              <i class="simple-icon-directions"></i>
+              {{ $t("menu.stocks") }}
             </a>
           </router-link>
           <router-link
@@ -102,7 +91,7 @@
           >
             <a>
               <i class="simple-icon-globe"></i>
-              Suppliers
+              {{ $t("menu.suppliers") }}
             </a>
           </router-link>
           <router-link
@@ -112,7 +101,7 @@
           >
             <a>
               <i class="simple-icon-note"></i>
-              Reports
+              {{ $t("menu.reports") }}
             </a>
           </router-link>
 
@@ -219,12 +208,14 @@
             to="/app/users"
           >
             <a>
-              <i class="simple-icon-user-following"></i> All Users
+              <i class="simple-icon-user-following"></i>
+              {{ $t("menu.all-users") }}
             </a>
           </router-link>
           <router-link v-if="user.role ==='ADMIN'" tag="li" to="/app/users/admin">
             <a>
-              <i class="simple-icon-user-following"></i> Administrators
+              <i class="simple-icon-user-following"></i>
+              {{ $t("menu.admin") }}
             </a>
           </router-link>
           <router-link
@@ -233,17 +224,20 @@
             to="/app/users/seller"
           >
             <a>
-              <i class="simple-icon-user-following"></i> Sellers
+              <i class="simple-icon-user-following"></i>
+              {{ $t("menu.sellers") }}
             </a>
           </router-link>
           <router-link v-if="user.role ==='ADMIN'" tag="li" to="/app/users/customer">
             <a>
-              <i class="simple-icon-user-following"></i> Customers
+              <i class="simple-icon-user-following"></i>
+              {{ $t("menu.customers") }}
             </a>
           </router-link>
           <router-link v-if="user.role ==='ADMIN'" tag="li" to="/app/users/customeradmin">
             <a>
-              <i class="simple-icon-user-following"></i> Customer Admin
+              <i class="simple-icon-user-following"></i>
+              {{ $t("menu.customer-admin") }}
             </a>
           </router-link>
         </ul>

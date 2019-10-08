@@ -94,5 +94,29 @@ export default {
                     reject(error.response.data)
                 })
         })
-    }
+    },
+    addUser (data) {
+        const token = localStorage.getItem('token')
+        Object.assign(instance.defaults, {headers: {Authorization: token}})
+        return new Promise(function (resolve, reject) {
+            return instance.post('/user/addUser', data)
+                .then((response) => {
+                    resolve(response)
+                }).catch((error) => {
+                    reject(error.response.data)
+                })
+        })
+    },
+    addCustomer (data) {
+        const token = localStorage.getItem('token')
+        Object.assign(instance.defaults, {headers: {Authorization: token}})
+        return new Promise(function (resolve, reject) {
+            return instance.post('/user/addCustomer', data)
+                .then((response) => {
+                    resolve(response)
+                }).catch((error) => {
+                    reject(error.response.data)
+                })
+        })
+    },
 }

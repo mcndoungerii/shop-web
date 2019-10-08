@@ -86,14 +86,14 @@
                     </div>
                   </div>
                 </div>
-                <!-- <div v-if="selectedItem.branch" class="mb-3 pb-3 border-bottom border-bottom">
+                <!-- <div v-if="selectedItem.shop" class="mb-3 pb-3 border-bottom border-bottom">
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                     <div
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Branch</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.branch.name}}</p>
+                        <p class="mb-1 text-muted text-small">Shop</p>
+                        <p class="list-item-heading mb-1">{{selectedItem.shop.name}}</p>
                       </div>
                     </div>
                   </div>

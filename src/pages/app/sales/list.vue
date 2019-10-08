@@ -72,7 +72,12 @@
               </b-collapse>
             </div>
             <div class="separator mb-5" />
-            <b-modal id="modalright" ref="modalright" :title="'Sale Details'" class="modal-right">
+            <b-modal
+              id="modalright"
+              ref="modalright"
+              :title="$t('sale.sale-details')"
+              class="modal-right"
+            >
               <div v-if="selectedItem">
                 <div class="mb-4 d-flex flex-row" no-body>
                   <div v-if="selectedItem.id" class="d-flex flex-grow-1 min-width-zero mt-3 mb-3">
@@ -80,7 +85,7 @@
                       class="pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                     >
                       <div class="min-width-zero">
-                        <p class="mb-1 text-muted text-small">Sale ID</p>
+                        <p class="mb-1 text-muted text-small">{{$t('sale.id')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.id}}</p>
                       </div>
                     </div>
@@ -92,7 +97,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Shop</p>
+                        <p class="mb-1 text-muted text-small">{{$t('sale.shop')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.shop.name}}</p>
                       </div>
                     </div>
@@ -104,8 +109,10 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Amount Paid</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.amountPaid}}</p>
+                        <p class="mb-1 text-muted text-small">{{$t('sale.amountPaid')}}</p>
+                        <p
+                          class="list-item-heading mb-1"
+                        >Tsh {{selectedItem.amountPaid.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}/=</p>
                       </div>
                     </div>
                   </div>
@@ -117,8 +124,10 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Discount</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.discount}}</p>
+                        <p class="mb-1 text-muted text-small">{{$t('sale.discount')}}</p>
+                        <p
+                          class="list-item-heading mb-1"
+                        >{{selectedItem.discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</p>
                       </div>
                     </div>
                   </div>
@@ -129,8 +138,10 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Change</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.change}}</p>
+                        <p class="mb-1 text-muted text-small">{{$t('sale.change')}}</p>
+                        <p
+                          class="list-item-heading mb-1"
+                        >{{selectedItem.change.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</p>
                       </div>
                     </div>
                   </div>
@@ -141,7 +152,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class>
-                        <p class="mb-1 text-muted text-small">Loan</p>
+                        <p class="mb-1 text-muted text-small">{{$t('sale.isLoan')}}</p>
                         <b-badge
                           pill
                           :variant="selectedItem.isLoan?'success':'danger'"
@@ -159,7 +170,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Mode Of Payment</p>
+                        <p class="mb-1 text-muted text-small">{{$t('sale.modeOfPayment')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.modeOfPayment}}</p>
                       </div>
                     </div>
@@ -171,8 +182,10 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Sub Total</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.subTotal}}</p>
+                        <p class="mb-1 text-muted text-small">{{$t('sale.subTotal')}}</p>
+                        <p
+                          class="list-item-heading mb-1"
+                        >Tsh {{selectedItem.subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}/=</p>
                       </div>
                     </div>
                   </div>
@@ -183,14 +196,16 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Total</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.total}}</p>
+                        <p class="mb-1 text-muted text-small">{{$t('sale.total')}}</p>
+                        <p
+                          class="list-item-heading mb-1"
+                        >Tsh {{selectedItem.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}/=</p>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="mb-3 pb-3 border-bottom border-bottom">
-                  <p class="mb-1 text-muted text-small">Sale Details</p>
+                  <p class="mb-1 text-muted text-small">{{$t('sale.sale-details')}}</p>
                   <b-card
                     v-for="(detail,index) in selectedItem.saleDetails"
                     :key="index"
@@ -202,7 +217,7 @@
                         class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                       >
                         <div class="min-width-zero">
-                          <p class="text-muted text-small mb-2">Product</p>
+                          <p class="text-muted text-small mb-2">{{$t('sale.product')}}</p>
                           <h6 class="mb-1 card-subtitle truncate">{{detail.product.name}}</h6>
                         </div>
                       </div>
@@ -212,7 +227,7 @@
                         class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                       >
                         <div class="min-width-zero">
-                          <p class="text-muted text-small mb-2">Quantity</p>
+                          <p class="text-muted text-small mb-2">{{$t('sale.quantity')}}</p>
                           <h6 class="mb-1 card-subtitle truncate">{{detail.quantity}}</h6>
                         </div>
                       </div>
@@ -222,18 +237,10 @@
                         class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                       >
                         <div class="min-width-zero">
-                          <p class="text-muted text-small mb-2">Price</p>
-                          <h6 class="mb-1 card-subtitle truncate">{{detail.price}}</h6>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="d-flex flex-grow-1 max-width-zero">
-                      <div
-                        class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
-                      >
-                        <div class="min-width-zero">
-                          <p class="text-muted text-small mb-2">Total</p>
-                          <h6 class="mb-1 card-subtitle truncate">{{detail.total}}</h6>
+                          <p class="text-muted text-small mb-2">{{$t('sale.price')}}</p>
+                          <h6
+                            class="mb-1 card-subtitle truncate"
+                          >{{detail.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</h6>
                         </div>
                       </div>
                     </div>
@@ -245,8 +252,10 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Tax</p>
-                        <p class="list-item-heading mb-1">Tsh {{selectedItem.tax}}/=</p>
+                        <p class="mb-1 text-muted text-small">{{$t('sale.tax')}}</p>
+                        <p
+                          class="list-item-heading mb-1"
+                        >Tsh {{selectedItem.tax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}/=</p>
                       </div>
                     </div>
                   </div>
@@ -257,7 +266,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Customer</p>
+                        <p class="mb-1 text-muted text-small">{{$t('sale.customer')}}</p>
                         <p
                           class="list-item-heading mb-1"
                         >{{selectedItem.customer.firstName}} {{selectedItem.customer.lastName}}</p>
@@ -271,7 +280,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">User</p>
+                        <p class="mb-1 text-muted text-small">{{$t('sale.user')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.user.fullName}}</p>
                       </div>
                     </div>
@@ -283,7 +292,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Sale Created</p>
+                        <p class="mb-1 text-muted text-small">{{$t('sale.createdAt')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.createdAt | humanDate}}</p>
                       </div>
                     </div>
@@ -296,7 +305,11 @@
                   variant="outline-secondary"
                   @click="hideModal('modalright')"
                 >{{ $t('layouts.cancel') }}</b-button>
-                <b-button variant="primary" class="mr-1" @click="showViewSale()">View Sale</b-button>
+                <b-button
+                  variant="primary"
+                  class="mr-1"
+                  @click="showViewSale()"
+                >{{$t('button.view')}}</b-button>
               </template>
             </b-modal>
 
@@ -306,7 +319,7 @@
                 <div>
                   <b-row>
                     <b-colxx cols="8">
-                      <h1>{{'View Sale'}}</h1>
+                      <h1>{{$t('sale.view-sale')}}</h1>
                     </b-colxx>
                     <b-colxx cols="4" class="text-right">
                       <a href="#" @click="$modal.hide('viewSaleModal')">
@@ -326,7 +339,7 @@
                           class="pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                         >
                           <div class="min-width-zero">
-                            <p class="mb-1 text-muted text-small">Sale ID</p>
+                            <p class="mb-1 text-muted text-small">{{$t('sale.id')}}</p>
                             <p class="list-item-heading mb-1">{{viewItem.id}}</p>
                           </div>
                         </div>
@@ -340,7 +353,7 @@
                           class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                         >
                           <div class="w-40 w-sm-100">
-                            <p class="mb-1 text-muted text-small">User</p>
+                            <p class="mb-1 text-muted text-small">{{$t('sale.user')}}</p>
                             <p class="list-item-heading mb-1">{{viewItem.user.fullName}}</p>
                           </div>
                         </div>
@@ -357,7 +370,7 @@
                           class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                         >
                           <div class="w-40 w-sm-100">
-                            <p class="mb-1 text-muted text-small">Shop</p>
+                            <p class="mb-1 text-muted text-small">{{$t('sale.shop')}}</p>
                             <p class="list-item-heading mb-1">{{viewItem.shop.name}}</p>
                           </div>
                         </div>
@@ -372,7 +385,7 @@
                           class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                         >
                           <div class="w-40 w-sm-100">
-                            <p class="mb-1 text-muted text-small">Loan</p>
+                            <p class="mb-1 text-muted text-small">{{$t('sale.isLoan')}}</p>
                             <b-badge
                               pill
                               :variant="viewItem.isLoan?'success':'danger'"
@@ -385,7 +398,7 @@
                 </b-row>
 
                 <div class="mb-3 pb-3 border-bottom border-bottom">
-                  <p class="mb-1 text-muted text-small">Sale Details</p>
+                  <p class="mb-1 text-muted text-small">{{$t('sale.sale-details')}}</p>
                   <b-card
                     v-for="(detail,index) in viewItem.saleDetails"
                     :key="index"
@@ -397,7 +410,7 @@
                         class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                       >
                         <div class="min-width-zero">
-                          <p class="text-muted text-small mb-2">Product</p>
+                          <p class="text-muted text-small mb-2">{{$t('sale.product')}}</p>
                           <h6 class="mb-1 card-subtitle truncate">{{detail.product.name}}</h6>
                         </div>
                       </div>
@@ -407,7 +420,7 @@
                         class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                       >
                         <div class="min-width-zero">
-                          <p class="text-muted text-small mb-2">Quantity</p>
+                          <p class="text-muted text-small mb-2">{{$t('sale.quantity')}}</p>
                           <h6 class="mb-1 card-subtitle truncate">{{detail.quantity}}</h6>
                         </div>
                       </div>
@@ -417,8 +430,10 @@
                         class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                       >
                         <div class="min-width-zero">
-                          <p class="text-muted text-small mb-2">Price</p>
-                          <h6 class="mb-1 card-subtitle truncate">{{detail.price}}</h6>
+                          <p class="text-muted text-small mb-2">{{$t('sale.price')}}</p>
+                          <h6
+                            class="mb-1 card-subtitle truncate"
+                          >Tsh {{detail.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}/=</h6>
                         </div>
                       </div>
                     </div>
@@ -427,8 +442,10 @@
                         class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                       >
                         <div class="min-width-zero">
-                          <p class="text-muted text-small mb-2">Total</p>
-                          <h6 class="mb-1 card-subtitle truncate">{{detail.total}}</h6>
+                          <p class="text-muted text-small mb-2">{{$t('sale.total')}}</p>
+                          <h6
+                            class="mb-1 card-subtitle truncate"
+                          >Tsh {{detail.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}/=</h6>
                         </div>
                       </div>
                     </div>
@@ -442,7 +459,7 @@
                           class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                         >
                           <div class="w-40 w-sm-100">
-                            <p class="mb-1 text-muted text-small">Mode Of Payment</p>
+                            <p class="mb-1 text-muted text-small">{{$t('sale.modeOfPayment')}}</p>
                             <p class="list-item-heading mb-1">{{viewItem.modeOfPayment}}</p>
                           </div>
                         </div>
@@ -456,8 +473,10 @@
                           class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                         >
                           <div class="w-40 w-sm-100">
-                            <p class="mb-1 text-muted text-small">Change</p>
-                            <p class="list-item-heading mb-1">{{viewItem.change}}</p>
+                            <p class="mb-1 text-muted text-small">{{$t('sale.change')}}</p>
+                            <p
+                              class="list-item-heading mb-1"
+                            >{{viewItem.change.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</p>
                           </div>
                         </div>
                       </div>
@@ -487,8 +506,10 @@
                           class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                         >
                           <div class="w-40 w-sm-100">
-                            <p class="mb-1 text-muted text-small">Tax</p>
-                            <p class="list-item-heading mb-1">Tsh {{viewItem.tax}}/=</p>
+                            <p class="mb-1 text-muted text-small">{{$t('sale.tax')}}</p>
+                            <p
+                              class="list-item-heading mb-1"
+                            >Tsh {{viewItem.tax.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}/=</p>
                           </div>
                         </div>
                       </div>
@@ -501,8 +522,10 @@
                           class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                         >
                           <div class="w-40 w-sm-100">
-                            <p class="mb-1 text-muted text-small">Discount</p>
-                            <p class="list-item-heading mb-1">{{viewItem.discount}}</p>
+                            <p class="mb-1 text-muted text-small">{{$t('sale.discount')}}</p>
+                            <p
+                              class="list-item-heading mb-1"
+                            >{{viewItem.discount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</p>
                           </div>
                         </div>
                       </div>
@@ -517,8 +540,10 @@
                           class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                         >
                           <div class="w-40 w-sm-100">
-                            <p class="mb-1 text-muted text-small">Amount Paid</p>
-                            <p class="list-item-heading mb-1">{{viewItem.amountPaid}}</p>
+                            <p class="mb-1 text-muted text-small">{{$t('sale.amountPaid')}}</p>
+                            <p
+                              class="list-item-heading mb-1"
+                            >Tsh {{viewItem.amountPaid.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}/=</p>
                           </div>
                         </div>
                       </div>
@@ -531,8 +556,10 @@
                           class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                         >
                           <div class="w-40 w-sm-100">
-                            <p class="mb-1 text-muted text-small">SubTotal</p>
-                            <p class="list-item-heading mb-1">{{viewItem.subTotal}}</p>
+                            <p class="mb-1 text-muted text-small">{{$t('sale.subTotal')}}</p>
+                            <p
+                              class="list-item-heading mb-1"
+                            >Tsh {{viewItem.subTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}/=</p>
                           </div>
                         </div>
                       </div>
@@ -545,15 +572,21 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Total</p>
-                        <p class="list-item-heading mb-1">{{viewItem.total}}</p>
+                        <p class="mb-1 text-muted text-small">{{$t('sale.total')}}</p>
+                        <p
+                          class="list-item-heading mb-1"
+                        >Tsh {{viewItem.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}/=</p>
                       </div>
                     </div>
                   </div>
                 </div>
                 <b-form-group>
                   <div class="float-sm-right">
-                    <b-button @click="$modal.hide('viewSaleModal')" variant="light" size="lg">Cancel</b-button>
+                    <b-button
+                      @click="$modal.hide('viewSaleModal')"
+                      variant="light"
+                      size="lg"
+                    >{{$t('layouts.cancel')}}</b-button>
                   </div>
                 </b-form-group>
               </div>

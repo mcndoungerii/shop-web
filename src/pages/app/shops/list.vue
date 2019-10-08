@@ -13,7 +13,7 @@
                 variant="primary"
                 size="lg"
                 class="top-right-button"
-              >Add Shop</b-button>
+              >{{ $t('shops.add-shop') }}</b-button>
             </div>
             <div class="mb-2 mt-2">
               <b-button
@@ -72,7 +72,12 @@
               </b-collapse>
             </div>
             <div class="separator mb-5" />
-            <b-modal id="modalright" ref="modalright" :title="'Shop Details'" class="modal-right">
+            <b-modal
+              id="modalright"
+              ref="modalright"
+              :title=" $t('shops.shop-details')"
+              class="modal-right"
+            >
               <div v-if="selectedItem">
                 <div class="mb-4 d-flex flex-row" no-body>
                   <div v-if="selectedItem.id" class="d-flex flex-grow-1 min-width-zero mt-3 mb-3">
@@ -80,7 +85,7 @@
                       class="pl-0 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                     >
                       <div class="min-width-zero">
-                        <p class="mb-1 text-muted text-small">Shop ID</p>
+                        <p class="mb-1 text-muted text-small">{{$t('shops.id')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.id}}</p>
                       </div>
                     </div>
@@ -92,7 +97,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Shop Name</p>
+                        <p class="mb-1 text-muted text-small">{{$t('shops.name')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.name}}</p>
                       </div>
                     </div>
@@ -104,7 +109,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Address</p>
+                        <p class="mb-1 text-muted text-small">{{$t('shops.address')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.address}}</p>
                       </div>
                     </div>
@@ -116,7 +121,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">TIN Number</p>
+                        <p class="mb-1 text-muted text-small">{{$t('shops.tinNumber')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.tin}}</p>
                       </div>
                     </div>
@@ -131,14 +136,14 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Business License</p>
+                        <p class="mb-1 text-muted text-small">{{$t('shops.businessLicense')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.businessLicense}}</p>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div v-if="selectedItem.suppliers" class="mb-3 pb-3 border-bottom border-bottom">
-                  <p class="mb-1 text-muted text-small">Suppliers</p>
+                  <p class="mb-1 text-muted text-small">{{$t('shops.suppliers')}}</p>
                   <b-card
                     v-for="(supplier,index) in selectedItem.suppliers"
                     :key="index.id"
@@ -151,7 +156,7 @@
                           class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                         >
                           <div class="min-width-zero">
-                            <p class="text-muted text-small mb-2">Supplier</p>
+                            <p class="text-muted text-small mb-2">{{$t('shops.supplier')}}</p>
                             <h6 class="mb-1 card-subtitle truncate">{{supplier.name}}</h6>
                           </div>
                         </div>
@@ -163,7 +168,7 @@
                           class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                         >
                           <div class="min-width-zero">
-                            <p class="text-muted text-small mb-2">Contact</p>
+                            <p class="text-muted text-small mb-2">{{$t('shops.contact')}}</p>
                             <h6 class="mb-1 card-subtitle truncate">{{supplier.contact}}</h6>
                           </div>
                         </div>
@@ -177,7 +182,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Region</p>
+                        <p class="mb-1 text-muted text-small">{{$t('shops.region')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.region}}</p>
                       </div>
                     </div>
@@ -189,7 +194,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">District</p>
+                        <p class="mb-1 text-muted text-small">{{$t('shops.district')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.district}}</p>
                       </div>
                     </div>
@@ -201,7 +206,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Ward</p>
+                        <p class="mb-1 text-muted text-small">{{$t('shops.ward')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.ward}}</p>
                       </div>
                     </div>
@@ -213,7 +218,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Village</p>
+                        <p class="mb-1 text-muted text-small">{{$t('shops.village')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.village}}</p>
                       </div>
                     </div>
@@ -225,7 +230,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Contact</p>
+                        <p class="mb-1 text-muted text-small">{{$t('shops.contact')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.contact}}</p>
                       </div>
                     </div>
@@ -233,7 +238,7 @@
                 </div>
 
                 <div class="mb-3 pb-3 border-bottom border-bottom">
-                  <p class="mb-1 text-muted text-small">Users</p>
+                  <p class="mb-1 text-muted text-small">{{$t('shops.users')}}</p>
                   <b-card
                     v-for="(user,index) in selectedItem.users"
                     :key="index.id"
@@ -246,7 +251,7 @@
                           class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                         >
                           <div class="min-width-zero">
-                            <p class="text-muted text-small mb-2">User</p>
+                            <p class="text-muted text-small mb-2">{{$t('shops.user')}}</p>
                             <h6 class="mb-1 card-subtitle truncate">{{user.fullName}}</h6>
                           </div>
                         </div>
@@ -258,7 +263,7 @@
                           class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                         >
                           <div class="min-width-zero">
-                            <p class="text-muted text-small mb-2">Contact</p>
+                            <p class="text-muted text-small mb-2">{{$t('shops.contact')}}</p>
                             <h6 class="mb-1 card-subtitle truncate">{{user.phone}}</h6>
                           </div>
                         </div>
@@ -272,7 +277,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Shop Created</p>
+                        <p class="mb-1 text-muted text-small">{{$t('shops.createdAt')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.createdAt | humanDate}}</p>
                       </div>
                     </div>
@@ -285,7 +290,11 @@
                   variant="outline-secondary"
                   @click="hideModal('modalright')"
                 >{{ $t('layouts.cancel') }}</b-button>
-                <b-button variant="primary" class="mr-1" @click="showEditShop()">Edit Shop</b-button>
+                <b-button
+                  variant="primary"
+                  class="mr-1"
+                  @click="showEditShop()"
+                >{{ $t('button.edit') }}</b-button>
               </template>
             </b-modal>
 
@@ -295,7 +304,7 @@
                 <div>
                   <b-row>
                     <b-colxx cols="8">
-                      <h1>{{newItem.hasOwnProperty("id")? 'Edit Shop' : 'Add Shop'}}</h1>
+                      <h1>{{newItem.hasOwnProperty("id")? $t('shops.edit-shop') : $t('shops.add-shop')}}</h1>
                     </b-colxx>
                     <b-colxx cols="4" class="text-right">
                       <a href="#" @click="$modal.hide('addShopModal')">
@@ -309,36 +318,36 @@
 
                 <b-row>
                   <b-col>
-                    <b-form-group label="Shop Name">
+                    <b-form-group :label="$t('shops.name')">
                       <b-form-input v-model="newItem.name" />
                     </b-form-group>
                   </b-col>
                   <b-col>
-                    <b-form-group label="Address">
+                    <b-form-group :label="$t('shops.address')">
                       <b-form-input v-model="newItem.address" />
                     </b-form-group>
                   </b-col>
                 </b-row>
                 <b-row>
                   <b-col>
-                    <b-form-group label="TIN Number">
+                    <b-form-group :label="$t('shops.tinNumber')">
                       <b-form-input v-model="newItem.tin" />
                     </b-form-group>
                   </b-col>
                   <b-col>
-                    <b-form-group label="Business License">
+                    <b-form-group :label="$t('shops.businessLicense')">
                       <b-form-input v-model="newItem.businessLicense" />
                     </b-form-group>
                   </b-col>
                 </b-row>
                 <b-row>
                   <b-col>
-                    <b-form-group label="Region">
+                    <b-form-group :label="$t('shops.region')">
                       <b-form-input v-model="newItem.region" />
                     </b-form-group>
                   </b-col>
                   <b-col>
-                    <b-form-group label="District">
+                    <b-form-group :label="$t('shops.district')">
                       <b-form-input v-model="newItem.district" />
                     </b-form-group>
                   </b-col>
@@ -354,7 +363,7 @@
                       class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                     >
                       <div class="min-width-zero">
-                        <p class="text-muted text-small mb-2">Supplier</p>
+                        <p class="text-muted text-small mb-2">{{$t('shops.supplier')}}</p>
                         <h6 class="mb-1 card-subtitle truncate">{{supplier.name}}</h6>
                       </div>
                     </div>
@@ -365,7 +374,7 @@
                       class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                     >
                       <div class="min-width-zero">
-                        <p class="text-muted text-small mb-2">Contact</p>
+                        <p class="text-muted text-small mb-2">{{$t('shops.contact')}}</p>
                         <h6 class="mb-1 card-subtitle truncate">{{supplier.contact}}</h6>
                       </div>
                     </div>
@@ -380,7 +389,7 @@
                           size="xs"
                           @click="removeSupplier(index)"
                           variant="outline-danger"
-                        >Delete</b-button>
+                        >{{$t('button.delete')}}</b-button>
                       </div>
                     </div>
                   </div>
@@ -391,23 +400,23 @@
                     class="mb-2"
                     block
                     variant="primary"
-                  >Add Supplier</b-button>
+                  >{{$t('button.add-supplier')}}</b-button>
                 </b-form-group>
                 <b-row>
                   <b-col>
-                    <b-form-group label="Ward">
+                    <b-form-group :label="$t('shops.ward')">
                       <b-form-input v-model="newItem.ward" />
                     </b-form-group>
                   </b-col>
                   <b-col>
-                    <b-form-group label="Village">
+                    <b-form-group :label="$t('shops.village')">
                       <b-form-input v-model="newItem.village" />
                     </b-form-group>
                   </b-col>
                 </b-row>
                 <b-row>
                   <b-col>
-                    <b-form-group label="Contact">
+                    <b-form-group :label="$t('shops.contact')">
                       <b-form-input v-model="newItem.contact" />
                     </b-form-group>
                   </b-col>
@@ -423,7 +432,7 @@
                       class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                     >
                       <div class="min-width-zero">
-                        <p class="text-muted text-small mb-2">User</p>
+                        <p class="text-muted text-small mb-2">{{$t('button.add-user')}}</p>
                         <h6 class="mb-1 card-subtitle truncate">{{user.fullName}}</h6>
                       </div>
                     </div>
@@ -434,8 +443,18 @@
                       class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                     >
                       <div class="min-width-zero">
-                        <p class="text-muted text-small mb-2">Contact</p>
+                        <p class="text-muted text-small mb-2">{{$t('shops.contact')}}</p>
                         <h6 class="mb-1 card-subtitle truncate">{{user.phone}}</h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-grow-1 min-width-zero">
+                    <div
+                      class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
+                    >
+                      <div class="min-width-zero">
+                        <p class="text-muted text-small mb-2">{{$t('shops.role')}}</p>
+                        <h6 class="mb-1 card-subtitle truncate">{{user.role}}</h6>
                       </div>
                     </div>
                   </div>
@@ -445,13 +464,22 @@
                       class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
                     >
                       <div class="min-width-zero">
-                        <b-button size="xs" @click="removeUser(i)" variant="outline-danger">Delete</b-button>
+                        <b-button
+                          size="xs"
+                          @click="removeUser(i)"
+                          variant="outline-danger"
+                        >{{$t('button.delete')}}</b-button>
                       </div>
                     </div>
                   </div>
                 </b-card>
                 <b-form-group v-if="newItem.id">
-                  <b-button @click="showUserModal" class="mb-2" block variant="primary">Add User</b-button>
+                  <b-button
+                    @click="showUserModal"
+                    class="mb-2"
+                    block
+                    variant="primary"
+                  >{{$t('button.add-user')}}</b-button>
                 </b-form-group>
                 <b-form-group>
                   <div class="float-sm-right">
@@ -461,13 +489,13 @@
                       variant="danger"
                       size="lg"
                       style="margin:5px"
-                    >Delete Shop</b-button>
+                    >{{$t('button.delete')}}</b-button>
                     <b-button
                       @click="$modal.hide('addShopModal')"
                       variant="light"
                       size="lg"
                       style="margin:5px"
-                    >Cancel</b-button>
+                    >{{$t('layouts.cancel')}}</b-button>
                     <b-button
                       @click="addShop"
                       variant="primary"
@@ -476,7 +504,9 @@
                       style="margin:5px"
                     >
                       <i v-if="processing" class="loader"></i>
-                      <span v-if="!processing">{{newItem.hasOwnProperty("id")? 'Update':'Add'}}</span>
+                      <span
+                        v-if="!processing"
+                      >{{newItem.hasOwnProperty("id")? $t('shops.edit'):$t('shops.add')}}</span>
                     </b-button>
                   </div>
                 </b-form-group>

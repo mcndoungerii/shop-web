@@ -13,7 +13,7 @@
                 variant="primary"
                 size="lg"
                 class="top-right-button"
-              >Add User</b-button>
+              >{{ $t('button.add-user') }}</b-button>
             </div>
             <div class="mb-2 mt-2">
               <b-button
@@ -72,7 +72,12 @@
               </b-collapse>
             </div>
             <div class="separator mb-5" />
-            <b-modal id="modalright" ref="modalright" :title="'User Details'" class="modal-right">
+            <b-modal
+              id="modalright"
+              ref="modalright"
+              :title=" $t('users.user-details')"
+              class="modal-right"
+            >
               <div v-if="selectedItem">
                 <div class="mb-4 d-flex flex-row" no-body>
                   <router-link v-if="selectedItem.image" to="?" class="d-flex">
@@ -104,23 +109,56 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Phone</p>
+                        <p class="mb-1 text-muted text-small">{{ $t("users.phone") }}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.phone}}</p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div v-if="selectedItem.shop" class="mb-3 pb-3 border-bottom border-bottom">
+                <div v-if="selectedItem.shopAssigned" class="mb-3 pb-3 border-bottom border-bottom">
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                     <div
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Shop Name</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.shop.name}}</p>
+                        <p class="mb-1 text-muted text-small">{{ $t("users.shopAssigned") }}</p>
+                        <p class="list-item-heading mb-1">{{selectedItem.shopAssigned.name}}</p>
                       </div>
                     </div>
                   </div>
+                </div>
+                <div
+                  v-if="selectedItem.shops.length > 0"
+                  class="mb-3 pb-3 border-bottom border-bottom"
+                >
+                  <p class="mb-1 text-muted text-small">{{ $t("users.shops") }}</p>
+                  <b-card
+                    v-for="(shop,index) in selectedItem.shops"
+                    :key="index"
+                    class="mb-4 d-flex flex-row"
+                    no-body
+                  >
+                    <div class="d-flex flex-grow-1 min-width-zero">
+                      <div
+                        class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
+                      >
+                        <div class="min-width-zero">
+                          <p class="text-muted text-small mb-2">{{ $t("users.shop-name") }}</p>
+                          <h6 class="mb-1 card-subtitle truncate">{{shop.name}}</h6>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-grow-1 min-width-zero">
+                      <div
+                        class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
+                      >
+                        <div class="min-width-zero">
+                          <p class="text-muted text-small mb-2">{{ $t("users.address") }}</p>
+                          <h6 class="mb-1 card-subtitle truncate">{{shop.address}}</h6>
+                        </div>
+                      </div>
+                    </div>
+                  </b-card>
                 </div>
 
                 <div v-if="selectedItem.createdAt" class="mb-3 pb-3 border-bottom border-bottom">
@@ -129,7 +167,7 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Account Created</p>
+                        <p class="mb-1 text-muted text-small">{{ $t("users.registration-date") }}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.createdAt | humanDate}}</p>
                       </div>
                     </div>
@@ -143,7 +181,7 @@
                           class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                         >
                           <div class>
-                            <p class="mb-1 text-muted text-small">Active status</p>
+                            <p class="mb-1 text-muted text-small">{{ $t("users.active-status") }}</p>
                             <b-badge
                               pill
                               :variant="selectedItem.status?'success':'danger'"
@@ -161,16 +199,11 @@
                   variant="outline-secondary"
                   @click="hideModal('modalright')"
                 >{{ $t('layouts.cancel') }}</b-button>
-                <b-button
-                  @click="showPasswordModal"
-                  variant="primary"
-                  :disabled="processing"
-                  size="lg"
-                >
+                <b-button variant="primary" :disabled="processing" size="lg">
                   <i v-if="processing" class="loader"></i>
-                  <span v-if="!processing">Reset Password</span>
+                  <span v-if="!processing">{{ $t('button.reset-password') }}</span>
                 </b-button>
-                <b-button variant="primary" @click="editUser" class="mr-1">Edit</b-button>
+                <b-button variant="primary" @click="editUser" class="mr-1">{{ $t('button.edit') }}</b-button>
               </template>
             </b-modal>
 
@@ -187,7 +220,7 @@
                 <div>
                   <b-row>
                     <b-colxx cols="8">
-                      <h1>{{newItem.id?'Edit User' : 'Add User'}}</h1>
+                      <h1>{{newItem.id?$t('users.edit-user') : $t('users.add-user')}}</h1>
                     </b-colxx>
                     <b-colxx cols="4" class="text-right">
                       <a href="#" @click="$modal.hide('modalAddUser')">
@@ -198,33 +231,51 @@
                     </b-colxx>
                   </b-row>
                 </div>
-                <b-row>
+                <b-row style="margin-bottom: 8px;">
                   <b-col>
-                    <b-form-group label="Full name">
+                    <b-form-group :label="$t('users.fullName')">
                       <b-form-input v-model="newItem.fullName" />
                     </b-form-group>
                   </b-col>
                   <b-col>
-                    <b-form-group label="Phone">
+                    <b-form-group :label="$t('users.phone')">
                       <b-form-input v-model="newItem.phone" />
                     </b-form-group>
                   </b-col>
                 </b-row>
                 <b-row v-if="!newItem.id">
                   <b-col>
-                    <b-form-group label="Password">
-                      <b-form-input v-model="newItem.password" />
+                    <b-form-group :label="$t('users.password')">
+                      <b-form-input :type="type" v-model="newItem.password" />
                     </b-form-group>
                   </b-col>
                 </b-row>
                 <b-row>
                   <b-col>
-                    <b-form-group label="Role">
-                      <b-form-input v-model="newItem.role" />
+                    <b-form-group v-if="!newItem.id">
+                      <b-form-checkbox
+                        @input="showPassword"
+                        variant="primary"
+                      >{{ btnText === 'Show Password'?$t('users.show-password'): $t('users.hide-password') }}</b-form-checkbox>
                     </b-form-group>
                   </b-col>
-                  <b-col>
-                    <b-form-group label="Shop">
+                </b-row>
+                <b-row style="margin-bottom: 30px;">
+                  <b-col v-if="user.role === 'ADMIN' || user.role === 'CUSTOMER'">
+                    <b-form-group :label="$t('users.role')">
+                      <v-select
+                        :scrollable="true"
+                        v-model="newItem.role"
+                        :options="user.role === 'ADMIN'?roles:rolesForCustomer"
+                        index="value"
+                      >
+                        <template slot="option" slot-scope="option">{{ option.label }}</template>
+                      </v-select>
+                    </b-form-group>
+                  </b-col>
+
+                  <b-col v-if="newItem.role === 'SELLER'">
+                    <b-form-group :label="$t('users.shop')">
                       <v-select
                         :scrollable="true"
                         label="name"
@@ -236,12 +287,16 @@
                     </b-form-group>
                   </b-col>
                 </b-row>
-                <b-form-group>
+                <b-form-group style="margin-bottom: 30px;">
                   <div class="float-sm-right">
-                    <b-button @click="$modal.hide('modalAddUser')" variant="light" size="lg">Cancel</b-button>
+                    <b-button
+                      @click="$modal.hide('modalAddUser')"
+                      variant="light"
+                      size="lg"
+                    >{{$t('layouts.cancel')}}</b-button>
                     <b-button @click="addItem" variant="primary" :disabled="processing" size="lg">
                       <i v-if="processing" class="loader"></i>
-                      <span v-if="!processing">{{newItem.id? 'Edit' : 'Add'}}</span>
+                      <span v-if="!processing">{{newItem.id? $t('button.edit') : $t('button.add')}}</span>
                     </b-button>
                   </div>
                 </b-form-group>
@@ -336,6 +391,7 @@
   </b-colxx>
 </template>
 <script>
+import { mapGetters, mapMutations } from "vuex";
 import { DataListIcon, ThumbListIcon, ImageListIcon } from "components/Svg";
 import vSelect from "vue-select";
 import Switches from "vue-switches";
@@ -384,7 +440,15 @@ export default {
       inputPassword2: null,
       type: "password",
       btnText: "Show Password",
-      sellerChoice: null
+      sellerChoice: null,
+      roles: [
+        { label: "ADMIN", value: "ADMIN" },
+        { label: "CUSTOMER", value: "CUSTOMER" },
+        { label: "CUSTOMER ADMIN", value: "CUSTOMERADMIN" },
+        { label: "SELLER", value: "SELLER" }
+      ],
+      rolesForCustomer: [{ label: "SELLER", value: "SELLER" }],
+      user: ""
     };
   },
   methods: {
@@ -432,13 +496,22 @@ export default {
     changeOrderBy(sort) {
       this.sort = sort;
     },
-
+    selectRole() {
+      if (this.newItem.role === "CUSTOMER") {
+        this.newItem.shopAssigned === null;
+      }
+    },
     addItem() {
       this.processing = true;
-      this.newItem.shop = this.selectedShop.id;
-      if (this.newItem.id) {
+      let data = Object.assign({}, this.newItem);
+      data.phone =
+        255 + this.newItem.phone.substr(this.newItem.phone.length - 9);
+
+      if (data.id && data.shopAssigned !== null) {
+        data.shopAssigned = this.selectedShop.id;
+        delete data.shops;
         userApi
-          .update(this.newItem)
+          .update(data)
           .then(res => {
             console.log(res);
             this.processing = false;
@@ -460,9 +533,10 @@ export default {
               permanent: false
             });
           });
-      } else {
+      } else if (data.id && data.shopAssigned === null) {
+        delete data.shops;
         userApi
-          .create(this.newItem)
+          .update(data)
           .then(res => {
             console.log(res);
             this.processing = false;
@@ -472,7 +546,56 @@ export default {
             this.$notify(
               "success",
               "Updated Successfully",
-              `${res.data[0].fullName} created successfully`,
+              `${res.data[0].fullName} updated successfully`,
+              { duration: 3000, permanent: false }
+            );
+          })
+          .catch(error => {
+            console.log(error);
+            this.processing = false;
+            this.$notify("error", "Error!", `Error occurred`, {
+              duration: 3000,
+              permanent: false
+            });
+          });
+      } else if (data.role === "SELLER") {
+        data.shopAssigned = this.selectedShop.id;
+        userApi
+          .addUser(data)
+          .then(res => {
+            console.log(res);
+            this.processing = false;
+            this.loadItems();
+            this.newItem = {};
+            this.$modal.hide("modalAddUser");
+            this.$notify(
+              "success",
+              "Updated Successfully",
+              `${res.data.fullName} created successfully`,
+              { duration: 3000, permanent: false }
+            );
+          })
+          .catch(error => {
+            console.log(error);
+            this.processing = false;
+            this.$notify("error", "Error!", `Error occurred`, {
+              duration: 3000,
+              permanent: false
+            });
+          });
+      } else {
+        userApi
+          .addCustomer(data)
+          .then(res => {
+            console.log(res);
+            this.processing = false;
+            this.loadItems();
+            this.newItem = {};
+            this.$modal.hide("modalAddUser");
+            this.$notify(
+              "success",
+              "Updated Successfully",
+              `${res.data.fullName} created successfully`,
               { duration: 3000, permanent: false }
             );
           })
@@ -522,10 +645,10 @@ export default {
     showPassword() {
       if (this.type === "password") {
         this.type = "text";
-        this.btnText = "Hide Password";
+        this.btnText = "Show Password";
       } else {
         this.type = "password";
-        this.btnText = "Show Password";
+        this.btnText = "Hide Password";
       }
     },
     showAddUser() {
@@ -537,7 +660,7 @@ export default {
       this.newItem = this.selectedItem;
       this.hideModal("modalright");
       this.$modal.show("modalAddUser");
-      this.selectedShop = this.selectedItem.shop;
+      this.selectedShop = this.selectedItem.shopAssigned;
     },
 
     selectAll(isToggle) {
@@ -621,6 +744,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      currentUser: "currentUser"
+    }),
     isSelectedAll() {
       return this.selectedItems.length >= this.items.length;
     },
@@ -654,6 +780,7 @@ export default {
   },
   mounted() {
     this.loadItems();
+    this.user = this.currentUser.user;
   },
   filters: {
     humanDate(val) {

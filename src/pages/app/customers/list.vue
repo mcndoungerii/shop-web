@@ -5,7 +5,7 @@
         <b-row>
           <b-colxx xxs="12">
             <h1>{{ $t('menu.customers') }}</h1>
-            <piaf-breadcrumb />
+            <piaf-breadcrumb/>
             <div class="float-sm-right">
               <!-- <b-button
                 style="width: 100%;"
@@ -13,7 +13,7 @@
                 variant="primary"
                 size="lg"
                 class="top-right-button"
-              >Add Customer</b-button>-->
+              >Add Customer</b-button> -->
             </div>
             <div class="mb-2 mt-2">
               <b-button
@@ -22,7 +22,7 @@
                 v-b-toggle.displayOptions
               >
                 {{ $t('layouts.display-options') }}
-                <i class="simple-icon-arrow-down align-middle" />
+                <i class="simple-icon-arrow-down align-middle"/>
               </b-button>
               <b-collapse id="displayOptions" class="d-md-block">
                 <span class="mr-3 mb-2 d-inline-block float-md-left">
@@ -30,7 +30,7 @@
                     :class="{'mr-2 view-icon':true,'active': displayMode==='list'}"
                     @click="changeDisplayMode('list')"
                   >
-                    <data-list-icon />
+                    <data-list-icon/>
                   </a>
                 </span>
                 <div class="d-block d-md-inline-block mb-2">
@@ -49,7 +49,7 @@
                   </b-dropdown>
 
                   <div class="search-sm d-inline-block float-md-left mr-1 align-top">
-                    <b-input :placeholder="$t('menu.search')" v-model="search" />
+                    <b-input :placeholder="$t('menu.search')" v-model="search"/>
                   </div>
                 </div>
                 <div class="float-md-right">
@@ -71,7 +71,7 @@
                 </div>
               </b-collapse>
             </div>
-            <div class="separator mb-5" />
+            <div class="separator mb-5"/>
             <b-modal
               id="modalright"
               ref="modalright"
@@ -91,13 +91,13 @@
                     </div>
                   </div>
                 </div>
-                <div v-if="selectedItem.picture" class="mb-4 d-flex flex-row" no-body>
+                <div v-if="selectedItem.picture"  class="mb-4 d-flex flex-row" no-body>
                   <router-link to="?" class="d-flex">
                     <img
                       :src="selectedItem.picture"
                       alt="Card image cap"
                       class="img-thumbnail list-thumbnail-letters small rounded-circle align-self-center mr-4 ml-0 small"
-                    />
+                    >
                   </router-link>
                 </div>
                 <div v-if="selectedItem.firstName" class="mb-3 pb-3 border-bottom border-bottom">
@@ -244,10 +244,7 @@
                     </div>
                   </div>
                 </div>
-                <div
-                  v-if="selectedItem.employerAddress"
-                  class="mb-3 pb-3 border-bottom border-bottom"
-                >
+                <div v-if="selectedItem.employerAddress" class="mb-3 pb-3 border-bottom border-bottom">
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                     <div
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
@@ -307,10 +304,7 @@
                     </div>
                   </div>
                 </div>
-                <div
-                  v-if="selectedItem.spouseDetails"
-                  class="mb-3 pb-3 border-bottom border-bottom"
-                >
+                <div v-if="selectedItem.spouseDetails" class="mb-3 pb-3 border-bottom border-bottom">
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                     <div
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
@@ -346,10 +340,7 @@
                     </div>
                   </div>
                 </div>
-                <div
-                  v-if="selectedItem.comarkerDetails"
-                  class="mb-3 pb-3 border-bottom border-bottom"
-                >
+                <div v-if="selectedItem.comarkerDetails" class="mb-3 pb-3 border-bottom border-bottom">
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                     <div
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
@@ -361,14 +352,14 @@
                     </div>
                   </div>
                 </div>
-                <div v-if="selectedItem.shop" class="mb-3 pb-3 border-bottom border-bottom">
+                <div v-if="selectedItem.branch" class="mb-3 pb-3 border-bottom border-bottom">
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                     <div
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Shop</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.shop.name}}</p>
+                        <p class="mb-1 text-muted text-small">Branch</p>
+                        <p class="list-item-heading mb-1">{{selectedItem.branch.name}}</p>
                       </div>
                     </div>
                   </div>
@@ -502,6 +493,7 @@
                 >{{ $t('layouts.cancel') }}</b-button>
               </template>
             </b-modal>
+
           </b-colxx>
         </b-row>
         <template v-if="isLoad">
@@ -538,15 +530,15 @@
         </template>
         <v-contextmenu ref="contextmenu" @contextmenu="handleContextmenu">
           <v-contextmenu-item @click="onContextCopy()">
-            <i class="simple-icon-docs" />
+            <i class="simple-icon-docs"/>
             <span>Copy</span>
           </v-contextmenu-item>
           <v-contextmenu-item @click="onContextArchive()">
-            <i class="simple-icon-drawer" />
+            <i class="simple-icon-drawer"/>
             <span>Move to archive</span>
           </v-contextmenu-item>
           <v-contextmenu-item @click="onContextDelete()">
-            <i class="simple-icon-trash" />
+            <i class="simple-icon-trash"/>
             <span>Delete</span>
           </v-contextmenu-item>
         </v-contextmenu>
@@ -560,6 +552,7 @@ import vSelect from "vue-select";
 import Switches from "vue-switches";
 import DataListItem from "components/Listing/Customer/DataListItem";
 import customerApi from "../../../api/customer";
+
 
 let moment = require("moment");
 export default {

@@ -3,23 +3,23 @@
     <div>
       <b-row align-v="center">
         <b-col>
-          <p class="mb-1 text-muted text-small">Stock ID</p>
+          <p class="mb-1 text-muted text-small">{{$t("stock.id")}}</p>
           <p class="mb-1">{{data.id }}</p>
         </b-col>
         <b-col>
-          <p class="mb-1 text-muted text-small">Product</p>
-          <p class="mb-1">{{data.product.name }}</p>
+          <p class="mb-1 text-muted text-small">{{$t("stock.product")}}</p>
+          <p class="mb-1">{{data.shopProduct.product }}</p>
         </b-col>
         <b-col>
-          <p class="mb-1 text-muted text-small">Branch</p>
-          <p class="mb-1">{{data.branch.name }}</p>
+          <p class="mb-1 text-muted text-small">{{$t("stock.shop")}}</p>
+          <p class="mb-1">{{data.shop.name }}</p>
         </b-col>
         <b-col>
-          <p class="mb-1 text-muted text-small">Quantity</p>
+          <p class="mb-1 text-muted text-small">{{$t("stock.quantity")}}</p>
           <p class="mb-1">{{data.quantity }}</p>
         </b-col>
         <b-col col lg="2">
-          <p class="mb-1 text-muted text-small">Registration Date</p>
+          <p class="mb-1 text-muted text-small">{{$t("stock.registration-date")}}</p>
           <p class="mb-1">{{data.createdAt | humanDate}}</p>
         </b-col>
       </b-row>

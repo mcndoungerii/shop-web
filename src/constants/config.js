@@ -10,7 +10,8 @@ export const menuHiddenBreakpoint = 768;
 export const defaultLocale = "en";
 export const localeOptions=[
     {id:'en',name:'English'},
-    {id:'es',name:'Español'},
+    // {id:'es',name:'Español'},
+    {id: 'sw',name:'Swahili'}
 ];
 
 

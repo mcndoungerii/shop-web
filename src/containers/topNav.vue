@@ -5,14 +5,14 @@
       class="menu-button d-none d-md-block"
       @click.prevent="changeSideMenuStatus({step :menuClickCount+1,classNames:menuType})"
     >
-      <menu-icon/>
+      <menu-icon />
     </a>
     <a
       href="#"
       class="menu-button menu-button-mobile d-xs-block d-sm-block d-md-none"
       @click.prevent="changeSideMenuForMobile(menuType)"
     >
-      <mobile-menu-icon/>
+      <mobile-menu-icon />
     </a>
     <div
       :class="{'search':true, 'mobile-view':isMobileSearch}"
@@ -64,31 +64,31 @@
             no-caret
           >
             <template slot="button-content">
-              <i class="simple-icon-grid"/>
+              <i class="simple-icon-grid" />
             </template>
             <div>
               <router-link tag="a" to="/app/dashboards/default" class="icon-menu-item">
-                <i class="iconsmind-Shop-4 d-block"/>
+                <i class="iconsmind-Shop-4 d-block" />
                 {{$t('menu.dashboards')}}
               </router-link>
               <router-link tag="a" to="/app/ui" class="icon-menu-item">
-                <i class="iconsmind-Pantone d-block"/>
+                <i class="iconsmind-Pantone d-block" />
                 {{$t('menu.ui')}}
               </router-link>
               <router-link tag="a" to="/app/ui/charts" class="icon-menu-item">
-                <i class="iconsmind-Bar-Chart d-block"/>
+                <i class="iconsmind-Bar-Chart d-block" />
                 {{$t('menu.charts')}}
               </router-link>
               <router-link tag="a" to="/app/applications/chat" class="icon-menu-item">
-                <i class="iconsmind-Speach-BubbleDialog d-block"/>
+                <i class="iconsmind-Speach-BubbleDialog d-block" />
                 {{$t('menu.chat')}}
               </router-link>
               <router-link tag="a" to="/app/applications/survey" class="icon-menu-item">
-                <i class="iconsmind-Formula d-block"/>
+                <i class="iconsmind-Formula d-block" />
                 {{$t('menu.survey')}}
               </router-link>
               <router-link tag="a" to="/app/applications/todo" class="icon-menu-item">
-                <i class="iconsmind-Check d-block"/>
+                <i class="iconsmind-Check d-block" />
                 {{$t('menu.todo')}}
               </router-link>
             </div>
@@ -133,7 +133,7 @@
           right
           variant="empty"
           toggle-class="p-0"
-          menu-class="mt-3"
+          menu-class="mt-1"
           no-caret
         >
           <template slot="button-content">
@@ -143,99 +143,111 @@
                 v-if="currentUser.user.avatar"
                 :alt="currentUser.user.fullName"
                 :src="currentUser.user.avatar"
-              >
+              />
               <img
                 v-if="!currentUser.user.avatar"
                 :alt="currentUser.user.fullName"
                 src="/assets/img/avatar.jpg"
-              >
+              />
             </span>
           </template>
           <!-- <b-dropdown-item>Account</b-dropdown-item> -->
-          <b-dropdown-item @click="showMyProfile">My Profile</b-dropdown-item>
-          <!--<b-dropdown-item>Support</b-dropdown-item>-->
-          <b-dropdown-divider/>
-          <b-dropdown-item @click="logout">Sign out</b-dropdown-item>
+          <div style="margin:5px; width:200px">
+            <b-dropdown-item @click="showMyProfile">{{$t('menu.myprofile')}}</b-dropdown-item>
+            <!--<b-dropdown-item>Support</b-dropdown-item>-->
+            <b-dropdown-divider />
+            <b-dropdown-item @click="logout">{{$t('menu.signout')}}</b-dropdown-item>
+          </div>
         </b-dropdown>
-        <modal height="auto" :adaptive="true" name="modalMyProfile">
-          <div style="padding:30px">
-            <div>
-              <b-row>
-                <b-colxx cols="8">
-                  <h1>My Profile</h1>
-                </b-colxx>
-                <b-colxx cols="4" class="text-right">
-                  <a href="#" @click="$modal.hide('modalMyProfile')">
-                    <h1>
-                      <i class="simple-icon-close"></i>
-                    </h1>
-                  </a>
-                </b-colxx>
-              </b-row>
-            </div>
-            <b-form-group label="Full Name">
-              <b-form-input v-model="newItem.fullName"/>
-            </b-form-group>
-            <b-form-group label="Phone Number">
-              <b-form-input v-model="newItem.phone"/>
-            </b-form-group>
-            <b-form-group>
-              <div class="float-sm-right">
-                <b-button
-                  @click="$modal.hide('modalMyProfile')"
-                  variant="light"
-                  size="lg"
-                  style="margin:5px"
-                >Cancel</b-button>
-                <b-button @click="addNewItem" variant="primary" size="lg" style="margin:5px">Update</b-button>
-                <b-button
-                  @click="resetPassword"
-                  variant="primary"
-                  size="lg"
-                  style="margin:5px"
-                >Reset Password</b-button>
-              </div>
-            </b-form-group>
-          </div>
-        </modal>
-        <modal height="auto" :adaptive="true" name="modalResetPassword">
-          <div style="padding:30px">
-            <div>
-              <b-row>
-                <b-colxx cols="8">
-                  <h1>Reset Password</h1>
-                </b-colxx>
-                <b-colxx cols="4" class="text-right">
-                  <a href="#" @click="$modal.hide('modalResetPassword')">
-                    <h1>
-                      <i class="simple-icon-close"></i>
-                    </h1>
-                  </a>
-                </b-colxx>
-              </b-row>
-            </div>
-            <b-form-group label="Old Password">
-              <b-form-input v-model="newItemP.password" :type="type"/>
-            </b-form-group>
-            <b-form-group label="New Password">
-              <b-form-input v-model="newItemP.newPassword" :type="type"/>
-            </b-form-group>
-            <b-button @click="showPassword" variant="primary" style="margin:5px;">{{ btnText }}</b-button>
-            <b-form-group>
-              <div class="float-sm-right">
-                <b-button
-                  @click="$modal.hide('modalResetPassword')"
-                  variant="light"
-                  size="lg"
-                  style="margin:5px"
-                >Cancel</b-button>
-                <b-button @click="resetPasswordAPIMethod" variant="primary">Reset</b-button>
-              </div>
-            </b-form-group>
-          </div>
-        </modal>
       </div>
     </div>
+    <modal height="auto" :adaptive="true" name="modalMyProfile">
+      <div style="padding:30px">
+        <div>
+          <b-row>
+            <b-colxx cols="8">
+              <h1>{{$t('menu.myprofile')}}</h1>
+            </b-colxx>
+            <b-colxx cols="4" class="text-right">
+              <a href="#" @click="$modal.hide('modalMyProfile')">
+                <h1>
+                  <i class="simple-icon-close"></i>
+                </h1>
+              </a>
+            </b-colxx>
+          </b-row>
+        </div>
+        <b-form-group :label="$t('user.fullname')">
+          <b-form-input v-model="newItem.fullName" />
+        </b-form-group>
+        <b-form-group :label="$t('user.phone')">
+          <b-form-input v-model="newItem.phone" />
+        </b-form-group>
+        <b-form-group>
+          <div class="float-sm-right">
+            <b-button
+              @click="$modal.hide('modalMyProfile')"
+              variant="light"
+              size="lg"
+              style="margin:5px"
+            >{{$t('layouts.cancel')}}</b-button>
+            <b-button
+              @click="addNewItem"
+              variant="primary"
+              size="lg"
+              style="margin:5px"
+            >{{$t('button.edit')}}</b-button>
+            <b-button
+              @click="resetPassword"
+              variant="primary"
+              size="lg"
+              style="margin:5px"
+            >{{$t('button.reset-password')}}</b-button>
+          </div>
+        </b-form-group>
+      </div>
+    </modal>
+    <modal height="auto" :adaptive="true" name="modalResetPassword">
+      <div style="padding:30px">
+        <div>
+          <b-row>
+            <b-colxx cols="8">
+              <h1>{{$t('user.reset-password')}}</h1>
+            </b-colxx>
+            <b-colxx cols="4" class="text-right">
+              <a href="#" @click="$modal.hide('modalResetPassword')">
+                <h1>
+                  <i class="simple-icon-close"></i>
+                </h1>
+              </a>
+            </b-colxx>
+          </b-row>
+        </div>
+        <b-form-group :label="$t('user.old-password')">
+          <b-form-input v-model="newItemP.password" :type="type" />
+        </b-form-group>
+        <b-form-group :label="$t('user.new-password')">
+          <b-form-input v-model="newItemP.newPassword" :type="type" />
+        </b-form-group>
+        <b-form-group>
+          <b-form-checkbox
+            @input="showPassword"
+            variant="primary"
+          >{{ btnText === 'Show Password'?$t('users.show-password'): $t('users.hide-password') }}</b-form-checkbox>
+        </b-form-group>
+        <b-form-group>
+          <div class="float-sm-right">
+            <b-button
+              @click="$modal.hide('modalResetPassword')"
+              variant="light"
+              size="lg"
+              style="margin:5px"
+            >{{$t('layouts.cancel')}}</b-button>
+            <b-button @click="resetPasswordAPIMethod" variant="primary">{{$t('button.reset')}}</b-button>
+          </div>
+        </b-form-group>
+      </div>
+    </modal>
   </nav>
 </template>
 <script>

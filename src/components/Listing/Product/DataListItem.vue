@@ -6,35 +6,35 @@
         class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
       >
         <div>
-          <p class="mb-1 text-muted text-small">Product Name</p>
+          <p class="mb-1 text-muted text-small">{{ $t("product.name") }}</p>
           <p class="list-item-heading mb-1 truncate">{{data.name}}</p>
         </div>
         <div class="w-200">
-          <p class="mb-1 text-muted text-small">Description</p>
+          <p class="mb-1 text-muted text-small">{{ $t("product.description") }}</p>
           <p class="mb-1">{{data.description }}</p>
         </div>
-        <div class="w-200">
-          <p class="mb-1 text-muted text-small">Quantity</p>
+        <!-- <div class="w-200">
+          <p class="mb-1 text-muted text-small">{{ $t("product.quantity") }}</p>
           <b-badge pill :variant="data.quantity < 1 ?'danger':'success'">{{ data.quantity}}</b-badge>
-        </div>
-        <div class="w-200">
-          <p class="mb-1 text-muted text-small">Serial Number</p>
-          <p class="mb-1">{{data.serial }}</p>
-        </div>
-        <div class="w-200">
-          <p class="mb-1 text-muted text-small">Product Price</p>
-          <p class="mb-1">{{data.price }}</p>
-        </div>
+        </div>-->
+        <!-- <div class="w-200">
+          <p class="mb-1 text-muted text-small">{{ $t("product.shop-name") }}</p>
+          <p class="mb-1">{{data.shop.name }}</p>
+        </div>-->
+        <!-- <div class="w-200">
+          <p class="mb-1 text-muted text-small">{{ $t("product.price") }}</p>
+          <p class="mb-1">Tshs {{data.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }} /=</p>
+        </div>-->
         <!-- <div  class="w-400">
                     <p class="mb-1 text-muted text-small">Packages</p>
                     <b-badge  class="mb-1" pill variant="secondary">{{data.quantity}} {{data.unit}} for Tsh {{data.sellPrice}}</b-badge>
         </div>-->
         <div class="w-200">
-          <p class="mb-1 text-muted text-small">Category</p>
+          <p class="mb-1 text-muted text-small">{{ $t("product.category") }}</p>
           <p class="mb-1">{{data.category.name }}</p>
         </div>
         <div class="w-200">
-          <p class="mb-1 text-muted text-small">Created at</p>
+          <p class="mb-1 text-muted text-small">{{ $t("product.createdAt") }}</p>
           <p class="mb-1">{{data.createdAt | humanDate}}</p>
         </div>
       </div>

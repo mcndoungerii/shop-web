@@ -12,7 +12,7 @@
                 variant="primary"
                 size="lg"
                 class="top-right-button"
-              >Print/Export</b-button>
+              >{{$t('button.print-export')}}</b-button>
 
               <!-- Show Report Modal -->
               <modal
@@ -26,7 +26,7 @@
                   <div>
                     <b-row>
                       <b-colxx cols="8">
-                        <h1>{{'View Product'}}</h1>
+                        <h1>{{$t('report.view-report')}}</h1>
                       </b-colxx>
                       <b-colxx cols="4" class="text-right">
                         <a href="#" @click="$modal.hide('modalShowReport')">
@@ -38,61 +38,29 @@
                     </b-row>
                   </div>
                   <b-row>
-                    <b-col>
+                    <b-col v-if="viewItem.receiptnumber">
                       <div class="mb-3 pb-3 border-bottom border-bottom">
                         <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                           <div
                             class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                           >
                             <div class="w-40 w-sm-100">
-                              <p class="mb-1 text-muted text-small">Product Name</p>
-                              <p class="list-item-heading mb-1">{{viewItem.name}}</p>
+                              <p class="mb-1 text-muted text-small">{{$t('report.receipt-number')}}</p>
+                              <p class="list-item-heading mb-1">{{viewItem.receiptnumber}}</p>
                             </div>
                           </div>
                         </div>
                       </div>
                     </b-col>
-                    <b-col>
+                    <b-col v-if="viewItem.quantity">
                       <div class="mb-3 pb-3 border-bottom border-bottom">
                         <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                           <div
                             class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                           >
                             <div class="w-40 w-sm-100">
-                              <p class="mb-1 text-muted text-small">Shop</p>
-                              <p class="list-item-heading mb-1">{{viewItem.shop.name}}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </b-col>
-                  </b-row>
-
-                  <b-row>
-                    <b-col>
-                      <div class="mb-3 pb-3 border-bottom border-bottom">
-                        <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
-                          <div
-                            class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
-                          >
-                            <div class="w-40 w-sm-100">
-                              <p class="mb-1 text-muted text-small">Seller</p>
-                              <p class="list-item-heading mb-1">{{viewItem.user.fullName}}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </b-col>
-
-                    <b-col>
-                      <div class="mb-3 pb-3 border-bottom border-bottom">
-                        <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
-                          <div
-                            class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
-                          >
-                            <div class="w-40 w-sm-100">
-                              <p class="mb-1 text-muted text-small">Supplier</p>
-                              <p class="list-item-heading mb-1">{{viewItem.supplier.name}}</p>
+                              <p class="mb-1 text-muted text-small">{{$t('report.quantity')}}</p>
+                              <p class="list-item-heading mb-1">{{viewItem.quantity}}</p>
                             </div>
                           </div>
                         </div>
@@ -101,20 +69,38 @@
                   </b-row>
 
                   <b-row>
-                    <b-col>
+                    <b-col v-if="viewItem.productname">
                       <div class="mb-3 pb-3 border-bottom border-bottom">
                         <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                           <div
                             class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                           >
                             <div class="w-40 w-sm-100">
-                              <p class="mb-1 text-muted text-small">Total</p>
-                              <p class="list-item-heading mb-1">{{viewItem.totalSales}}</p>
+                              <p class="mb-1 text-muted text-small">{{$t('report.product-name')}}</p>
+                              <p class="list-item-heading mb-1">{{viewItem.productname}}</p>
                             </div>
                           </div>
                         </div>
                       </div>
                     </b-col>
+
+                    <b-col v-if="viewItem.shopname">
+                      <div class="mb-3 pb-3 border-bottom border-bottom">
+                        <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
+                          <div
+                            class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
+                          >
+                            <div class="w-40 w-sm-100">
+                              <p class="mb-1 text-muted text-small">{{$t('report.shop-name')}}</p>
+                              <p class="list-item-heading mb-1">{{viewItem.shopname}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </b-col>
+                  </b-row>
+
+                  <b-row v-if="viewItem.total">
                     <b-col>
                       <div class="mb-3 pb-3 border-bottom border-bottom">
                         <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
@@ -122,8 +108,10 @@
                             class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                           >
                             <div class="w-40 w-sm-100">
-                              <p class="mb-1 text-muted text-small">Shop</p>
-                              <p class="list-item-heading mb-1">{{viewItem.shop.name}}</p>
+                              <p class="mb-1 text-muted text-small">{{$t('report.total')}}</p>
+                              <p
+                                class="list-item-heading mb-1"
+                              >Tsh {{viewItem.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}} /=</p>
                             </div>
                           </div>
                         </div>
@@ -138,7 +126,7 @@
                         variant="outline-secondary"
                         size="lg"
                         style="margin:5px"
-                      >Cancel</b-button>
+                      >{{$t('layouts.cancel')}}</b-button>
                     </div>
                   </b-form-group>
                 </div>
@@ -205,18 +193,57 @@
             <b-modal
               id="modalright"
               ref="modalright"
-              :title="'Product Details'"
+              :title="$t('report.report-details')"
               class="modal-right"
             >
               <div v-if="selectedItem">
-                <div class="mb-3 pb-3 border-bottom border-bottom">
+                <div
+                  v-if="selectedItem.receiptnumber"
+                  class="mb-3 pb-3 border-bottom border-bottom"
+                >
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                     <div
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Product Name</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.name}}</p>
+                        <p class="mb-1 text-muted text-small">{{$t('report.receipt-number')}}</p>
+                        <p class="list-item-heading mb-1">{{selectedItem.receiptnumber}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div v-if="selectedItem.quantity" class="mb-3 pb-3 border-bottom border-bottom">
+                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
+                    <div
+                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
+                    >
+                      <div class="w-40 w-sm-100">
+                        <p class="mb-1 text-muted text-small">{{$t('report.quantity')}}</p>
+                        <p class="list-item-heading mb-1">{{selectedItem.quantity}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div v-if="selectedItem.shopname" class="mb-3 pb-3 border-bottom border-bottom">
+                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
+                    <div
+                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
+                    >
+                      <div class="w-40 w-sm-100">
+                        <p class="mb-1 text-muted text-small">{{$t('report.shop-name')}}</p>
+                        <p class="list-item-heading mb-1">{{selectedItem.shopname}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div v-if="selectedItem.productname" class="mb-3 pb-3 border-bottom border-bottom">
+                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
+                    <div
+                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
+                    >
+                      <div class="w-40 w-sm-100">
+                        <p class="mb-1 text-muted text-small">{{$t('report.product-name')}}</p>
+                        <p class="list-item-heading mb-1">{{selectedItem.productname}}</p>
                       </div>
                     </div>
                   </div>
@@ -227,56 +254,34 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Seller Name</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.user.fullName}}</p>
+                        <p class="mb-1 text-muted text-small">{{$t('report.seller')}}</p>
+                        <p class="list-item-heading mb-1">{{selectedItem.seller}}</p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="mb-3 pb-3 border-bottom border-bottom">
+                <div v-if="selectedItem.total" class="mb-3 pb-3 border-bottom border-bottom">
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                     <div
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Total</p>
-                        <p class="list-item-heading mb-1">Tsh {{selectedItem.totalSales}}</p>
+                        <p class="mb-1 text-muted text-small">{{$t('report.total')}}</p>
+                        <p
+                          class="list-item-heading mb-1"
+                        >Tsh {{selectedItem.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}} /=</p>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div v-if="selectedItem.shop" class="mb-3 pb-3 border-bottom border-bottom">
-                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
-                    <div
-                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
-                    >
-                      <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Shop Name</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.shop.name}}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div v-if="selectedItem.supplier" class="mb-3 pb-3 border-bottom border-bottom">
-                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
-                    <div
-                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
-                    >
-                      <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Supplier Name</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.supplier.name}}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
                 <div class="mb-3 pb-3 border-bottom border-bottom">
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                     <div
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">Date Created</p>
+                        <p class="mb-1 text-muted text-small">{{$t('report.createdAt')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.createdAt | humanDate}}</p>
                       </div>
                     </div>
@@ -288,34 +293,33 @@
                   variant="outline-secondary"
                   @click="hideModal('modalright')"
                 >{{ $t('layouts.cancel') }}</b-button>
-                <b-button variant="primary" class="mr-1" @click="showReport()">View Report</b-button>
+                <b-button
+                  variant="primary"
+                  class="mr-1"
+                  @click="showReport()"
+                >{{ $t('button.view') }}</b-button>
               </template>
             </b-modal>
           </b-colxx>
         </b-row>
         <b-card style="margin-bottom:20px">
           <b-row>
-            <b-col style="margin-left: 8px;">
-              <b-form-group label="Shops">
+            <b-col style="margin-left: 8px;" v-if="shops.length>0">
+              <b-form-group :label="$t('report.shops')">
                 <v-select v-model="selectedShop" :options="shops" label="name">
                   <template slot="option" slot-scope="option">{{ option.name }}</template>
                 </v-select>
               </b-form-group>
             </b-col>
-            <b-col style="margin-left: 9px;">
-              <b-form-group label="Seller">
-                <v-select
-                  @input="clickSeller"
-                  v-model="selectedSeller"
-                  :options="sellers"
-                  label="fullName"
-                >
+            <b-col style="margin-left: 9px;" v-if="sellers.length>0">
+              <b-form-group :label="$t('report.seller')">
+                <v-select v-model="selectedSeller" :options="sellers" label="fullName">
                   <template slot="option" slot-scope="option">{{ option.fullName }}</template>
                 </v-select>
               </b-form-group>
             </b-col>
-            <b-col style="margin-left: 8px;">
-              <b-form-group label="Date">
+            <b-col cols="2" style="margin-left: 8px;">
+              <b-form-group :label="$t('report.date')">
                 <v-date-picker
                   @input="clickDate"
                   mode="range"
@@ -324,30 +328,40 @@
                 ></v-date-picker>
               </b-form-group>
             </b-col>
-            <b-col style="margin-left: 8px;">
-              <b-form-group label="Product">
-                <v-select v-model="selectedProduct" :options="items" label="name">
+            <b-col style="margin-left: 9px;" v-if="products.length>0">
+              <b-form-group :label="$t('report.product')">
+                <v-select v-model="selectedProduct" :options="products" label="name">
                   <template slot="option" slot-scope="option">{{ option.name }}</template>
                 </v-select>
               </b-form-group>
             </b-col>
             <b-col style="margin-left: 8px;">
-              <b-form-group label="Supplier">
-                <v-select v-model="selectedSupplier" :options="suppliers" label="name">
+              <b-form-group :label="$t('report.report-view')">
+                <v-select v-model="selectedView" :options="views" label="name">
                   <template slot="option" slot-scope="option">{{ option.name }}</template>
                 </v-select>
               </b-form-group>
             </b-col>
-            <b-button
-              style=" margin: 25px; padding: 10px;"
-              variant="secondary"
-              size="lg"
-              class="top-right-button"
-            >Filter</b-button>
-            <b-col style="margin-left: 8px;">
+            <b-col cols="1" style="margin-left: 8px;">
+              <b-form-group :label="$t('report.itemize')">
+                <b-form-checkbox v-model="itemize">{{$t('report.itemize-check')}}</b-form-checkbox>
+              </b-form-group>
+            </b-col>
+            <b-col cols="2" style="margin-left: 8px;">
+              <b-button
+                @click="clickClearFilter"
+                style=" margin: 25px; padding: 10px; "
+                variant="secondary"
+                class="top-right-button"
+                size="sm"
+              >{{$t('button.clear-filters')}}</b-button>
+            </b-col>
+            <b-col cols="2" style="margin-left: 8px;">
               <div>
-                <p class="text-left text-medium">Total Income:</p>
-                <h2 class="ml-1 text-left card-subtitle truncate">Tsh</h2>
+                <p class="text-left text-medium">{{$t('report.total-income')}}:</p>
+                <h2
+                  class="ml-1 text-left card-subtitle truncate"
+                >Tsh {{totalsales.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}} /=</h2>
               </div>
             </b-col>
           </b-row>
@@ -408,7 +422,7 @@ import vSelect from "vue-select";
 import DataListItem from "components/Listing/Report/DataListItem";
 import reportApi from "../../../api/report";
 import shopApi from "../../../api/shop";
-import supplierApi from "../../../api/supplier";
+import productApi from "../../../api/product";
 import userApi from "../../../api/user";
 import saleApi from "../../../api/sale";
 
@@ -440,23 +454,41 @@ export default {
       selectedItems: [],
       shops: [],
       selectedShop: null,
-
+      categories: [],
+      itemize: false,
+      selectedCategory: null,
+      newCategory: {},
+      packages: [],
+      selectedPackage: {},
       selectedItem: null,
       statuses: [
         { text: "ON HOLD", value: "ON HOLD" },
         { text: "PROCESSED", value: "PROCESSED" }
       ],
-
+      newItem: {
+        isCreditable: false
+      },
+      selectedPredefinedProduct: {},
+      preproducts: [],
+      products: [],
+      newPreProduct: {},
+      selectedPreCategory: null,
       sellers: [],
       selectedSeller: null,
       selectedProduct: null,
       income: [],
+      totalsales: 0,
       selectedValueRange: {
-        start: new Date(2018, 12, 9),
-        end: new Date(2018, 12, 18)
+        start: new Date(moment().startOf("year")),
+        end: new Date()
       },
-      selectedSupplier: null,
-      suppliers: [],
+      selectedView: { name: "Daily Sales", value: "daily" },
+      views: [
+        { name: "Weekly Sales", value: "weekly" },
+        { name: "Monthly Sales", value: "monthly" },
+        { name: "Quaterly Sales", value: "quaterly" },
+        { name: "Annually Sales", value: "annually" }
+      ],
       viewItem: null
     };
   },
@@ -466,25 +498,24 @@ export default {
       if (this.apiUrl !== undefined)
         reportApi.list(this.apiUrl).then(res => {
           this.total = res.data.total;
+          this.totalsales = res.data.totalSales;
           this.lastPage = Math.ceil(
             this.total / this.perPage < 1 ? 1 : this.total / this.perPage
           );
-          this.items = res.data.products;
+          this.items = res.data.data;
           this.selectedItems = [];
           shopApi
             .list(`?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100`)
             .then(results => {
               this.shops = results.data.shops;
             });
-          supplierApi
+          productApi
             .list(`?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100`)
             .then(results => {
-              this.suppliers = results.data.suppliers;
+              this.products = results.data.products;
             });
           userApi
-            .list(
-              `?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100&role=SELLER`
-            )
+            .list(`?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100`)
             .then(results => {
               this.sellers = results.data.users;
             });
@@ -498,6 +529,12 @@ export default {
     },
     clickDate() {
       console.log(this.selectedValueRange);
+    },
+    clickProduct() {
+      console.log(this.selectedProduct);
+    },
+    clickView() {
+      console.log(this.selectedView);
     },
 
     showReport() {
@@ -518,7 +555,76 @@ export default {
     changeOrderBy(sort) {
       this.sort = sort;
     },
-
+    addNewCategory() {
+      this.processing = true;
+      productApi
+        .createCategory(this.newCategory)
+        .then(res => {
+          this.processing = false;
+          this.loadItems();
+          this.$modal.hide("modalAddCategory");
+          this.categories.push(res.data);
+          this.$notify(
+            "success",
+            "Success",
+            `${res.data.name} created successfully`,
+            { duration: 3000, permanent: false }
+          );
+          this.$modal.show("modalAddPredefinedProduct");
+        })
+        .catch(error => {
+          console.log(error);
+          this.processing = false;
+          this.$modal.hide("modalAddCategory");
+          this.$notify("error", "Error!", `Error occurred`, {
+            duration: 3000,
+            permanent: false
+          });
+          this.$modal.show("modalAddPredefinedProduct");
+        });
+    },
+    onSelectedProduct(selectedPredefinedProduct) {
+      this.$set(this.newItem.name, this.selectedPredefinedProduct.name);
+      this.$set(
+        this.newItem.description,
+        this.selectedPredefinedProduct.description
+      );
+    },
+    addNewPreProduct() {
+      this.processing = true;
+      this.newPreProduct.category = this.selectedPreCategory.id;
+      preproductApi
+        .create(this.newPreProduct)
+        .then(res => {
+          this.processing = false;
+          this.loadItems();
+          this.$modal.hide("modalAddPredefinedProduct");
+          this.categories.push(res.data);
+          this.$notify(
+            "success",
+            "Success",
+            `${res.data.name} created successfully`,
+            { duration: 3000, permanent: false }
+          );
+        })
+        .catch(error => {
+          console.log(error);
+          this.processing = false;
+          this.$modal.hide("modalAddPredefinedProduct");
+          this.$notify("error", "Error!", `Error occurred`, {
+            duration: 3000,
+            permanent: false
+          });
+        });
+    },
+    addNewItem() {
+      let data = Object.assign({}, this.newItem);
+      data.name = this.selectedPredefinedProduct.name;
+      data.description = this.selectedPredefinedProduct.description;
+      data.shop = this.selectedShop.id;
+      data.category = this.selectedCategory.id;
+      data.predefinedProduct = this.selectedPredefinedProduct.id;
+    },
     selectAll(isToggle) {
       if (this.selectedItems.length >= this.items.length) {
         if (isToggle) this.selectedItems = [];
@@ -568,6 +674,15 @@ export default {
         } else this.selectedItems.push(itemId);
       }
     },
+    clickClearFilter() {
+      this.selectedShop = null;
+      this.selectedSeller = null;
+      this.selectedProduct = null;
+      selectedValueRange = {
+        start: new Date(moment().startOf("year")),
+        end: new Date()
+      };
+    },
     clickItem(event, item) {
       this.selectedItem = item;
       this.$refs.modalright.show();
@@ -612,7 +727,26 @@ export default {
     apiUrl() {
       let skip = this.page === 1 ? 0 : (this.page - 1) * this.perPage;
       if (this.perPage !== undefined)
-        return `?sortBy='${this.sort.column}'&sortOrder=DESC&skip=${skip}&limit=${this.perPage}`;
+        return `?sortBy='${
+          this.sort.column
+        }'&sortOrder=DESC&skip=${skip}&limit=${this.perPage}${
+          this.search !== "" ? "&contains=" + this.search : ""
+        }&view=${this.selectedView.value}${
+          this.selectedShop !== null ? "&shop=" + this.selectedShop.id : ""
+        }${
+          this.selectedSeller !== null ? "&user=" + this.selectedSeller.id : ""
+        }${
+          this.selectedProduct !== null
+            ? "&product=" + this.selectedProduct.id
+            : ""
+        }${
+          this.selectedValueRange !== null
+            ? "&fromDate=" +
+              this.selectedValueRange.start +
+              "&toDate=" +
+              this.selectedValueRange.end
+            : ""
+        }${this.itemize ? "&itemize=" + true : ""}`;
     }
   },
   watch: {

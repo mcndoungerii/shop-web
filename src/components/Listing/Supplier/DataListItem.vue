@@ -3,24 +3,24 @@
     <div>
       <b-row align-v="center">
         <b-col>
-          <p class="mb-1 text-muted text-small">Supplier ID</p>
+          <p class="mb-1 text-muted text-small">{{$t("supplier.id")}}</p>
           <p class="mb-1">{{data.id }}</p>
         </b-col>
         <b-col>
-          <p class="mb-1 text-muted text-small">Supplier Name</p>
+          <p class="mb-1 text-muted text-small">{{$t("supplier.name")}}</p>
           <p class="mb-1">{{data.name }}</p>
         </b-col>
 
         <b-col>
-          <p class="mb-1 text-muted text-small">Address</p>
+          <p class="mb-1 text-muted text-small">{{$t("supplier.address")}}</p>
           <p class="mb-1">{{data.address }}</p>
         </b-col>
         <!-- <b-col>
-          <p class="mb-1 text-muted text-small">Branch</p>
-          <p class="mb-1">{{data.branch.name}}</p>
+          <p class="mb-1 text-muted text-small">Shop</p>
+          <p class="mb-1">{{data.shop.name}}</p>
         </b-col>-->
         <b-col col lg="2">
-          <p class="mb-1 text-muted text-small">Registration Date</p>
+          <p class="mb-1 text-muted text-small">{{$t("supplier.registration-date")}}</p>
           <p class="mb-1">{{data.createdAt | humanDate}}</p>
         </b-col>
       </b-row>
