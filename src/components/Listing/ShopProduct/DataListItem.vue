@@ -7,32 +7,17 @@
       >
         <div>
           <p class="mb-1 text-muted text-small">{{ $t("product.name") }}</p>
-          <p class="list-item-heading mb-1 truncate">{{data.name}}</p>
+          <p class="list-item-heading mb-1 truncate">{{data.product.name}}</p>
         </div>
-        <div class="w-200">
-          <p class="mb-1 text-muted text-small">{{ $t("product.description") }}</p>
-          <p class="mb-1">{{data.description }}</p>
-        </div>
-        <!-- <div class="w-200">
+        <div>
           <p class="mb-1 text-muted text-small">{{ $t("product.quantity") }}</p>
-          <b-badge pill :variant="data.quantity < 1 ?'danger':'success'">{{ data.quantity}}</b-badge>
-        </div>-->
-        <!-- <div class="w-200">
-          <p class="mb-1 text-muted text-small">{{ $t("product.shop-name") }}</p>
-          <p class="mb-1">{{data.shop.name }}</p>
-        </div>-->
-        <!-- <div class="w-200">
-          <p class="mb-1 text-muted text-small">{{ $t("product.price") }}</p>
-          <p class="mb-1">Tshs {{data.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }} /=</p>
-        </div>-->
-        <!-- <div  class="w-400">
-                    <p class="mb-1 text-muted text-small">Packages</p>
-                    <b-badge  class="mb-1" pill variant="secondary">{{data.quantity}} {{data.unit}} for Tsh {{data.sellPrice}}</b-badge>
-        </div>-->
-        <div class="w-200">
-          <p class="mb-1 text-muted text-small">{{ $t("product.category") }}</p>
-          <p class="mb-1">{{data.category.name }}</p>
+          <p class="list-item-heading mb-1 truncate">{{data.quantity}}</p>
         </div>
+        <div>
+          <p class="mb-1 text-muted text-small">{{ $t("product.shop-name") }}</p>
+          <p class="list-item-heading mb-1 truncate">{{data.shop.name}}</p>
+        </div>
+
         <div class="w-200">
           <p class="mb-1 text-muted text-small">{{ $t("product.createdAt") }}</p>
           <p class="mb-1">{{data.createdAt | humanDate}}</p>

@@ -43,7 +43,7 @@
                       <v-select
                         :scrollable="true"
                         label="name"
-                        v-model="newItem.category"
+                        v-model="newItem.product"
                         :options="products"
                       >
                         <template slot="option" slot-scope="option">{{ option.name }}</template>
@@ -83,93 +83,6 @@
                 </div>
               </modal>
               <!-- End of Add Product Modal -->
-              <!-- Add Category Modal -->
-              <modal height="auto" :adaptive="true" name="modalAddCategory">
-                <div style="padding:30px">
-                  <div>
-                    <b-row>
-                      <b-colxx cols="8">
-                        <h1>{{$t('category.title')}}</h1>
-                      </b-colxx>
-                      <b-colxx cols="4" class="text-right">
-                        <a href="#" @click="$modal.hide('modalAddCategory')">
-                          <h1>
-                            <i class="simple-icon-close"></i>
-                          </h1>
-                        </a>
-                      </b-colxx>
-                    </b-row>
-                  </div>
-                  <b-form-group :label="$t('category.name')">
-                    <b-form-input v-model="newCategory.name" />
-                  </b-form-group>
-                  <b-form-group>
-                    <div class="float-sm-right">
-                      <b-button
-                        @click="closeModalCategory"
-                        variant="light"
-                        size="lg"
-                      >{{$t('layouts.cancel')}}</b-button>
-                      <b-button
-                        @click="addNewCategory"
-                        variant="primary"
-                        :disabled="processing"
-                        size="lg"
-                      >
-                        <i v-if="processing" class="loader"></i>
-                        <span v-if="!processing">{{$t('button.add')}}</span>
-                      </b-button>
-                    </div>
-                  </b-form-group>
-                </div>
-              </modal>
-              <!-- End of Add Category Modal -->
-
-              <!-- Add Predefined Product Modal -->
-              <modal height="auto" :adaptive="true" name="modalAddToShop">
-                <div style="padding:30px; margin-bottom: 15px; z-index:9999">
-                  <div>
-                    <b-row>
-                      <b-colxx cols="8">
-                        <h1>{{$t('product.add-to-shop')}}</h1>
-                      </b-colxx>
-                      <b-colxx cols="4" class="text-right">
-                        <a href="#" @click="$modal.hide('modalAddToShop')">
-                          <h1>
-                            <i class="simple-icon-close"></i>
-                          </h1>
-                        </a>
-                      </b-colxx>
-                    </b-row>
-                  </div>
-
-                  <b-form-group :label="$t('product.shop-name')">
-                    <v-select label="name" v-model="selectedShop" :options="shops">
-                      <template slot="option" slot-scope="option">{{ option.name }}</template>
-                    </v-select>
-                  </b-form-group>
-
-                  <b-form-group>
-                    <div class="float-sm-right" style="margin-bottom: 15px;">
-                      <b-button
-                        @click="$modal.hide('modalAddToShop')"
-                        variant="light"
-                        size="lg"
-                      >{{$t('layouts.cancel')}}</b-button>
-                      <b-button
-                        @click="addToShopMethod"
-                        variant="primary"
-                        :disabled="processing"
-                        size="lg"
-                      >
-                        <i v-if="processing" class="loader"></i>
-                        <span v-if="!processing">{{$t('button.add')}}</span>
-                      </b-button>
-                    </div>
-                  </b-form-group>
-                </div>
-              </modal>
-              <!-- End of Add Predefined Product Modal -->
             </div>
             <div class="mb-2 mt-2">
               <b-button
@@ -235,146 +148,6 @@
               class="modal-right"
             >
               <div v-if="selectedItem">
-                <div class="mb-3 pb-3 border-bottom border-bottom">
-                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
-                    <div
-                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
-                    >
-                      <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">{{$t('product.name')}}</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.name}}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="mb-3 pb-3 border-bottom border-bottom">
-                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
-                    <div
-                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
-                    >
-                      <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">{{$t('product.description')}}</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.description}}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="mb-3 pb-3 border-bottom border-bottom">
-                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
-                    <div
-                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
-                    >
-                      <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">{{$t('product.quantity')}}</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.unit}}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- <div class="mb-3 pb-3 border-bottom border-bottom">
-                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
-                    <div
-                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
-                    >
-                      <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">{{$t('product.price')}}</p>
-                        <p
-                          class="list-item-heading mb-1"
-                        >Tsh {{selectedItem.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}} /=</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="mb-3 pb-3 border-bottom border-bottom">
-                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
-                    <div
-                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
-                    >
-                      <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">{{$t('product.sellPrice')}}</p>
-                        <p
-                          class="list-item-heading mb-1"
-                        >Tsh {{selectedItem.sellPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}} /=</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>-->
-                <!-- <div class="mb-3 pb-3 border-bottom border-bottom">
-                  <p class="mb-1 text-muted text-small">Packages</p>
-                  <b-card class="mb-4 d-flex flex-row" no-body>
-                    <div class="d-flex flex-grow-1 min-width-zero">
-                      <div
-                        class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
-                      >
-                        <div class="min-width-zero">
-                          <p class="text-muted text-small mb-2">Package</p>
-                          <h6
-                            class="mb-1 card-subtitle truncate"
-                          >{{selectedItem.quantity}} {{selectedItem.unit}}</h6>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="d-flex flex-grow-1 min-width-zero">
-                      <div
-                        class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
-                      >
-                        <div class="min-width-zero">
-                          <p class="text-muted text-small mb-2">Sell Price</p>
-                          <h6 class="mb-1 card-subtitle truncate">Tsh {{selectedItem.sellPrice}}</h6>
-                        </div>
-                      </div>
-                    </div>
-                  </b-card>
-                </div>-->
-
-                <div v-if="selectedItem.serial" class="mb-3 pb-3 border-bottom border-bottom">
-                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
-                    <div
-                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
-                    >
-                      <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">{{$t('product.serial')}}</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.serial}}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div v-if="selectedItem.category" class="mb-3 pb-3 border-bottom border-bottom">
-                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
-                    <div
-                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
-                    >
-                      <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">{{$t('product.category')}}</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.category.name}}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- <div v-if="selectedItem.shop" class="mb-3 pb-3 border-bottom border-bottom">
-                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
-                    <div
-                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
-                    >
-                      <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">{{$t('product.shop-name')}}</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.shop.name}}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>-->
-                <!-- <div v-if="selectedItem.supplier" class="mb-3 pb-3 border-bottom border-bottom">
-                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
-                    <div
-                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
-                    >
-                      <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">{{$t('product.supplier')}}</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.supplier.name}}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>-->
                 <div
                   v-if="selectedItem.taxPercentage"
                   class="mb-3 pb-3 border-bottom border-bottom"
@@ -515,9 +288,7 @@ export default {
         { text: "ON HOLD", value: "ON HOLD" },
         { text: "PROCESSED", value: "PROCESSED" }
       ],
-      newItem: {
-        isCreditable: false
-      },
+      newItem: {},
       selectedSupplier: null,
       suppliers: [],
       selectedPredefinedProduct: null,
@@ -547,9 +318,7 @@ export default {
         });
     },
     callAddModal() {
-      this.newItem = {
-        isCreditable: false
-      };
+      this.newItem = {};
       this.$modal.show("modalAddProduct");
     },
     showPredefinedProductModal() {
@@ -590,13 +359,7 @@ export default {
           });
         });
     },
-    showEditProductModal() {
-      this.newItem = this.selectedItem;
-      this.selectedCategory = this.selectedItem.category;
 
-      this.$modal.show("modalAddProduct");
-      this.$refs.modalright.hide();
-    },
     hideModal(refname) {
       this.$refs[refname].hide();
     },
@@ -609,59 +372,25 @@ export default {
     changeOrderBy(sort) {
       this.sort = sort;
     },
-    addNewCategory() {
-      this.processing = true;
-      productApi
-        .createCategory(this.newCategory)
-        .then(res => {
-          this.processing = false;
-          this.loadItems();
-          this.$modal.hide("modalAddCategory");
-          // this.categories.push(res.data);
-          this.$notify(
-            "success",
-            "Success",
-            `${res.data.name} created successfully`,
-            { duration: 3000, permanent: false }
-          );
-          this.$modal.show("modalAddToShop");
-        })
-        .catch(error => {
-          console.log(error);
-          this.processing = false;
-          this.$modal.hide("modalAddCategory");
-          this.$notify("error", "Error!", `Error occurred`, {
-            duration: 3000,
-            permanent: false
-          });
-          this.$modal.show("modalAddToShop");
-        });
-    },
-    onSelectedProduct(selectedPredefinedProduct) {
-      this.$set(this.newItem.name, this.selectedPredefinedProduct.name);
-      this.$set(
-        this.newItem.description,
-        this.selectedPredefinedProduct.description
-      );
-    },
+
     addToShopMethod() {
       this.processing = true;
 
       productApi
         .addToShop({
-          productId: this.newItem.id,
+          productId: this.newItem.product.id,
           shopId: this.currentShopId
         })
         .then(res => {
           console.log(res.data);
           this.processing = false;
           this.loadItems();
-          this.$modal.hide("modalAddToShop");
+          this.$modal.hide("modalAddProduct");
           // this.preproducts.push(res.data);
           this.$notify(
             "success",
             "Success",
-            `${res.data.name} created successfully`,
+            `${res.data.product.name} created successfully`,
             { duration: 3000, permanent: false }
           );
         })
@@ -675,75 +404,7 @@ export default {
           });
         });
     },
-    addNewItem() {
-      let data = Object.assign({}, this.newItem);
-      data.shop = this.newItem.shop.id;
-      data.supplier = this.newItem.supplier.id;
 
-      this.processing = true;
-      if (data.hasOwnProperty("id")) {
-        data.predefinedProduct = data.predefinedProduct.id;
-        data.category = data.category.id;
-        data.user = data.user.id;
-        productApi
-          .update(data)
-          .then(res => {
-            console.log(res);
-            this.processing = false;
-            this.loadItems();
-            data = {
-              isCreditable: false
-            };
-            this.$modal.hide("modalAddProduct");
-            this.$notify(
-              "success",
-              "Updated Successfully",
-              `${res.data[0].name} updated successfully`,
-              { duration: 3000, permanent: false }
-            );
-          })
-          .catch(error => {
-            console.log(error);
-            this.processing = false;
-            this.$modal.hide("modalAddProduct");
-            this.$notify("error", "Error!", `Error occurred`, {
-              duration: 3000,
-              permanent: false
-            });
-          });
-      } else {
-        data.name = this.newItem.name.name;
-        data.description = this.newItem.name.description;
-
-        data.category = this.newItem.name.category.id;
-        data.predefinedProduct = this.newItem.name.id;
-
-        productApi
-          .create(data)
-          .then(res => {
-            console.log(res);
-            this.processing = false;
-            this.loadItems();
-            this.newItem = { isCreditable: false };
-            this.$modal.hide("modalAddProduct");
-            this.$notify(
-              "success",
-              "Created Successfully",
-              `${res.data.name} created successfully`,
-              { duration: 3000, permanent: false }
-            );
-          })
-          .catch(error => {
-            console.log(error);
-            this.processing = false;
-            this.$modal.hide("modalAddProduct");
-            this.$notify("error", "Error!", `Error occurred`, {
-              duration: 3000,
-              permanent: false
-            });
-          });
-      }
-    },
     selectAll(isToggle) {
       if (this.selectedItems.length >= this.items.length) {
         if (isToggle) this.selectedItems = [];
