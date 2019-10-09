@@ -12,7 +12,7 @@ export default {
         const token = localStorage.getItem('token')
         Object.assign(instance.defaults, {headers: {Authorization: token}})
         return new Promise(function (resolve, reject) {
-            return instance.get('/reports/'+url)
+            return instance.get('/report'+url)
                 .then((response) => {
                     resolve(response)
                 }).catch((error) => {

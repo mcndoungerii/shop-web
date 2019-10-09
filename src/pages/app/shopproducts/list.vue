@@ -325,6 +325,7 @@
 </template>
 <script>
 import { DataListIcon, ThumbListIcon, ImageListIcon } from "components/Svg";
+import { mapGetters, mapMutations } from "vuex";
 import vSelect from "vue-select";
 import DataListItem from "components/Listing/ShopProduct/DataListItem";
 import shopProductApi from "../../../api/shopproduct";
@@ -564,6 +565,10 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      currentUser: "currentUser",
+      currentShop: "currentShop"
+    }),
     isSelectedAll() {
       return this.selectedItems.length >= this.items.length;
     },
@@ -592,10 +597,10 @@ export default {
     }
   },
   mounted() {
-    if (this.$route.params.id) {
-      this.currentShopId = this.$route.params.id;
-      this.loadItems(this.$route.params.id);
+    if (this.currentShop.id) {
+      this.currentShopId = this.currentShop.id;
     }
+    this.loadItems(this.currentShop.id);
   },
   filters: {
     humanDate(val) {

@@ -304,14 +304,14 @@
         </b-row>
         <b-card style="margin-bottom:20px">
           <b-row>
-            <b-col style="margin-left: 8px;" v-if="shops.length>0">
+            <b-col style="margin-left: 8px;" v-if="shops.length>=0">
               <b-form-group :label="$t('report.shops')">
                 <v-select v-model="selectedShop" :options="shops" label="name">
                   <template slot="option" slot-scope="option">{{ option.name }}</template>
                 </v-select>
               </b-form-group>
             </b-col>
-            <b-col style="margin-left: 9px;" v-if="sellers.length>0">
+            <b-col style="margin-left: 9px;" v-if="sellers.length>=0">
               <b-form-group :label="$t('report.seller')">
                 <v-select v-model="selectedSeller" :options="sellers" label="fullName">
                   <template slot="option" slot-scope="option">{{ option.fullName }}</template>
@@ -328,7 +328,7 @@
                 ></v-date-picker>
               </b-form-group>
             </b-col>
-            <b-col style="margin-left: 9px;" v-if="products.length>0">
+            <b-col style="margin-left: 9px;" v-if="products.length>=0">
               <b-form-group :label="$t('report.product')">
                 <v-select v-model="selectedProduct" :options="products" label="name">
                   <template slot="option" slot-scope="option">{{ option.name }}</template>
@@ -515,7 +515,9 @@ export default {
               this.products = results.data.products;
             });
           userApi
-            .list(`?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100`)
+            .list(
+              `?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100&role=SELLER`
+            )
             .then(results => {
               this.sellers = results.data.users;
             });

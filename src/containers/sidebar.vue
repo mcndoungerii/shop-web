@@ -51,7 +51,7 @@
           <router-link
             v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'"
             tag="li"
-            :to="`/app/shopProducts/${shop}`"
+            to="/app/shopProducts"
           >
             <a>
               <i class="simple-icon-basket"></i>
@@ -319,7 +319,7 @@ export default {
       selectedParentMenu: "",
       isMenuOver: false,
       user: "",
-      shop: null
+      shop: ""
     };
   },
   mounted() {

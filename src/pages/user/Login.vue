@@ -4,16 +4,16 @@
       <b-card class="auth-card" no-body>
         <div class="form-center">
           <router-link tag="a" to="/">
-            <span class="logo-single"/>
+            <span class="logo-single" />
           </router-link>
           <h6 class="mb-4">{{ $t('user.login-title')}}</h6>
           <b-form @submit.prevent="formSubmit">
             <label class="form-group has-float-label mb-4">
-              <input type="phone" class="form-control" v-model="phone">
+              <input type="phone" class="form-control" v-model="phone" />
               <span>{{ $t('user.phone') }}</span>
             </label>
             <label class="form-group has-float-label mb-4">
-              <input type="password" class="form-control" v-model="password">
+              <input type="password" class="form-control" v-model="password" />
               <span>{{ $t('user.password') }}</span>
             </label>
             <div class="d-flex justify-content-between align-items-center">
@@ -58,6 +58,7 @@ export default {
   computed: {
     ...mapGetters(["currentUser", "processing", "loginError"])
   },
+
   methods: {
     ...mapActions(["login"]),
     formSubmit() {
