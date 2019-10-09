@@ -54,34 +54,7 @@
                     <b-form-group :label="$t('product.unit')">
                       <b-form-input v-model="newItem.unit" />
                     </b-form-group>
-                    <!-- <b-form-group label="Quantity (eg. 50)">
-                      <b-form-input v-model="newItem.quantity" />
-                    </b-form-group>-->
 
-                    <!-- <b-card class="mb-4 d-flex flex-row" no-body>
-                      <div class="d-flex flex-grow-1 min-width-zero">
-                        <div
-                          class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
-                        >
-                          <div class="min-width-zero">
-                            <p class="text-muted text-small mb-2">Package</p>
-                            <h6
-                              class="mb-1 card-subtitle truncate"
-                            >{{newItem.quantity}} {{newItem.unit}}</h6>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="d-flex flex-grow-1 min-width-zero">
-                        <div
-                          class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
-                        >
-                          <div class="min-width-zero">
-                            <p class="text-muted text-small mb-2">Sell price</p>
-                            <h6 class="mb-1 card-subtitle truncate">{{newItem.sellPrice}}</h6>
-                          </div>
-                        </div>
-                      </div>
-                    </b-card>-->
                     <b-form-group>
                       <b-form-checkbox
                         v-model="newItem.isTax"
@@ -112,16 +85,6 @@
                     </b-form-group>
                   </b-form>
 
-                  <b-row v-if="newItem.id">
-                    <b-col>
-                      <b-button
-                        @click="$modal.show('modalAddToShop')"
-                        class="mb-5"
-                        block
-                        variant="primary"
-                      >Add To Shop</b-button>
-                    </b-col>
-                  </b-row>
                   <b-form-group>
                     <div class="float-sm-right">
                       <b-button
@@ -195,52 +158,6 @@
                 </div>
               </modal>
               <!-- End of Add Category Modal -->
-
-              <!-- Add Predefined Product Modal -->
-              <modal height="auto" :adaptive="true" name="modalAddToShop">
-                <div style="padding:30px; margin-bottom: 15px; z-index:9999">
-                  <div>
-                    <b-row>
-                      <b-colxx cols="8">
-                        <h1>{{$t('product.add-to-shop')}}</h1>
-                      </b-colxx>
-                      <b-colxx cols="4" class="text-right">
-                        <a href="#" @click="$modal.hide('modalAddToShop')">
-                          <h1>
-                            <i class="simple-icon-close"></i>
-                          </h1>
-                        </a>
-                      </b-colxx>
-                    </b-row>
-                  </div>
-
-                  <b-form-group :label="$t('product.shop-name')">
-                    <v-select label="name" v-model="selectedShop" :options="shops">
-                      <template slot="option" slot-scope="option">{{ option.name }}</template>
-                    </v-select>
-                  </b-form-group>
-
-                  <b-form-group>
-                    <div class="float-sm-right" style="margin-bottom: 15px;">
-                      <b-button
-                        @click="$modal.hide('modalAddToShop')"
-                        variant="light"
-                        size="lg"
-                      >{{$t('layouts.cancel')}}</b-button>
-                      <b-button
-                        @click="addToShopMethod"
-                        variant="primary"
-                        :disabled="processing"
-                        size="lg"
-                      >
-                        <i v-if="processing" class="loader"></i>
-                        <span v-if="!processing">{{$t('button.add')}}</span>
-                      </b-button>
-                    </div>
-                  </b-form-group>
-                </div>
-              </modal>
-              <!-- End of Add Predefined Product Modal -->
             </div>
             <div class="mb-2 mt-2">
               <b-button
@@ -584,9 +501,7 @@ export default {
         { text: "ON HOLD", value: "ON HOLD" },
         { text: "PROCESSED", value: "PROCESSED" }
       ],
-      newItem: {
-        isCreditable: false
-      },
+      newItem: {},
       selectedSupplier: null,
       suppliers: [],
       selectedPredefinedProduct: null,
@@ -756,14 +671,9 @@ export default {
     },
     addNewItem() {
       let data = Object.assign({}, this.newItem);
-      data.shop = this.newItem.shop.id;
-      data.supplier = this.newItem.supplier.id;
-
+      data.category = data.category.id;
       this.processing = true;
       if (data.hasOwnProperty("id")) {
-        data.predefinedProduct = data.predefinedProduct.id;
-        data.category = data.category.id;
-        data.user = data.user.id;
         productApi
           .update(data)
           .then(res => {
@@ -791,19 +701,12 @@ export default {
             });
           });
       } else {
-        data.name = this.newItem.name.name;
-        data.description = this.newItem.name.description;
-
-        data.category = this.newItem.name.category.id;
-        data.predefinedProduct = this.newItem.name.id;
-
         productApi
           .create(data)
           .then(res => {
             console.log(res);
             this.processing = false;
             this.loadItems();
-            this.newItem = { isCreditable: false };
             this.$modal.hide("modalAddProduct");
             this.$notify(
               "success",
