@@ -34,7 +34,7 @@ import Stocks from "pages/app/stocks/list"
 import Suppliers from "pages/app/suppliers/list"
 import Reports from "pages/app/reports/list"
 import Orders from "pages/app/orders/list"
-
+import ShopProducts from "pages/app/shopproducts/list"
 
 
 
@@ -139,6 +139,14 @@ const routes = [{
       {
         path: "orders",
         component: Orders,
+      },
+      {
+        path: "shopProducts",
+        component: ShopProducts,
+      },
+      {
+        path: "shopProducts/:id",
+        component: ShopProducts,
       },
 
 

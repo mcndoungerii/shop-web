@@ -51,6 +51,16 @@
           <router-link
             v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'"
             tag="li"
+            :to="`/app/shopProducts/${shop}`"
+          >
+            <a>
+              <i class="simple-icon-basket"></i>
+              {{ $t("menu.shopProducts") }}
+            </a>
+          </router-link>
+          <router-link
+            v-if="user.role ==='ADMIN' || user.role === 'CUSTOMER'"
+            tag="li"
             to="/app/products"
           >
             <a>
@@ -308,13 +318,14 @@ export default {
     return {
       selectedParentMenu: "",
       isMenuOver: false,
-      user: ""
+      user: "",
+      shop: null
     };
   },
   mounted() {
     this.selectMenu();
     this.user = this.currentUser.user;
-
+    this.shop = this.currentShop.id;
     window.addEventListener("resize", this.handleWindowResize);
     document.addEventListener("click", this.returnSelectedMenu);
     this.handleWindowResize();
@@ -462,7 +473,8 @@ export default {
     ...mapGetters({
       menuType: "getMenuType",
       menuClickCount: "getMenuClickCount",
-      currentUser: "currentUser"
+      currentUser: "currentUser",
+      currentShop: "currentShop"
     })
   },
   watch: {
