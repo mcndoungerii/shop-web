@@ -6,6 +6,10 @@
         class="card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
       >
         <div>
+          <p class="mb-1 text-muted text-small">{{ $t("product.id") }}</p>
+          <p class="list-item-heading mb-1 truncate">{{data.id}}</p>
+        </div>
+        <div>
           <p class="mb-1 text-muted text-small">{{ $t("product.name") }}</p>
           <p class="list-item-heading mb-1 truncate">{{data.product.name}}</p>
         </div>

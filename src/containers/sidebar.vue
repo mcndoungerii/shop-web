@@ -325,7 +325,11 @@ export default {
   mounted() {
     this.selectMenu();
     this.user = this.currentUser.user;
-    this.shop = this.currentShop.id;
+    this.shop =
+      this.currentShop.id == null || this.currentShop.id == undefined
+        ? this.currentShop.id
+        : this.currentShop.id;
+
     window.addEventListener("resize", this.handleWindowResize);
     document.addEventListener("click", this.returnSelectedMenu);
     this.handleWindowResize();

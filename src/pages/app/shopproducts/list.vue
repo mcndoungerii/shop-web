@@ -148,8 +148,32 @@
               class="modal-right"
             >
               <div v-if="selectedItem">
+                <div v-if="selectedItem.id" class="mb-3 pb-3 border-bottom border-bottom">
+                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
+                    <div
+                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
+                    >
+                      <div class="w-40 w-sm-100">
+                        <p class="mb-1 text-muted text-small">{{$t('product.id')}}</p>
+                        <p class="list-item-heading mb-1">{{selectedItem.id}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div v-if="selectedItem.product" class="mb-3 pb-3 border-bottom border-bottom">
+                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
+                    <div
+                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
+                    >
+                      <div class="w-40 w-sm-100">
+                        <p class="mb-1 text-muted text-small">{{$t('product.name')}}</p>
+                        <p class="list-item-heading mb-1">{{selectedItem.product.name}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div
-                  v-if="selectedItem.taxPercentage"
+                  v-if="selectedItem.quantity >= 0"
                   class="mb-3 pb-3 border-bottom border-bottom"
                 >
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
@@ -157,8 +181,67 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">{{$t('product.taxPercentage')}}</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.taxPercentage}} %</p>
+                        <p class="mb-1 text-muted text-small">{{$t('product.quantity')}}</p>
+                        <p class="list-item-heading mb-1">{{selectedItem.quantity}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div v-if="selectedItem.shop" class="mb-3 pb-3 border-bottom border-bottom">
+                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
+                    <div
+                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
+                    >
+                      <div class="w-40 w-sm-100">
+                        <p class="mb-1 text-muted text-small">{{$t('product.shop-name')}}</p>
+                        <p class="list-item-heading mb-1">{{selectedItem.shop.name}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  v-if="selectedItem.stockLevels.length = 0"
+                  class="mb-3 pb-3 border-bottom border-bottom"
+                >
+                  <p class="mb-1 text-muted text-small">{{$t('product.stock-levels')}}</p>
+                  <b-card
+                    v-for="(sl,index) in selectedItem.stockLevels"
+                    :key="index"
+                    class="mb-4 d-flex flex-row"
+                    no-body
+                  >
+                    <div class="d-flex flex-grow-1 min-width-zero">
+                      <div
+                        class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
+                      >
+                        <div class="min-width-zero">
+                          <p class="text-muted text-small mb-2">{{$t('product.stock-level')}}</p>
+                          <h6 class="mb-1 card-subtitle truncate">{{sl.stockLevel}}</h6>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-grow-1 max-width-zero">
+                      <div
+                        class="p-3 align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero"
+                      >
+                        <div class="min-width-zero">
+                          <p class="text-muted text-small mb-2">{{$t('product.sellingPrice')}}</p>
+                          <h6
+                            class="mb-1 card-subtitle truncate"
+                          >{{sl.sellingPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</h6>
+                        </div>
+                      </div>
+                    </div>
+                  </b-card>
+                </div>
+                <div v-if="selectedItem.supplier" class="mb-3 pb-3 border-bottom border-bottom">
+                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
+                    <div
+                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
+                    >
+                      <div class="w-40 w-sm-100">
+                        <p class="mb-1 text-muted text-small">{{$t('product.supplier')}}</p>
+                        <p class="list-item-heading mb-1">{{selectedItem.supplier.name}}</p>
                       </div>
                     </div>
                   </div>
@@ -182,10 +265,10 @@
                   @click="hideModal('modalright')"
                 >{{ $t('layouts.cancel') }}</b-button>
                 <b-button
-                  variant="primary"
+                  variant="danger"
                   class="mr-1"
-                  @click="showEditProductModal()"
-                >{{$t('button.edit')}}</b-button>
+                  @click="removeFromShop()"
+                >{{$t('button.delete')}}</b-button>
               </template>
             </b-modal>
           </b-colxx>
@@ -333,16 +416,57 @@ export default {
       this.$modal.show("modalAddToShop");
     },
 
-    deleteProduct() {
+    hideModal(refname) {
+      this.$refs[refname].hide();
+    },
+    changeDisplayMode(displayType) {
+      this.displayMode = displayType;
+    },
+    changePageSize(perPage) {
+      this.perPage = perPage;
+    },
+    changeOrderBy(sort) {
+      this.sort = sort;
+    },
+
+    addToShopMethod() {
       this.processing = true;
-      let items = [];
-      items.push(this.newItem.id);
-      productApi
-        .delete({ items: items })
+      shopProductApi
+        .addToShop({
+          productId: this.newItem.product.id,
+          shopId: this.currentShopId
+        })
         .then(res => {
           this.processing = false;
           this.loadItems();
           this.$modal.hide("modalAddProduct");
+          // this.preproducts.push(res.data);
+          this.$notify("success", "Success", `Product added successfully`, {
+            duration: 3000,
+            permanent: false
+          });
+        })
+        .catch(error => {
+          console.log(error);
+          this.processing = false;
+          this.$modal.hide("modalAddToShop");
+          this.$notify("error", "Error!", `Error occurred`, {
+            duration: 3000,
+            permanent: false
+          });
+        });
+    },
+
+    removeFromShop() {
+      this.processing = true;
+      let items = [];
+      items.push(this.selectedItem.id);
+      shopProductApi
+        .deleteFromShop({ items: items })
+        .then(res => {
+          this.processing = false;
+          this.loadItems();
+          this.$refs.modalright.hide();
           this.$notify(
             "success",
             "Deleted Successfully",
@@ -359,52 +483,6 @@ export default {
           });
         });
     },
-
-    hideModal(refname) {
-      this.$refs[refname].hide();
-    },
-    changeDisplayMode(displayType) {
-      this.displayMode = displayType;
-    },
-    changePageSize(perPage) {
-      this.perPage = perPage;
-    },
-    changeOrderBy(sort) {
-      this.sort = sort;
-    },
-
-    addToShopMethod() {
-      this.processing = true;
-
-      productApi
-        .addToShop({
-          productId: this.newItem.product.id,
-          shopId: this.currentShopId
-        })
-        .then(res => {
-          console.log(res.data);
-          this.processing = false;
-          this.loadItems();
-          this.$modal.hide("modalAddProduct");
-          // this.preproducts.push(res.data);
-          this.$notify(
-            "success",
-            "Success",
-            `${res.data.product.name} created successfully`,
-            { duration: 3000, permanent: false }
-          );
-        })
-        .catch(error => {
-          console.log(error);
-          this.processing = false;
-          this.$modal.hide("modalAddToShop");
-          this.$notify("error", "Error!", `Error occurred`, {
-            duration: 3000,
-            permanent: false
-          });
-        });
-    },
-
     selectAll(isToggle) {
       if (this.selectedItems.length >= this.items.length) {
         if (isToggle) this.selectedItems = [];
@@ -516,7 +594,6 @@ export default {
   mounted() {
     if (this.$route.params.id) {
       this.currentShopId = this.$route.params.id;
-      console.log(this.$route.params.id);
       this.loadItems(this.$route.params.id);
     }
   },

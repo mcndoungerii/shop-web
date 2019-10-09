@@ -129,6 +129,10 @@ const routes = [{
         component: Stocks,
       },
       {
+        path: "stocks/:id",
+        component: Stocks,
+      },
+      {
         path: "suppliers",
         component: Suppliers,
       },

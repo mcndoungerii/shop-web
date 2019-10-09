@@ -127,14 +127,14 @@
                     </div>
                   </div>
                 </div>
-                <div v-if="selectedItem.product" class="mb-3 pb-3 border-bottom border-bottom">
+                <div v-if="selectedItem.shopProduct" class="mb-3 pb-3 border-bottom border-bottom">
                   <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
                     <div
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
-                        <p class="mb-1 text-muted text-small">{{$t('stock.product')}}</p>
-                        <p class="list-item-heading mb-1">{{selectedItem.product.name}}</p>
+                        <p class="mb-1 text-muted text-small">{{$t('stock.shop-product')}}</p>
+                        <p class="list-item-heading mb-1">{{selectedItem.shopProduct.id}}</p>
                       </div>
                     </div>
                   </div>
@@ -228,14 +228,15 @@
                     </b-form-group>
                   </b-col>
                   <b-col>
-                    <b-form-group :label="$t('stock.product')">
+                    <b-form-group :label="$t('stock.shop-product')">
                       <v-select
                         :scrollable="true"
-                        label="name"
                         v-model="selectedProduct"
                         :options="products"
+                        label="id"
+                        index="id"
                       >
-                        <template slot="option" slot-scope="option">{{ option.name }}</template>
+                        <template slot="option" slot-scope="option">{{ option.product.name }}</template>
                       </v-select>
                     </b-form-group>
                   </b-col>
@@ -266,7 +267,7 @@
                     </b-form-group>
                   </b-col>
                 </b-row>
-
+                <b-row></b-row>
                 <b-form-group>
                   <div class="float-sm-right">
                     <b-button
@@ -353,12 +354,13 @@
 </template>
 <script>
 import { DataListIcon, ThumbListIcon, ImageListIcon } from "components/Svg";
+import { mapGetters, mapMutations } from "vuex";
 import vSelect from "vue-select";
 import Switches from "vue-switches";
 import DataListItem from "components/Listing/Stock/DataListItem";
 import stockApi from "../../../api/stock";
 import shopApi from "../../../api/shop";
-import productApi from "../../../api/product";
+import shopProductApi from "../../../api/shopproduct";
 import supplierApi from "../../../api/supplier";
 
 let moment = require("moment");
@@ -398,11 +400,12 @@ export default {
       shops: [],
       products: [],
       suppliers: [],
-      selectedSupplier: null
+      selectedSupplier: null,
+      currentShopId: null
     };
   },
   methods: {
-    loadItems() {
+    loadItems(currentShopId) {
       this.isLoad = false;
       if (this.apiUrl !== undefined)
         stockApi.list(this.apiUrl).then(res => {
@@ -410,17 +413,24 @@ export default {
           this.lastPage = Math.ceil(
             this.total / this.perPage < 1 ? 1 : this.total / this.perPage
           );
+          console.log(res.data);
           this.items = res.data.stocks;
           this.selectedItems = [];
-          productApi
-            .list(`?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100`)
+          shopProductApi
+            .list(
+              `${
+                this.currentShopId !== null ? this.currentShopId : ""
+              }?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100`
+            )
             .then(results => {
+              console.log(results.data);
               this.products = results.data.products;
             });
           shopApi
             .list(`?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100`)
             .then(results => {
               this.shops = results.data.shops;
+              this.currentShopId = results.data.shops.id;
             });
           supplierApi
             .list(`?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100`)
@@ -432,11 +442,14 @@ export default {
     },
     showAddStock() {
       this.newItem = {};
+      this.selectedProduct = null;
+      this.selectedShop = null;
+      this.selectedSupplier = null;
       this.$modal.show("addStockModal");
     },
     showEditStock() {
       this.newItem = this.selectedItem;
-      this.selectedProduct = this.selectedItem.product;
+      this.selectedProduct = this.selectedItem.shopProduct.id;
       this.selectedShop = this.selectedItem.shop;
       this.selectedSupplier = this.selectedItem.supplier;
       this.$modal.show("addStockModal");
@@ -446,13 +459,13 @@ export default {
     addStock() {
       this.processing = true;
       let data = Object.assign({}, this.newItem);
-      data.product = this.selectedProduct.id;
-      data.shop = this.selectedShop.id;
+      data.shopProduct = this.selectedProduct;
+
       data.supplier = this.selectedSupplier.id;
-
+      // data.user = data.user.id;
       if (data.hasOwnProperty("id")) {
+        data.shop = this.selectedShop.id;
         data.user = data.user.id;
-
         stockApi
           .update(data)
           .then(res => {
@@ -476,10 +489,12 @@ export default {
             });
           });
       } else {
+        data.shop = this.selectedShop.id;
         stockApi
           .create(data)
           .then(res => {
             this.processing = false;
+            console.log(res.data);
             this.$modal.hide("addStockModal");
             this.loadItems();
             this.$notify(
@@ -620,6 +635,10 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      currentUser: "currentUser",
+      currentShop: "currentShop"
+    }),
     isSelectedAll() {
       return this.selectedItems.length >= this.items.length;
     },
@@ -652,7 +671,10 @@ export default {
     }
   },
   mounted() {
-    this.loadItems();
+    if (this.currentShop.id) {
+      this.currentShopId = this.currentShop.id;
+    }
+    this.loadItems(this.currentShop.id);
   },
   filters: {
     humanDate(val) {

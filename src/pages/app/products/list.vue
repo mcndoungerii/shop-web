@@ -229,6 +229,18 @@
                       class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
                     >
                       <div class="w-40 w-sm-100">
+                        <p class="mb-1 text-muted text-small">{{$t('product.id')}}</p>
+                        <p class="list-item-heading mb-1">{{selectedItem.id}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mb-3 pb-3 border-bottom border-bottom">
+                  <div class="pl-0 mb-15 d-flex flex-grow-1 min-width-zero">
+                    <div
+                      class="p-0 card-body align-self-center d-flex flex-column flex-lg-row justify-content-between min-width-zero align-items-lg-center"
+                    >
+                      <div class="w-40 w-sm-100">
                         <p class="mb-1 text-muted text-small">{{$t('product.name')}}</p>
                         <p class="list-item-heading mb-1">{{selectedItem.name}}</p>
                       </div>
@@ -586,7 +598,6 @@ export default {
     },
     showEditProductModal() {
       this.newItem = this.selectedItem;
-      this.selectedCategory = this.selectedItem.category;
 
       this.$modal.show("modalAddProduct");
       this.$refs.modalright.hide();
@@ -672,6 +683,7 @@ export default {
     addNewItem() {
       let data = Object.assign({}, this.newItem);
       data.category = data.category.id;
+      data.user = data.user.id;
       this.processing = true;
       if (data.hasOwnProperty("id")) {
         productApi

@@ -341,16 +341,16 @@ export default {
               user.createdAt = moment(user.createdAt).format("MMM Do YY");
               userData.push(user);
             }
-            // if (res.data.salesTrend.length > 0) {
-            //   for (var i = 0; i < res.data.salesTrend.length; i++) {
-            //     this.lineChartData.datasets[0].data.push(
-            //       res.data.salesTrend[i].count
-            //     );
-            //     this.lineChartData.labels.push(
-            //       moment(res.data.salesTrend[i].date).format("dddd")
-            //     );
-            //   }
-            // }
+            if (res.data.salesTrend.length > 0) {
+              for (var i = 0; i < res.data.salesTrend.length; i++) {
+                this.lineChartData.datasets[0].data.push(
+                  res.data.salesTrend[i].count
+                );
+                this.lineChartData.labels.push(
+                  moment(res.data.salesTrend[i].date).format("dddd")
+                );
+              }
+            }
             if (res.data.customerTrend.length > 0) {
               for (var i = 0; i < res.data.customerTrend.length; i++) {
                 this.customerTrendChart.datasets[0].data.push(
@@ -361,16 +361,16 @@ export default {
                 );
               }
             }
-            // if (res.data.salesPerBranch.length > 0) {
-            //   for (var i = 0; i < res.data.salesPerBranch.length; i++) {
-            //     this.pieChartData.datasets[0].data.push(
-            //       res.data.salesPerBranch[i].sales
-            //     );
-            //     this.pieChartData.labels.push(
-            //       res.data.salesPerBranch[i].branch.name
-            //     );
-            //   }
-            // }
+            if (res.data.salesPerShop.length > 0) {
+              for (var i = 0; i < res.data.salesPerShop.length; i++) {
+                this.pieChartData.datasets[0].data.push(
+                  res.data.salesPerShop[i].sales
+                );
+                this.pieChartData.labels.push(
+                  res.data.salesPerShop[i].shop.name
+                );
+              }
+            }
             this.associations = res.data.thresholdOrders;
             this.users = userData;
             this.statistics = res.data;

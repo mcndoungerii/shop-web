@@ -165,6 +165,8 @@
     "name": "Jina la Bidhaa",
     "description": "Maelezo",
     "price": "Bei ya Bidhaa",
+    "stock-levels": "Viwango kwenye Stoo",
+    "stock-level": "Kiwango wenye Stoo",
     "sellPrice": "Bei ya Kuuza",
     "unit": "Kitengo cha Kipimo (mfano: Kilo)",
     "phone": "Namba ya Simu",
@@ -245,6 +247,7 @@
   "stock": {
     "id": "ID ya Bidhaa",
     "name": "Jina la Bidhaa",
+    "shop-product": "Bidhaa ya dukani",
     "product": "Bidhaa",
     "shop": "Tawi",
     "buyPrice": "Bei ya Ununuzi",

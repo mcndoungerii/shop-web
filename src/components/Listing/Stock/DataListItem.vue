@@ -7,8 +7,8 @@
           <p class="mb-1">{{data.id }}</p>
         </b-col>
         <b-col>
-          <p class="mb-1 text-muted text-small">{{$t("stock.product")}}</p>
-          <p class="mb-1">{{data.shopProduct.product }}</p>
+          <p class="mb-1 text-muted text-small">{{$t("stock.shop-product")}}</p>
+          <p class="mb-1">{{data.shopProduct.id }}</p>
         </b-col>
         <b-col>
           <p class="mb-1 text-muted text-small">{{$t("stock.shop")}}</p>
