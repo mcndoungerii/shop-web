@@ -388,9 +388,9 @@ export default {
           this.lastPage = Math.ceil(
             this.total / this.perPage < 1 ? 1 : this.total / this.perPage
           );
-          this.currentShopId = this.$route.params.id;
+
           this.items = res.data.products;
-          console.log(res.data);
+
           this.selectedItems = [];
           productApi
             .list(`?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100`)
@@ -597,10 +597,12 @@ export default {
     }
   },
   mounted() {
-    if (this.currentShop.id) {
-      this.currentShopId = this.currentShop.id;
-    }
-    this.loadItems(this.currentShop.id);
+    // if (this.currentShop.id) {
+    //   this.$set((this.currentShopId = this.currentShop.id));
+    //   this.loadItems(this.currentShop.id);
+    // }
+    this.currentShopId = this.currentShop.id;
+    this.loadItems(this.currentShopId);
   },
   filters: {
     humanDate(val) {

@@ -413,7 +413,7 @@ export default {
           this.lastPage = Math.ceil(
             this.total / this.perPage < 1 ? 1 : this.total / this.perPage
           );
-          console.log(res.data);
+
           this.items = res.data.stocks;
           this.selectedItems = [];
           shopProductApi
@@ -423,7 +423,6 @@ export default {
               }?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100`
             )
             .then(results => {
-              console.log(results.data);
               this.products = results.data.products;
             });
           shopApi
@@ -671,9 +670,7 @@ export default {
     }
   },
   mounted() {
-    if (this.currentShop.id) {
-      this.currentShopId = this.currentShop.id;
-    }
+    this.currentShopId = this.currentShop.id;
     this.loadItems(this.currentShop.id);
   },
   filters: {

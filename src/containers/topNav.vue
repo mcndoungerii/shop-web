@@ -292,7 +292,7 @@ export default {
     ...mapActions(["setLang", "signOut"]),
     showMyProfile() {
       let newItem = { fullName: this.fullName, phone: this.phone };
-      this.newItem = this.currentUser.user;
+      this.$set((this.newItem = this.currentUser.user));
       this.$modal.show("modalMyProfile");
     },
     addNewItem() {

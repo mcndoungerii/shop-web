@@ -106,7 +106,6 @@ import userApi from "../../api/user";
 export default {
   data() {
     return {
-      processing: false,
       phone: "",
       password: "",
       newItem: {},
@@ -128,7 +127,7 @@ export default {
       userApi
         .getCurrentUser()
         .then(res => {
-          console.log(res);
+          // console.log(res);
           this.user = res.data;
         })
         .catch(error => {
