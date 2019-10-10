@@ -649,43 +649,14 @@ export default {
         this.selectedPredefinedProduct.description
       );
     },
-    addToShopMethod() {
-      this.processing = true;
 
-      productApi
-        .addToShop({
-          productId: this.selectedItem.id,
-          shopId: this.selectedShop.id
-        })
-        .then(res => {
-          console.log(res.data);
-          this.processing = false;
-          this.loadItems();
-          this.$modal.hide("modalAddToShop");
-          // this.preproducts.push(res.data);
-          this.$notify(
-            "success",
-            "Success",
-            `${res.data.name} created successfully`,
-            { duration: 3000, permanent: false }
-          );
-        })
-        .catch(error => {
-          console.log(error);
-          this.processing = false;
-          this.$modal.hide("modalAddToShop");
-          this.$notify("error", "Error!", `Error occurred`, {
-            duration: 3000,
-            permanent: false
-          });
-        });
-    },
     addNewItem() {
       let data = Object.assign({}, this.newItem);
       data.category = data.category.id;
-      data.user = data.user.id;
+
       this.processing = true;
       if (data.hasOwnProperty("id")) {
+        data.user = data.user.id;
         productApi
           .update(data)
           .then(res => {

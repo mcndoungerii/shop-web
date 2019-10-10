@@ -49,6 +49,16 @@
                         <template slot="option" slot-scope="option">{{ option.name }}</template>
                       </v-select>
                     </b-form-group>
+                    <b-form-group :label="$t('shops.name')">
+                      <v-select
+                        :scrollable="true"
+                        label="name"
+                        v-model="newItem.shop"
+                        :options="shops"
+                      >
+                        <template slot="option" slot-scope="option">{{ option.name }}</template>
+                      </v-select>
+                    </b-form-group>
 
                     <b-form-group>
                       <div class="float-sm-right">
@@ -397,12 +407,18 @@ export default {
             .then(results => {
               this.products = results.data.products;
             });
+          shopApi
+            .list(`?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100`)
+            .then(results => {
+              this.shops = results.data.shops;
+            });
 
           this.isLoad = true;
         });
     },
     callAddModal() {
       this.newItem = {};
+
       this.$modal.show("modalAddProduct");
     },
     showPredefinedProductModal() {
@@ -432,10 +448,11 @@ export default {
 
     addToShopMethod() {
       this.processing = true;
+
       shopProductApi
         .addToShop({
           productId: this.newItem.product.id,
-          shopId: this.currentShopId
+          shopId: this.newItem.shop.id
         })
         .then(res => {
           this.processing = false;
@@ -602,6 +619,7 @@ export default {
     //   this.loadItems(this.currentShop.id);
     // }
     this.currentShopId = this.currentShop.id;
+    console.log(this.currentShopId);
     this.loadItems(this.currentShopId);
   },
   filters: {
