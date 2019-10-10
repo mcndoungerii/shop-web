@@ -462,6 +462,7 @@ export default {
     this.currentUser.user.role === "CUSTOMER"
       ? (this.currentShopId = this.currentShop.id)
       : "";
+    console.log(this.currentUser.id);
   },
   watch: {
     "$i18n.locale"(to, from) {
