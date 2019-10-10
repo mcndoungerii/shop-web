@@ -35,7 +35,7 @@ export default (to, from, next) => {
                 store.commit("setProcessing", false);
                 next()
               }else{
-                next('/user/nopermission');
+                next('/error');
               }
 
           }).catch((error) => {
