@@ -512,6 +512,7 @@ export default {
           productApi
             .list(`?sortBy=createdAt&sortOrder=DESC&skip=0&limit=100`)
             .then(results => {
+              console.log(results.data);
               this.products = results.data.products;
             });
           userApi
