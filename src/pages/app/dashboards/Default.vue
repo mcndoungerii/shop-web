@@ -22,7 +22,7 @@
                 <icon-card
                   :title="$t('dashboards.total-sales-amount')"
                   icon="iconsmind-Billing"
-                  :value="statistics.salesAmount "
+                  :value="statistics.salesAmount| totalSales"
                 />
               </swiper-slide>
               <swiper-slide>
@@ -148,6 +148,8 @@ import profileStatuses from "data/profileStatuses";
 import cakes from "data/cakes";
 import { ThemeColors } from "utils";
 const colors = ThemeColors();
+import Vue from "vue";
+Vue.config.silent = true;
 
 export default {
   components: {
@@ -420,8 +422,14 @@ export default {
   },
   filters: {
     totalSales(val) {
-      let totalSales = val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      return totalSales;
+      var number = val;
+      let money = new Intl.NumberFormat("en-GB", {
+        style: "currency",
+        currency: "TZS",
+        maximumSignificantDigits: 3
+      }).format(number);
+      number = money;
+      return number;
     }
   }
 };
