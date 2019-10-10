@@ -419,8 +419,9 @@
     "popularity": "Popularity",
     "comments": "Comments",
     "error-title": "Ooops... looks like an error occurred!",
-    "error-code": "Error code",
-    "go-back-home": "GO BACK HOME"
+    "error-code": "Code ya tatizo",
+    "go-back-home": "RUDI NYUMBANI",
+    "error-seller": "Tafadhari... huruhusiwi kutumia mfumo!"
   },
   "chat": {
     "messages": "Messages",

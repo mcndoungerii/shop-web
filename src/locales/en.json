@@ -418,7 +418,8 @@
     "comments": "Comments",
     "error-title": "Ooops... looks like an error occurred!",
     "error-code": "Error code",
-    "go-back-home": "GO BACK HOME"
+    "go-back-home": "GO BACK HOME",
+    "error-seller": "Ooops.. looks like you are not authorized to use the system!"
   },
   "chat": {
     "messages": "Messages",
