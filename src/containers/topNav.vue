@@ -297,12 +297,13 @@ export default {
       this.$modal.show("modalMyProfile");
     },
     addNewItem() {
-      this.newItem.shopAssigned = this.currentShopId;
+      this.currentUser.user.role === "CUSTOMER"
+        ? (this.newItem.shopAssigned = this.currentShopId)
+        : "";
       delete this.newItem.shops;
       userApi
         .update(this.newItem)
         .then(res => {
-          console.log(res.data);
           this.$modal.hide("modalMyProfile");
           this.$notify(
             "success",
@@ -333,7 +334,6 @@ export default {
         userApi
           .resetPassword(this.newItemP)
           .then(res => {
-            console.log(res);
             this.$modal.hide("modalResetPassword");
             this.$modal.hide("modalMyProfile");
             this.$notify(
@@ -345,6 +345,7 @@ export default {
                 permanent: false
               }
             );
+            this.$router.push("/user/login");
           })
           .catch(error => {
             console.log(error);
@@ -458,7 +459,9 @@ export default {
     document.removeEventListener("click", this.handleDocumentforMobileSearch);
   },
   mounted() {
-    this.currentShopId = this.currentShop.id;
+    this.currentUser.user.role === "CUSTOMER"
+      ? (this.currentShopId = this.currentShop.id)
+      : "";
   },
   watch: {
     "$i18n.locale"(to, from) {
