@@ -142,7 +142,10 @@
                     </div>
                   </div>
                 </div>
-                <div v-if="selectedItem.suppliers" class="mb-3 pb-3 border-bottom border-bottom">
+                <div
+                  v-if="selectedItem.suppliers.length>0"
+                  class="mb-3 pb-3 border-bottom border-bottom"
+                >
                   <p class="mb-1 text-muted text-small">{{$t('shops.suppliers')}}</p>
                   <b-card
                     v-for="(supplier,index) in selectedItem.suppliers"
