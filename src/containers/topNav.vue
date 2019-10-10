@@ -284,7 +284,8 @@ export default {
       newItems: [],
       newItemP: {},
       type: "password",
-      btnText: "Show Password"
+      btnText: "Show Password",
+      currentShopId: null
     };
   },
   methods: {
@@ -296,17 +297,30 @@ export default {
       this.$modal.show("modalMyProfile");
     },
     addNewItem() {
-      let newItem = this.currentUser.user;
+      this.newItem.shopAssigned = this.currentShopId;
+      delete this.newItem.shops;
       userApi
-        .update(newItem)
+        .update(this.newItem)
         .then(res => {
-          let x = this.newItems.push(res.data);
+          console.log(res.data);
           this.$modal.hide("modalMyProfile");
-          console.log(x);
+          this.$notify(
+            "success",
+            "Success",
+            `${res.data[0]["fullName"]} updated successfully`,
+            {
+              duration: 3000,
+              permanent: false
+            }
+          );
         })
         .catch(error => {
           console.log(error);
           this.$modal.hide("modalMyProfile");
+          this.$notify("error", "Error!", `Error occurred`, {
+            duration: 3000,
+            permanent: false
+          });
         });
     },
     resetPassword() {
@@ -435,12 +449,16 @@ export default {
   computed: {
     ...mapGetters({
       currentUser: "currentUser",
+      currentShop: "currentShop",
       menuType: "getMenuType",
       menuClickCount: "getMenuClickCount"
     })
   },
   beforeDestroy() {
     document.removeEventListener("click", this.handleDocumentforMobileSearch);
+  },
+  mounted() {
+    this.currentShopId = this.currentShop.id;
   },
   watch: {
     "$i18n.locale"(to, from) {
