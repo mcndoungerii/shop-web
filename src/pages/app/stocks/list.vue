@@ -234,7 +234,6 @@
                         v-model="selectedProduct"
                         :options="products"
                         label="id"
-                        index="id"
                       >
                         <template slot="option" slot-scope="option">{{ option.product.name }}</template>
                       </v-select>
@@ -468,7 +467,6 @@ export default {
         stockApi
           .update(data)
           .then(res => {
-            console;
             this.processing = false;
             this.$modal.hide("addStockModal");
             this.loadItems();
@@ -493,7 +491,7 @@ export default {
           .create(data)
           .then(res => {
             this.processing = false;
-            console.log(res.data);
+
             this.$modal.hide("addStockModal");
             this.loadItems();
             this.$notify(
