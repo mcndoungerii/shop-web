@@ -60,6 +60,7 @@ export default {
                     localStorage.setItem('token', response.data.token)
                     localStorage.setItem("user", JSON.stringify(item));
                     commit("setUser", { user: response.data.user });
+                    commit("setProcessing", false);
                 }).catch((error) => {
                 localStorage.removeItem("user")
                 commit("setError", error.response.data.message);
