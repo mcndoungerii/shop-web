@@ -73,12 +73,12 @@
                         :options="categories"
                       >
                         <span slot="no-options" class="text-right w-100">
-                          Add new Category
+                          {{$t('predefinedProduct.add-new-category')}}
                           <b-button
                             size="xs"
                             @click="$modal.show('modalAddCategory')"
                             variant="outline-primary"
-                          >Create category</b-button>
+                          >{{$t('predefinedProduct.create-new-category')}}</b-button>
                         </span>
                         <template slot="option" slot-scope="option">{{ option.name }}</template>
                       </v-select>
