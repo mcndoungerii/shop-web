@@ -156,7 +156,7 @@
             <b-dropdown-item @click="showMyProfile">{{$t('menu.myprofile')}}</b-dropdown-item>
             <!--<b-dropdown-item>Support</b-dropdown-item>-->
             <b-dropdown-divider />
-            <b-dropdown-item @click="logout">{{$t('menu.signout')}}</b-dropdown-item>
+            <b-dropdown-item @click="logout()">{{$t('menu.signout')}}</b-dropdown-item>
           </div>
         </b-dropdown>
       </div>

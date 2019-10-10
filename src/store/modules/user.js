@@ -32,7 +32,7 @@ export default {
       state.loginError = null;
     },
     setLogout(state) {
-      state.currentUser = null;
+      
       state.processing = false;
       state.loginError = null;
 
@@ -122,6 +122,8 @@ export default {
         localStorage.removeItem("token")
         localStorage.removeItem("shop")
         commit("setLogout")
+       
+        
     }
   }
 };
