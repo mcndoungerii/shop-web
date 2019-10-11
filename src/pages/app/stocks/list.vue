@@ -233,7 +233,7 @@
                         :scrollable="true"
                         v-model="selectedProduct"
                         :options="products"
-                        label="id"
+                        :getOptionLabel="option=>option.product.name"
                       >
                         <template slot="option" slot-scope="option">{{ option.product.name }}</template>
                       </v-select>
@@ -447,7 +447,7 @@ export default {
     },
     showEditStock() {
       this.newItem = this.selectedItem;
-      this.selectedProduct = this.selectedItem.shopProduct.id;
+      // this.selectedProduct = this.selectedItem.shopProduct.id;
       this.selectedShop = this.selectedItem.shop;
       this.selectedSupplier = this.selectedItem.supplier;
       this.$modal.show("addStockModal");
@@ -457,12 +457,11 @@ export default {
     addStock() {
       this.processing = true;
       let data = Object.assign({}, this.newItem);
-      data.shopProduct = this.selectedProduct;
-
+      data.shopProduct = this.selectedProduct.id;
+      data.shop = this.selectedShop.id;
       data.supplier = this.selectedSupplier.id;
       // data.user = data.user.id;
       if (data.hasOwnProperty("id")) {
-        data.shop = this.selectedShop.id;
         data.user = data.user.id;
         stockApi
           .update(data)
@@ -486,7 +485,6 @@ export default {
             });
           });
       } else {
-        data.shop = this.selectedShop.id;
         stockApi
           .create(data)
           .then(res => {
