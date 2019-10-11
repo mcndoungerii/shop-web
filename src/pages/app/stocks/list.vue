@@ -469,7 +469,7 @@ export default {
           .then(res => {
             this.processing = false;
             this.$modal.hide("addStockModal");
-            this.loadItems();
+
             this.$notify(
               "success",
               "Updated Successfully",
@@ -492,7 +492,7 @@ export default {
             this.processing = false;
 
             this.$modal.hide("addStockModal");
-            this.loadItems();
+
             this.$notify(
               "success",
               "Added Successfully",
