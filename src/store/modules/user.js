@@ -102,6 +102,14 @@ export default {
             commit("setError", error.response.data.message);
         })
     },
+    getCurrentShop({ commit }){
+      commit("clearError");
+      commit("setProcessing", true);
+      
+      commit("setShop", localStorage.getItem("shop")!=null ?JSON.parse(localStorage.getItem("shop")):null);
+      commit("setProcessing", false);
+        
+    },
       register ({ commit }, payload) {
           commit("clearError");
           commit("setProcessing", true);

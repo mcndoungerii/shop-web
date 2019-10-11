@@ -353,7 +353,7 @@
 </template>
 <script>
 import { DataListIcon, ThumbListIcon, ImageListIcon } from "components/Svg";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 import vSelect from "vue-select";
 import Switches from "vue-switches";
 import DataListItem from "components/Listing/Stock/DataListItem";
@@ -404,6 +404,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["getCurrentShop"]),
     loadItems(currentShopId) {
       this.isLoad = false;
       if (this.apiUrl !== undefined)
@@ -666,6 +667,7 @@ export default {
     }
   },
   mounted() {
+    this.getCurrentShop();
     this.currentShopId = this.currentShop.id;
     this.loadItems(this.currentShop.id);
   },
