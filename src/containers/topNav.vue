@@ -280,12 +280,13 @@ export default {
       localeOptions,
       buyUrl,
       notifications,
-      newItem: {},
+      newItem: {
+        shopAssigned: null
+      },
       newItems: [],
       newItemP: {},
       type: "password",
-      btnText: "Show Password",
-      currentShopId: null
+      btnText: "Show Password"
     };
   },
   methods: {
@@ -298,12 +299,13 @@ export default {
     },
     addNewItem() {
       this.currentUser.user.role === "CUSTOMER"
-        ? (this.newItem.shopAssigned = this.currentShopId)
+        ? (this.newItem.shopAssigned = this.currentShop.id)
         : "";
       delete this.newItem.shops;
       userApi
         .update(this.newItem)
         .then(res => {
+          console.log(res.data);
           this.$modal.hide("modalMyProfile");
           this.$notify(
             "success",
@@ -458,11 +460,12 @@ export default {
   beforeDestroy() {
     document.removeEventListener("click", this.handleDocumentforMobileSearch);
   },
-  mounted() {
-    this.currentUser.user.role === "CUSTOMER"
-      ? (this.currentShopId = this.currentShop.id)
-      : "";
-  },
+  // mounted() {
+  //   this.currentUser.user.role === "CUSTOMER"
+  //     ? (this.currentShopId = this.currentShop.shop)
+  //     : "";
+  //   console.log(this.currentShop.shop);
+  // },
   watch: {
     "$i18n.locale"(to, from) {
       if (from != to) {
