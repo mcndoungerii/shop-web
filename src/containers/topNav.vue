@@ -291,7 +291,7 @@ export default {
   },
   methods: {
     ...mapMutations(["changeSideMenuStatus", "changeSideMenuForMobile"]),
-    ...mapActions(["setLang", "signOut"]),
+    ...mapActions(["setLang", "signOut", "getCurrentShop"]),
     showMyProfile() {
       let newItem = { fullName: this.fullName, phone: this.phone };
       this.$set((this.newItem = this.currentUser.user));
@@ -461,10 +461,8 @@ export default {
     document.removeEventListener("click", this.handleDocumentforMobileSearch);
   },
   // mounted() {
-  //   this.currentUser.user.role === "CUSTOMER"
-  //     ? (this.currentShopId = this.currentShop.shop)
-  //     : "";
-  //   console.log(this.currentShop.shop);
+  //   if (!this.currentUser.user.shops.length > 0) this.getCurrentShop();
+  //   this.currentShopId = this.currentShop.id;
   // },
   watch: {
     "$i18n.locale"(to, from) {
