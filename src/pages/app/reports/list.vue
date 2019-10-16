@@ -7,6 +7,7 @@
             <h1>{{ $t('menu.reports') }}</h1>
             <piaf-breadcrumb />
             <div class="float-sm-right">
+             
               <b-button
                 style="width: 100%;"
                 variant="primary"
@@ -302,6 +303,16 @@
             </b-modal>
           </b-colxx>
         </b-row>
+        <b-row>
+          <b-col>
+            <div class=" mb-2 ">
+                <p class="ml-1 mb-0 text-left text-medium">{{$t('report.total-income')}}:</p>
+                <h2
+                  class="ml-1 text-left card-subtitle truncate"
+                >Tsh {{totalsales.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}} /=</h2>
+              </div>
+          </b-col>
+        </b-row>
         <b-card style="margin-bottom:20px">
           <b-row>
             <b-col style="margin-left: 8px;" v-if="shops.length>=0">
@@ -342,7 +353,7 @@
                 </v-select>
               </b-form-group>
             </b-col>
-            <b-col cols="1" style="margin-left: 8px;">
+            <b-col style="margin-left: 8px; width:100px">
               <b-form-group :label="$t('report.itemize')">
                 <b-form-checkbox v-model="itemize">{{$t('report.itemize-check')}}</b-form-checkbox>
               </b-form-group>
@@ -356,14 +367,7 @@
                 size="sm"
               >{{$t('button.clear-filters')}}</b-button>
             </b-col>
-            <b-col cols="2" style="margin-left: 8px;">
-              <div>
-                <p class="text-left text-medium">{{$t('report.total-income')}}:</p>
-                <h2
-                  class="ml-1 text-left card-subtitle truncate"
-                >Tsh {{totalsales.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}} /=</h2>
-              </div>
-            </b-col>
+            
           </b-row>
         </b-card>
         <template v-if="isLoad">
